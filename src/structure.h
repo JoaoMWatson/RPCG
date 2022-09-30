@@ -1,0 +1,75 @@
+#ifndef STRUCTURE
+#define STRUCTURE
+
+ALLEGRO_TIMER* timer;
+ALLEGRO_EVENT_QUEUE* queue;
+ALLEGRO_DISPLAY* display;
+ALLEGRO_FONT* font;
+ALLEGRO_EVENT event;
+
+bool done = false;
+bool redraw = true;
+
+
+bool must_init(bool check, bool test, const char *description)
+{
+    if(!test) 
+    {
+        printf("couldn't initialize %s\n", description);
+        return false;
+    }
+    else
+    {
+        printf("initialize %s\n", description);
+        return true;
+    }    
+}
+
+
+bool init_structure_all(void)
+{
+    bool check = true;
+
+    check = must_init(check, al_init(), "allegro");
+    check = must_init(check, al_install_keyboard(), "keyboard");
+    check = must_init(check, al_init_primitives_addon(), "primitives");
+    check = must_init(check, al_init_image_addon(), "image");
+
+    // smooth the edges of primitives 
+    al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
+    al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
+    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
+
+    timer = al_create_timer(1.0 / 30.0);
+    check = must_init(check, timer, "timer");
+
+    queue = al_create_event_queue();
+    check = must_init(check, queue, "queue");
+
+    font = al_create_builtin_font();
+    check = must_init(check, font, "font");
+
+    display = al_create_display(800, 550); // window size (width x height)
+    check = must_init(check, display, "display");
+
+    // reacting to keyboard and display events in addition to the timer we set up earlier
+    al_register_event_source(queue, al_get_keyboard_event_source());
+    al_register_event_source(queue, al_get_display_event_source(display));
+    al_register_event_source(queue, al_get_timer_event_source(timer));
+
+    al_start_timer(timer);
+
+    return check;
+}
+
+
+void destroy_structure_all(void)
+{
+    al_destroy_font(font);
+    al_destroy_display(display);
+    al_destroy_timer(timer);
+    al_destroy_event_queue(queue);
+    return;
+}
+
+#endif 
