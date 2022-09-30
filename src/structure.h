@@ -4,6 +4,7 @@
 ALLEGRO_TIMER* timer;
 ALLEGRO_EVENT_QUEUE* queue;
 ALLEGRO_DISPLAY* display;
+ALLEGRO_BITMAP* buffer;
 ALLEGRO_FONT* font;
 ALLEGRO_EVENT event;
 
@@ -26,6 +27,28 @@ bool must_init(bool check, bool test, const char *description)
 }
 
 
+bool init_display(bool check)
+{
+    #define BUFFER_W 280
+    #define BUFFER_H 180
+
+    #define DISP_SCALE 3
+    #define DISP_W (BUFFER_W * DISP_SCALE)
+    #define DISP_H (BUFFER_H * DISP_SCALE)
+
+    al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
+    al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
+
+    display = al_create_display(DISP_W, DISP_H); // window size (width x height)
+    check = must_init(check, display, "display");
+
+    buffer = al_create_bitmap(BUFFER_W, BUFFER_H);
+    check = must_init(check, buffer, "bitmap buffer");
+
+    return check;
+}
+
+
 bool init_structure_all(void)
 {
     bool check = true;
@@ -36,8 +59,7 @@ bool init_structure_all(void)
     check = must_init(check, al_init_image_addon(), "image");
 
     // smooth the edges of primitives 
-    al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
-    al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
+    
     al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
 
     timer = al_create_timer(1.0 / 30.0);
@@ -49,8 +71,7 @@ bool init_structure_all(void)
     font = al_create_builtin_font();
     check = must_init(check, font, "font");
 
-    display = al_create_display(800, 550); // window size (width x height)
-    check = must_init(check, display, "display");
+    check = init_display(check);
 
     // reacting to keyboard and display events in addition to the timer we set up earlier
     al_register_event_source(queue, al_get_keyboard_event_source());
@@ -66,6 +87,7 @@ bool init_structure_all(void)
 void destroy_structure_all(void)
 {
     al_destroy_font(font);
+    al_destroy_bitmap(buffer);
     al_destroy_display(display);
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);
