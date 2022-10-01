@@ -15,6 +15,7 @@ int main()
     int playing = 1;
 
     init_structure_all();
+    al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
 
     while(playing) 
     {
@@ -24,10 +25,13 @@ int main()
         {
             case ALLEGRO_EVENT_TIMER:
                 // game logic goes here.
+                if(key[ALLEGRO_KEY_ESCAPE])
+                    done = true;
+
                 redraw = true;
+                //frames++;
                 break;
 
-            case ALLEGRO_EVENT_KEY_DOWN:
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
                 done = true;
                 break;
@@ -37,6 +41,8 @@ int main()
         {
             break;
         }
+
+        keyboard_update(&event);
 
         if(redraw && al_is_event_queue_empty(queue))
         {

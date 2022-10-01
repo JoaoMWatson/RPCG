@@ -11,7 +11,7 @@ ALLEGRO_EVENT event;
 bool done = false;
 bool redraw = true;
 
-
+/************* CHECK FUNCTION *************/
 bool must_init(bool check, bool test, const char *description)
 {
     if(!test) 
@@ -27,15 +27,16 @@ bool must_init(bool check, bool test, const char *description)
 }
 
 
+/************* DISPLAY STUFF *************/
+#define BUFFER_W 280
+#define BUFFER_H 180
+
+#define DISP_SCALE 3
+#define DISP_W (BUFFER_W * DISP_SCALE)
+#define DISP_H (BUFFER_H * DISP_SCALE)
+
 bool init_display(bool check)
 {
-    #define BUFFER_W 280
-    #define BUFFER_H 180
-
-    #define DISP_SCALE 3
-    #define DISP_W (BUFFER_W * DISP_SCALE)
-    #define DISP_H (BUFFER_H * DISP_SCALE)
-
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
 
@@ -49,6 +50,55 @@ bool init_display(bool check)
 }
 
 
+void display_pre_draw(void)
+{
+    // tells Allegro that we want to draw to our buffer rather than to the screen
+    al_set_target_bitmap(buffer);
+}
+
+
+void display_post_draw(void) {
+    // tells Allegro that we want to draw to the screen again
+    al_set_target_backbuffer(display);
+
+    // scale up our small buffer to fill the screen
+    al_draw_scaled_bitmap(buffer, 0, 0, BUFFER_W, BUFFER_H, 0, 0, DISP_W, DISP_H, 0);
+
+    al_flip_display();
+}
+
+
+/************* KEYBOARD STUFF *************/
+#define KEY_SEEN     1
+#define KEY_RELEASED 2
+unsigned char key[ALLEGRO_KEY_MAX];
+
+void keyboard_init(void) 
+{
+    memset(key, 0, sizeof(key));
+}
+
+
+void keyboard_update(ALLEGRO_EVENT* event) 
+{
+    switch(event->type)
+    {
+        case ALLEGRO_EVENT_TIMER:
+            for(int i = 0; i < ALLEGRO_KEY_MAX; i++)
+                key[i] &= KEY_SEEN;
+            break;
+
+        case ALLEGRO_EVENT_KEY_DOWN:
+            key[event->keyboard.keycode] = KEY_SEEN | KEY_RELEASED;
+            break;
+        case ALLEGRO_EVENT_KEY_UP:
+            key[event->keyboard.keycode] &= KEY_RELEASED;
+            break;
+    }
+}
+
+
+/************* INITIALIZE *************/
 bool init_structure_all(void)
 {
     bool check = true;
@@ -57,6 +107,8 @@ bool init_structure_all(void)
     check = must_init(check, al_install_keyboard(), "keyboard");
     check = must_init(check, al_init_primitives_addon(), "primitives");
     check = must_init(check, al_init_image_addon(), "image");
+
+    void keyboard_init();
 
     // smooth the edges of primitives 
     
