@@ -8,6 +8,7 @@
 #include <allegro5/allegro_image.h>
 
 #include "src/structure.h"
+#include "src/player.h"
 
 
 int main()
@@ -24,7 +25,8 @@ int main()
         switch(event.type)
         {
             case ALLEGRO_EVENT_TIMER:
-                // game logic goes here.
+                player_update();
+                
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;
 
@@ -46,10 +48,12 @@ int main()
 
         if(redraw && al_is_event_queue_empty(queue))
         {
-            al_clear_to_color(al_map_rgb(50, 10, 50));
-            al_draw_text(font, al_map_rgb(255, 255, 255), 100, 70, 0, "Hello world!");
-            al_flip_display();
+            display_pre_draw();
+            al_clear_to_color(al_map_rgb(0,0,0));
 
+            player_draw();
+
+            display_post_draw();
             redraw = false;
         }
     }

@@ -54,6 +54,8 @@ void display_pre_draw(void)
 {
     // tells Allegro that we want to draw to our buffer rather than to the screen
     al_set_target_bitmap(buffer);
+
+    return;
 }
 
 
@@ -65,6 +67,8 @@ void display_post_draw(void) {
     al_draw_scaled_bitmap(buffer, 0, 0, BUFFER_W, BUFFER_H, 0, 0, DISP_W, DISP_H, 0);
 
     al_flip_display();
+
+    return;
 }
 
 
@@ -76,6 +80,8 @@ unsigned char key[ALLEGRO_KEY_MAX];
 void keyboard_init(void) 
 {
     memset(key, 0, sizeof(key));
+
+    return;
 }
 
 
@@ -95,6 +101,8 @@ void keyboard_update(ALLEGRO_EVENT* event)
             key[event->keyboard.keycode] &= KEY_RELEASED;
             break;
     }
+
+    return;
 }
 
 
@@ -143,6 +151,7 @@ void destroy_structure_all(void)
     al_destroy_display(display);
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);
+
     return;
 }
 
