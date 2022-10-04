@@ -1,7 +1,6 @@
 #ifndef PLAYER
 #define PLAYER
 
-
 #define PROTAGONIST_W 12
 #define PROTAGONIST_H 13
 
@@ -15,7 +14,7 @@ typedef struct PROTAGONIST {
 PROTAGONIST player;
 
 
-void player_init(void) {
+void init_player(void) {
     player.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
 
