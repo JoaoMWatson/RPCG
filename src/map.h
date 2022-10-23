@@ -34,7 +34,7 @@ void init_sprites_map(void)
     must_init(true, sprite_map._sheet, "inside map spritesheet");
     
     if(sprite_map._sheet != NULL)
-        sprite_map.checkered_floor = grab_sprite_map(192, 0, 48, 48);
+        sprite_map.checkered_floor = grab_sprite_map(36, 0, 36, 36);
 
     return;
 }
@@ -43,13 +43,13 @@ int xOff = 0;
 int yOff = 0;
 const int map_columns = 10;
 const int map_lines = 10;
-int tile_size = 48;
+int tile_size = 36;
 
 int map[10][10] = { 
                     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                    {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
                     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-                    {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
+                    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+                    {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
                     {2, 2, 2, 2, 2, 2, 2, 2, 2, 2},
                     {1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
