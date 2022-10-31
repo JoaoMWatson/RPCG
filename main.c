@@ -17,15 +17,12 @@ int main()
     int playing = 1;
 
     init_structure_all();
+    init_map();
     init_sprites_map();
-    init_player();
+    init_player(); 
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
-
-    /*
-    int lines, columns;
-    int** map = load_map("organization_map.txt", &lines, &columns);
-    must_init(true, map, "map");
-    */
+    
+    
 
     while(playing) 
     {
