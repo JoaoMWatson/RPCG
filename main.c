@@ -32,7 +32,8 @@ int main()
         {
             case ALLEGRO_EVENT_TIMER:
                 player_update();
-                map_update();
+                //printf("(%d, %d)\n", player.x, player.y);
+                map_update(player.x, player.y);
 
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;

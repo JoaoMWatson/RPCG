@@ -85,9 +85,9 @@ void init_map(void) {
         for(int j = 0; j < 43; j++) {
             fscanf(tile_map, "%d", &cod);
             map[i][j] = cod;
-            fprintf(stderr, "%d ", cod);
+            // fprintf(stderr, "%d ", cod);
         }
-            fprintf(stderr, "\n");
+            // fprintf(stderr, "\n");
     }
 
     fclose(tile_map);
@@ -95,21 +95,10 @@ void init_map(void) {
     return;
 }
 
-/*
-int map[7][10] =   { 
-                                        {10, 10, 10, 10, 10, 10, 10, 10, 10, 10},
-                                        {10, 50, 90, 90, 90, 90, 90, 90, 90, 90},
-                                        {10, 70, 110, 110, 110, 110, 110, 110, 110, 110},
-                                        {10, 70, 100, 100, 100, 100, 100, 100, 100, 100},
-                                        {10, 70, 100, 100, 100, 100, 100, 100, 100, 100},
-                                        {10, 70, 100, 100, 100, 100, 100, 100, 100, 100},
-                                        {10, 70, 100, 100, 100, 100, 100, 100, 100, 100}
-                                    };
 
-*/
-
-void map_update(void)
+void map_update(int x, int y)
 {
+    /*
     if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A])
         xOff += key[ALLEGRO_KEY_LEFT] * 1.3;
     if(key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D])
@@ -118,9 +107,13 @@ void map_update(void)
         yOff += key[ALLEGRO_KEY_UP] * 1.3;
     if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S])
         yOff -= key[ALLEGRO_KEY_DOWN] * 1.3;
+    */
+   xOff = - x/2 * 1.3;
+   yOff = - y/2 * 1.3;
 
     return;
 }
+
 
 void map_draw()
 {
@@ -168,6 +161,7 @@ void map_draw()
     }
     return;
 }
+
 
 void destroy_sprites_map(void)
 {   

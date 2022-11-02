@@ -4,7 +4,7 @@
 #define PROTAGONIST_W 12
 #define PROTAGONIST_H 13
 
-#define PROTAGONIST_SPEED 2.8
+#define PROTAGONIST_SPEED 1.3
 #define PROTAGONIST_MAX_X (BUFFER_W - PROTAGONIST_W)
 #define PROTAGONIST_MAX_Y (BUFFER_H - PROTAGONIST_H)
 
@@ -15,8 +15,8 @@ PROTAGONIST player;
 
 
 void init_player(void) {
-    player.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
-    player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
+    player.x = (BUFFER_W / 1.5) - (PROTAGONIST_W / 2);
+    player.y = (BUFFER_H / 1.3) - (PROTAGONIST_H / 2);
 
     return;
 }
