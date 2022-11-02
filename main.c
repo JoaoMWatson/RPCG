@@ -31,9 +31,9 @@ int main()
         switch(event.type)
         {
             case ALLEGRO_EVENT_TIMER:
-                player_update();
+                //player_update();
                 //printf("(%d, %d)\n", player.x, player.y);
-                map_update(player.x, player.y);
+                map_update();
 
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;

@@ -95,21 +95,17 @@ void init_map(void) {
     return;
 }
 
-
-void map_update(int x, int y)
+#define SPEED 3
+void map_update(void)
 {
-    /*
     if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A])
-        xOff += key[ALLEGRO_KEY_LEFT] * 1.3;
+        xOff += key[ALLEGRO_KEY_LEFT] * SPEED;
     if(key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D])
-        xOff -= key[ALLEGRO_KEY_RIGHT] * 1.3;
+        xOff -= key[ALLEGRO_KEY_RIGHT] * SPEED;
     if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W])
-        yOff += key[ALLEGRO_KEY_UP] * 1.3;
+        yOff += key[ALLEGRO_KEY_UP] * SPEED;
     if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S])
-        yOff -= key[ALLEGRO_KEY_DOWN] * 1.3;
-    */
-   xOff = - x/2 * 1.3;
-   yOff = - y/2 * 1.3;
+        yOff -= key[ALLEGRO_KEY_DOWN] * SPEED;
 
     return;
 }
@@ -167,9 +163,15 @@ void destroy_sprites_map(void)
 {   
     al_destroy_bitmap(sprite_map.checkered_floor);
     al_destroy_bitmap(sprite_map.voiding);
+    al_destroy_bitmap(sprite_map.corner_top_left);
+    al_destroy_bitmap(sprite_map.corner_top_right);
+    al_destroy_bitmap(sprite_map.corner_bottom_left);
     al_destroy_bitmap(sprite_map.corner_bottom_right);
     al_destroy_bitmap(sprite_map.corner_left);
+    al_destroy_bitmap(sprite_map.corner_right);
+    al_destroy_bitmap(sprite_map.corner_top);
     al_destroy_bitmap(sprite_map.corner_bottom);
+    al_destroy_bitmap(sprite_map.floor);
     al_destroy_bitmap(sprite_map.wall);
     return;
 }
