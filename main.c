@@ -8,8 +8,9 @@
 #include <allegro5/allegro_image.h>
 
 #include "src/structure.h"
-#include "src/map.h"
 #include "src/player.h"
+#include "src/map.h"
+
 
 
 int main()
@@ -31,9 +32,9 @@ int main()
         switch(event.type)
         {
             case ALLEGRO_EVENT_TIMER:
-                //player_update();
+                player_update();
                 //printf("(%d, %d)\n", player.x, player.y);
-                map_update();
+                map_update(player.position_x, player.position_y);
 
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;

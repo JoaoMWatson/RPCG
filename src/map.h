@@ -35,6 +35,7 @@ enum sprite_block
     WALL = 110
 };
 
+
 ALLEGRO_BITMAP* grab_sprite_map(int x, int y, int w, int h)
 {
     ALLEGRO_BITMAP* sprite = al_create_sub_bitmap(sprite_map._sheet, x, y, w, h);
@@ -95,17 +96,15 @@ void init_map(void) {
     return;
 }
 
-#define SPEED 3
-void map_update(void)
-{
-    if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A])
-        xOff += key[ALLEGRO_KEY_LEFT] * SPEED;
-    if(key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D])
-        xOff -= key[ALLEGRO_KEY_RIGHT] * SPEED;
-    if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W])
-        yOff += key[ALLEGRO_KEY_UP] * SPEED;
-    if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S])
-        yOff -= key[ALLEGRO_KEY_DOWN] * SPEED;
+
+int SPEED = 6;
+void map_update(int player_x, int player_y)
+{   
+   xOff = -(player_x - (BUFFER_W / 2) + (PROTAGONIST_W/2));
+   yOff = -(player_y - (BUFFER_H / 2) + (PROTAGONIST_H/2));
+
+    printf("P(%d, %d) - M(%d, %d)\n", player_x, player_y, xOff, yOff);
+    
 
     return;
 }
@@ -120,12 +119,13 @@ void map_draw()
         {
             if(map[i][j] == VOIDING) {
                 al_draw_bitmap(sprite_map.voiding, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                //printf("\n(%d, %d)", i * 32, j * 32);
             } 
             else if(map[i][j] == CORNER_TOP_LEFT) {
-
+                
             } 
             else if(map[i][j] == CORNER_TOP_RIGHT) {
-
+                
             } 
             else if(map[i][j] == CORNER_BOTTOM_LEFT) {
 
@@ -156,6 +156,17 @@ void map_draw()
         }    
     }
     return;
+}
+
+
+bool collision(int player_x, int player_y, int player_width, int player_height, int x, int y, int width, int height) {
+    if((player_x + player_width) <  x) return false;
+    if(player_x  >  (x + width)) return false;
+    if((player_y + player_height) < y) return false;
+    if(player_y > (y + height)) return false;
+
+
+    return true;
 }
 
 
