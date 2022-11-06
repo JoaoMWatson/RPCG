@@ -97,76 +97,173 @@ void init_map(void) {
 }
 
 
-int SPEED = 6;
-void map_update(int player_x, int player_y)
-{   
-   xOff = -(player_x - (BUFFER_W / 2) + (PROTAGONIST_W/2));
-   yOff = -(player_y - (BUFFER_H / 2) + (PROTAGONIST_H/2));
+bool collision(int player_x, int player_y, int x, int y, int size, int n) {
+    if(player_x > x + size) return false;
+    if(player_x + PROTAGONIST_W < x) return false;
+    if(player_y > y + size) return false;
+    if(player_y + PROTAGONIST_H < y) return false;
 
-    printf("P(%d, %d) - M(%d, %d)\n", player_x, player_y, xOff, yOff);
+    return true;
+}
+
+
+void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int* player_x, int *player_y, int x, int y) {
+    int nono = 1;
+    if(collision) {
+        if(*player_x + PROTAGONIST_W > x) {
+            *player_position_x += PROTAGONIST_SPEED;
+            //*player_x += nono;
+            xOff += PROTAGONIST_W;
+        }
+    }
+    return;
+}
+
+
+void map_collision(int *player_position_x, int *player_position_y, int *player_x, int *player_y) 
+{
+    bool col;
+    for(int i = 0; i < map_lines; i++)
+    {   
+        for(int j = 0; j < map_columns; j++) 
+        {
+            switch (map[i][j])
+            {
+                case VOIDING:
+
+                    col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, 10);
+                    collision_reaction(col, player_position_x, player_position_y, player_x, player_y, j * tile_size, i * tile_size);
+                    break;
+
+                case CORNER_TOP_LEFT:
+                    /* code */
+                    break;
+                
+                case CORNER_TOP_RIGHT:
+                    /* code */
+                    break;
+
+                case CORNER_BOTTOM_RIGHT:
+                    
+                    break;
+
+                case CORNER_BOTTOM_LEFT:
+                    /* code */
+                    break;
+
+                case CORNER_LEFT:
+                    /* code */
+                    break;
+
+                case CORNER_RIGHT:
+                    
+                    break;          
+
+                case CORNER_TOP:
+                    /* code */
+                    break;
+
+                case CORNER_BOTTOM:
+                    
+                    break;
+
+                case WALL:
+                    
+                    //col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size);
+                    break;
+
+                default:
+                    break;
+            }
+
+            if(col)
+                printf("Void - x.%d, y.%d Player - %d, %d Colission - %s\n", j*tile_size, i*tile_size, *player_position_x, *player_position_y, col ? "true" : "false");
+                    
+        }    
+    }
+
+    return;
+}
+
+
+void map_update(int *player_position_x, int *player_position_y, int *player_x, int *player_y)
+{   
+    xOff = -(*player_position_x - (BUFFER_W / 2) + (PROTAGONIST_W/2));
+    yOff = -(*player_position_y - (BUFFER_H / 2) + (PROTAGONIST_H/2));
+
+    //printf("P(%d, %d) - M(%d, %d)\n", player_x, player_y, xOff, yOff);
     
 
     return;
 }
 
 
-void map_draw()
+
+
+
+void map_draw(int *player_position_x, int *player_position_y, int *player_x, int *player_y)
 {
     int count = 0;
+    bool col;
     for(int i = 0; i < map_lines; i++)
     {   
         for(int j = 0; j < map_columns; j++) 
         {
-            if(map[i][j] == VOIDING) {
-                al_draw_bitmap(sprite_map.voiding, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
-                //printf("\n(%d, %d)", i * 32, j * 32);
-            } 
-            else if(map[i][j] == CORNER_TOP_LEFT) {
-                
-            } 
-            else if(map[i][j] == CORNER_TOP_RIGHT) {
-                
-            } 
-            else if(map[i][j] == CORNER_BOTTOM_LEFT) {
+            switch (map[i][j])
+            {
+                case VOIDING:
+                    al_draw_bitmap(sprite_map.voiding, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
 
-            } 
-            else if(map[i][j] == CORNER_BOTTOM_RIGHT) {
-                al_draw_bitmap(sprite_map.corner_bottom_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
-            } 
-            else if(map[i][j] == CORNER_LEFT) {
-
-            } 
-            else if(map[i][j] == CORNER_RIGHT) {
-                al_draw_bitmap(sprite_map.corner_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
-            } 
-            else if(map[i][j] == CORNER_TOP) {
+                case CORNER_TOP_LEFT:
+                    /* code */
+                    break;
                 
-            } 
-            else if(map[i][j] == CORNER_BOTTOM) {
-                al_draw_bitmap(sprite_map.corner_bottom, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
-            } 
-            else if(map[i][j] == FLOOR) {
-                al_draw_bitmap(sprite_map.checkered_floor, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
-            } 
-            else if(map[i][j] == WALL) {
-                al_draw_bitmap(sprite_map.wall, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
-            }
+                case CORNER_TOP_RIGHT:
+                    /* code */
+                    break;
+
+                case CORNER_BOTTOM_RIGHT:
+                    al_draw_bitmap(sprite_map.corner_bottom_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);           
+                    break;
+
+                case CORNER_BOTTOM_LEFT:
+                    /* code */
+                    break;
+
+                case CORNER_LEFT:
+                    /* code */
+                    break;
+
+                case CORNER_RIGHT:
+                    al_draw_bitmap(sprite_map.corner_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;          
+
+                case CORNER_TOP:
+                    /* code */
+                    break;
+
+                case CORNER_BOTTOM:
+                    al_draw_bitmap(sprite_map.corner_bottom, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case FLOOR:
+                    al_draw_bitmap(sprite_map.checkered_floor, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+            
+                    break;
+
+                case WALL:
+                    al_draw_bitmap(sprite_map.wall, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                default:
+                    break;
+            }                 
 
             count++;
         }    
     }
     return;
-}
-
-
-bool collision(int player_x, int player_y, int player_width, int player_height, int x, int y, int width, int height) {
-    if((player_x + player_width) <  x) return false;
-    if(player_x  >  (x + width)) return false;
-    if((player_y + player_height) < y) return false;
-    if(player_y > (y + height)) return false;
-
-
-    return true;
 }
 
 

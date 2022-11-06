@@ -34,7 +34,7 @@ int main()
             case ALLEGRO_EVENT_TIMER:
                 player_update();
                 //printf("(%d, %d)\n", player.x, player.y);
-                map_update(player.position_x, player.position_y);
+                map_update(&player.position_x, &player.position_y, &player.x, &player.y);
 
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;
@@ -58,7 +58,7 @@ int main()
             display_pre_draw();
             al_clear_to_color(al_map_rgb(0,0,0));
 
-            map_draw();
+            map_draw(&player.position_x, &player.position_y, &player.x, &player.y);
             player_draw();
 
             display_post_draw();
