@@ -136,17 +136,15 @@ void map_collision(int *player_position_x, int *player_position_y, int *player_x
         for(int j = 0; j < map_columns; j++) 
         {
             if(map[i][j] == VOIDING
-                                    || map[i][j] == CORNER_TOP_LEFT 
-                                    || map[i][j] == CORNER_TOP_RIGHT 
-                                    || map[i][j] == CORNER_BOTTOM_RIGHT 
-                                    || map[i][j] == CORNER_BOTTOM_LEFT 
-                                    || map[i][j] == CORNER_TOP 
-                                    || map[i][j] == CORNER_BOTTOM 
-                                    || map[i][j] == WALL
-                                    || map[i][j] == CORNER_LEFT 
-                                    || map[i][j] == CORNER_RIGHT 
-                                    
-                                    )
+            || map[i][j] == CORNER_TOP_LEFT 
+            || map[i][j] == CORNER_TOP_RIGHT 
+            || map[i][j] == CORNER_BOTTOM_RIGHT 
+            || map[i][j] == CORNER_BOTTOM_LEFT 
+            || map[i][j] == CORNER_TOP 
+            || map[i][j] == CORNER_BOTTOM 
+            || map[i][j] == WALL
+            || map[i][j] == CORNER_LEFT 
+            || map[i][j] == CORNER_RIGHT)
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size);
                 collision_reaction(col, player_position_x, player_position_y, player_x, player_y, j * tile_size, i * tile_size);
@@ -173,7 +171,7 @@ void map_update(int *player_position_x, int *player_position_y, int *player_x, i
 }
 
 
-void map_draw(int *player_position_x, int *player_position_y, int *player_x, int *player_y)
+void map_draw()
 {
     int count = 0;
     bool col;

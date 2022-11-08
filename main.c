@@ -32,8 +32,7 @@ int main()
         switch(event.type)
         {
             case ALLEGRO_EVENT_TIMER:
-                player_update();
-                //printf("(%d, %d)\n", player.x, player.y);
+                player_update();       
                 map_update(&player.position_x, &player.position_y, &player.x, &player.y);
 
                 if(key[ALLEGRO_KEY_ESCAPE])
@@ -58,7 +57,7 @@ int main()
             display_pre_draw();
             al_clear_to_color(al_map_rgb(0,0,0));
 
-            map_draw(&player.position_x, &player.position_y, &player.x, &player.y);
+            map_draw();
             player_draw();
 
             display_post_draw();
@@ -66,7 +65,7 @@ int main()
         }
     }
 
-    //destroy_map(map, lines);
+
     destroy_structure_all();
     destroy_sprites_map();
     
