@@ -1,5 +1,6 @@
 #ifndef MAP
 #define MAP
+#include "npc.h"
 
 typedef struct SPRITE_MAP 
 {
@@ -97,29 +98,29 @@ void init_map(void) {
 }
 
 
-bool collision(int player_x, int player_y, int x, int y, int size) {
-    if(player_x > x + size) return false;
+bool collision(int player_x, int player_y, int x, int y, int width, int height) {
+    if(player_x > x + width) return false;
     if(player_x + PROTAGONIST_W < x) return false;
-    if(player_y > y + size) return false;
+    if(player_y > y + height) return false;
     if(player_y + PROTAGONIST_H < y) return false;
 
     return true;
 }
 
 
-void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int x, int y) {
+void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int x, int y, int width, int height) {
     if(collision) {
         if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D]) {    
-            if(*player_position_x + PROTAGONIST_SPEED < x + tile_size) {  
+            if(*player_position_x + PROTAGONIST_SPEED < x + width) {  
                 *player_position_x = x - PROTAGONIST_W - 1;
             } else if(*player_position_x + PROTAGONIST_SPEED + PROTAGONIST_W > x) {
-                *player_position_x = x + tile_size + 1;
+                *player_position_x = x + width + 1;
             }  
         } else if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W] || key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S]) {
-            if(*player_position_y + PROTAGONIST_SPEED < y + tile_size) {
+            if(*player_position_y + PROTAGONIST_SPEED < y + height) {
                 *player_position_y = y - PROTAGONIST_H - 1;
             } else if(*player_position_y + PROTAGONIST_SPEED + PROTAGONIST_H > y) {
-                *player_position_y = y + tile_size + 1;
+                *player_position_y = y + height + 1;
             } 
         }
     } 
@@ -146,8 +147,13 @@ void map_collision(int *player_position_x, int *player_position_y)
             || map[i][j] == CORNER_LEFT 
             || map[i][j] == CORNER_RIGHT)
             {
-                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size);
-                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size);
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size);
+            } 
+            else if(i == pawn.position_x && j == pawn.position_y) 
+            {
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, common_size, common_size);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, common_size, common_size);
             }
            
             //if(col)
@@ -227,7 +233,7 @@ void map_draw()
 
                 default:
                     break;
-            }                 
+            }                
 
             count++;
         }    
