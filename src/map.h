@@ -83,8 +83,8 @@ void init_map(void) {
     
     int cod = 10;
     
-    for(int i = 0; i < 10; i++) {
-        for(int j = 0; j < 43; j++) {
+    for(int i = 0; i < map_lines; i++) {
+        for(int j = 0; j < map_columns; j++) {
             fscanf(tile_map, "%d", &cod);
             map[i][j] = cod;
             // fprintf(stderr, "%d ", cod);
@@ -129,7 +129,7 @@ void collision_reaction(bool collision, int *player_position_x, int *player_posi
 }
 
 
-void map_collision(int *player_position_x, int *player_position_y) 
+void detect_collision(int *player_position_x, int *player_position_y) 
 {
     bool col;
     for(int i = 0; i < map_lines; i++)
@@ -150,7 +150,10 @@ void map_collision(int *player_position_x, int *player_position_y)
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size);
             } 
-            else if(i == pawn.position_x && j == pawn.position_y) 
+            else if(j == bishop.position_x && i == bishop.position_y
+                 || j == king.position_x && i == king.position_y
+                 || j == pawn.position_x && i == pawn.position_y
+                 || j == tower.position_x && i == tower.position_y) 
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, common_size, common_size);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, common_size, common_size);
@@ -168,7 +171,7 @@ void map_collision(int *player_position_x, int *player_position_y)
 
 void map_update(int *player_position_x, int *player_position_y)
 {
-    map_collision(player_position_x, player_position_y);
+    detect_collision(player_position_x, player_position_y);
 
     xOff = -(*player_position_x - (BUFFER_W / 2) + (PROTAGONIST_W/2));
     yOff = -(*player_position_y - (BUFFER_H / 2) + (PROTAGONIST_H/2));  

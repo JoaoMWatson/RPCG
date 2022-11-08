@@ -10,7 +10,7 @@
 #include "src/structure.h"
 #include "src/player.h"
 #include "src/map.h"
-
+#include "src/npc.h"
 
 
 int main()
@@ -59,6 +59,7 @@ int main()
 
             map_draw();
             player_draw();
+            npc_draw(xOff, yOff, tile_size);
 
             display_post_draw();
             redraw = false;
