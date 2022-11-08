@@ -35,7 +35,8 @@ int main()
             case ALLEGRO_EVENT_TIMER:
                 player_update();       
                 map_update(&player.position_x, &player.position_y);
-
+                npc_update(player.position_x, player.position_y);
+                
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;
 
