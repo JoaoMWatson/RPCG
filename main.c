@@ -21,6 +21,7 @@ int main()
     init_map();
     init_sprites_map();
     init_player(); 
+    init_npc(tile_size);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
     
     
@@ -59,7 +60,7 @@ int main()
 
             map_draw();
             player_draw();
-            npc_draw(xOff, yOff, tile_size);
+            npc_draw(xOff, yOff);
 
             display_post_draw();
             redraw = false;
