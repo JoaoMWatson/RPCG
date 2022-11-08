@@ -10,6 +10,7 @@ ALLEGRO_EVENT event;
 
 bool done = false;
 bool redraw = true;
+bool check = true;
 
 /************* CHECK FUNCTION *************/
 bool must_init(bool check, bool test, const char *description)

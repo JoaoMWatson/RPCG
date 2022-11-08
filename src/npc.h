@@ -53,25 +53,25 @@ void npc_draw(int x, int y) {
 
 
 void bishop_iteration(void) {
-    printf("\nbishop");
+    printf("bishop\n");
     return;
 }
 
 
 void king_iteration(void) {
-    printf("\nking");
+    printf("king\n");
     return;
 }
 
 
 void pawn_iteration(void) {
-    printf("\npawn");
+    printf("pawn\n");
     return;
 }
 
 
 void tower_iteration(void) {
-    printf("\ntower");
+    printf("tower\n");
     return;
 }
 

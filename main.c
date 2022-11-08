@@ -12,10 +12,19 @@
 #include "src/map.h"
 #include "src/npc.h"
 
+enum play_what
+    {
+        PLAYING = 1,
+        MAIN_GAME,
+        BISHOP_GAME,
+        KING_GAME,
+        PAWN_GAME,
+        TOWER_GAME
+    };
 
 int main()
 {
-    int playing = 1;
+    int play = MAIN_GAME;
 
     init_structure_all();
     init_map();
@@ -23,25 +32,38 @@ int main()
     init_player(); 
     init_npc(tile_size);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
-    
+
     
 
-    while(playing) 
+    while(PLAYING) 
     {
         al_wait_for_event(queue, &event);
 
         switch(event.type)
         {
             case ALLEGRO_EVENT_TIMER:
-                player_update();       
-                map_update(&player.position_x, &player.position_y);
-                npc_update(player.position_x, player.position_y);
-                
+                switch (play)
+                {
+                    case MAIN_GAME:
+                        player_update();       
+                        map_update(&player.position_x, &player.position_y);
+                        npc_update(player.position_x, player.position_y);
+                        break;
+                    
+                    case PAWN_GAME:
+                        
+                        break;  
+                                 
+                }
+                if(key[ALLEGRO_KEY_P])
+                    play = MAIN_GAME;
+                if(key[ALLEGRO_KEY_Y])
+                    play = PAWN_GAME;
+
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;
-
                 redraw = true;
-                //frames++;
+      
                 break;
 
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
@@ -56,16 +78,30 @@ int main()
 
         if(redraw && al_is_event_queue_empty(queue))
         {
-            display_pre_draw();
-            al_clear_to_color(al_map_rgb(0,0,0));
+            switch (play)
+            {
+                case MAIN_GAME:
+                    display_pre_draw();
+                    al_clear_to_color(al_map_rgb(0,0,0));
 
-            map_draw();
-            player_draw();
-            npc_draw(xOff, yOff);
+                    map_draw();
+                    player_draw();
+                    npc_draw(xOff, yOff);
 
-            display_post_draw();
+                    display_post_draw();
+                    break;
+                
+                case PAWN_GAME:
+                    display_pre_draw();
+                    al_clear_to_color(al_map_rgb(0,100,0));
+
+                    display_post_draw(); 
+                   break;          
+            }
+            
             redraw = false;
         }
+        
     }
 
 
@@ -75,6 +111,3 @@ int main()
     
     return 0;
 }
-
-
-

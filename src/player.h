@@ -54,7 +54,7 @@ void player_update(void)
 
 void player_draw(void)
 {
-    al_draw_filled_rectangle(player.x, player.y, player.x + 10, player.y + 10, al_map_rgb(255, 0, 0));
+    al_draw_filled_rectangle(player.x, player.y, player.x + PROTAGONIST_W, player.y + PROTAGONIST_H, al_map_rgb(255, 0, 0));
     
     return;
 }
