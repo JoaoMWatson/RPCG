@@ -107,7 +107,7 @@ bool collision(int player_x, int player_y, int x, int y, int size) {
 }
 
 
-void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int* player_x, int *player_y, int x, int y) {
+void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int x, int y) {
     if(collision) {
         if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D]) {    
             if(*player_position_x + PROTAGONIST_SPEED < x + tile_size) {  
@@ -128,7 +128,7 @@ void collision_reaction(bool collision, int *player_position_x, int *player_posi
 }
 
 
-void map_collision(int *player_position_x, int *player_position_y, int *player_x, int *player_y) 
+void map_collision(int *player_position_x, int *player_position_y) 
 {
     bool col;
     for(int i = 0; i < map_lines; i++)
@@ -147,7 +147,7 @@ void map_collision(int *player_position_x, int *player_position_y, int *player_x
             || map[i][j] == CORNER_RIGHT)
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size);
-                collision_reaction(col, player_position_x, player_position_y, player_x, player_y, j * tile_size, i * tile_size);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size);
             }
            
             //if(col)
@@ -160,9 +160,9 @@ void map_collision(int *player_position_x, int *player_position_y, int *player_x
 }
 
 
-void map_update(int *player_position_x, int *player_position_y, int *player_x, int *player_y)
+void map_update(int *player_position_x, int *player_position_y)
 {
-    map_collision(player_position_x, player_position_y, player_x, player_y);
+    map_collision(player_position_x, player_position_y);
 
     xOff = -(*player_position_x - (BUFFER_W / 2) + (PROTAGONIST_W/2));
     yOff = -(*player_position_y - (BUFFER_H / 2) + (PROTAGONIST_H/2));  
