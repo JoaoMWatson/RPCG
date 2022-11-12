@@ -117,4 +117,57 @@ void npc_update(int player_x, int player_y, int *play) {
     return;
 }
 
+
+#define PARALLEL_PROTAGONIST_W 10
+#define PARALLEL_PROTAGONIST_H 10
+#define PARALLEL_PROTAGONIST_SPEED 2
+#define PARALLEL_PROTAGONIST_MAX_X (BUFFER_W - PARALLEL_PROTAGONIST_W)
+#define PARALLEL_PROTAGONIST_MAX_Y (BUFFER_H - PARALLEL_PROTAGONIST_H)
+
+typedef struct PARALLEL_PLAYER {
+    int x, y;
+} PARALLEL_PLAYER;
+PARALLEL_PLAYER parallel_player;
+
+
+void init_parallel_player(void) {
+    parallel_player.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
+    parallel_player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
+
+    return;
+}
+
+
+void parallel_player_update(void) {
+    if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A])
+        parallel_player.x -= PARALLEL_PROTAGONIST_SPEED;
+    else if(key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D])
+        parallel_player.x += PARALLEL_PROTAGONIST_SPEED;
+    else if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W])
+        parallel_player.y -= PARALLEL_PROTAGONIST_SPEED;
+    else if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S])
+        parallel_player.y += PARALLEL_PROTAGONIST_SPEED;
+
+    if(parallel_player.x < 0)
+        parallel_player.x = 0;
+    if(parallel_player.y < 0)
+        parallel_player.y = 0;
+   
+    if(parallel_player.x > PARALLEL_PROTAGONIST_MAX_X)
+        parallel_player.x = PARALLEL_PROTAGONIST_MAX_X;
+    if(parallel_player.y > PARALLEL_PROTAGONIST_MAX_Y)
+        parallel_player.y = PARALLEL_PROTAGONIST_MAX_Y;
+
+    // printf("\n%d, %d", parallel_player.x, parallel_player.y);
+    
+    return;
+}
+
+
+void parallel_player_draw(void) {
+    al_draw_filled_rectangle(parallel_player.x, parallel_player.y, parallel_player.x + PARALLEL_PROTAGONIST_W, parallel_player.y + PARALLEL_PROTAGONIST_H, al_map_rgb(255, 255, 255));
+
+    return;
+}
+
 #endif

@@ -30,6 +30,7 @@ int main()
     init_map();
     init_sprites_map();
     init_player(); 
+    init_parallel_player();
     init_npc(tile_size);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
 
@@ -51,19 +52,19 @@ int main()
                         break;
                     
                     case PAWN_GAME:
-                        player_update(); 
+                        parallel_player_update();                        
                         break;
 
                     case BISHOP_GAME:
-                        player_update(); 
+                        parallel_player_update();  
                         break; 
 
                     case TOWER_GAME:
-                        player_update(); 
+                        parallel_player_update();  
                         break;
 
                     case KING_GAME:
-                        player_update(); 
+                        parallel_player_update();  
                         break;                     
                 }
                 if(key[ALLEGRO_KEY_M])
@@ -102,28 +103,36 @@ int main()
                 
                 case PAWN_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,100,0));
+                    al_clear_to_color(al_map_rgb(0,0,0));
+
+                    parallel_player_draw();
 
                     display_post_draw(); 
                    break;
 
                 case BISHOP_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,100));
+                    al_clear_to_color(al_map_rgb(0,0,0));
+
+                    parallel_player_draw();
 
                     display_post_draw(); 
                    break; 
 
                 case TOWER_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(100,0,0));
+                    al_clear_to_color(al_map_rgb(0,0,0));
+
+                    parallel_player_draw();
 
                     display_post_draw(); 
                    break;
 
                 case KING_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(50,100,50));
+                    al_clear_to_color(al_map_rgb(0,0,0));
+
+                    parallel_player_draw();
 
                     display_post_draw(); 
                    break;     

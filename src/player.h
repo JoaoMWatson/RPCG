@@ -5,8 +5,6 @@
 #define PROTAGONIST_H 10
 
 #define PROTAGONIST_SPEED 2
-#define PROTAGONIST_MAX_X (BUFFER_W - PROTAGONIST_W)
-#define PROTAGONIST_MAX_Y (BUFFER_H - PROTAGONIST_H)
 
 typedef struct PROTAGONIST {
     int x, y;
