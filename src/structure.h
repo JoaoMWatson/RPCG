@@ -29,8 +29,8 @@ bool must_init(bool check, bool test, const char *description)
 
 
 /************* DISPLAY STUFF *************/
-#define BUFFER_W 190
-#define BUFFER_H 210
+#define BUFFER_W 205
+#define BUFFER_H 205
 
 #define DISP_SCALE 3
 #define DISP_W (BUFFER_W * DISP_SCALE)
