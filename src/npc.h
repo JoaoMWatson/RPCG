@@ -52,25 +52,29 @@ void npc_draw(int x, int y) {
 }
 
 
-void bishop_iteration(void) {
+void bishop_iteration(int *play) {
+    *play = 3;
     printf("bishop\n");
     return;
 }
 
 
-void king_iteration(void) {
+void king_iteration(int *play) {
+    *play = 4;
     printf("king\n");
     return;
 }
 
 
-void pawn_iteration(void) {
+void pawn_iteration(int *play) {
+    *play = 5;
     printf("pawn\n");
     return;
 }
 
 
-void tower_iteration(void) {
+void tower_iteration(int *play) {
+    *play = 6;
     printf("tower\n");
     return;
 }
@@ -92,7 +96,7 @@ bool it_bis;
 bool it_kin;
 bool it_paw;
 bool it_tow;
-void npc_update(int player_x, int player_y) {
+void npc_update(int player_x, int player_y, int *play) {
     if(key[ALLEGRO_KEY_E]) {
         it_bis = detect_iteration(player_x, player_y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height);
         it_kin = detect_iteration(player_x, player_y, king.position_map_x, king.position_map_y, king.width, king.height);
@@ -100,13 +104,13 @@ void npc_update(int player_x, int player_y) {
         it_tow = detect_iteration(player_x, player_y, tower.position_map_x, tower.position_map_y, tower.width, tower.height);
 
         if(it_bis) {
-            bishop_iteration();
+            bishop_iteration(play);
         } else if(it_kin) {
-            king_iteration();
+            king_iteration(play);
         } else if(it_paw) {
-            pawn_iteration();
+            pawn_iteration(play);
         } else if(it_tow) {
-            tower_iteration();
+            tower_iteration(play);
         }
     } 
 

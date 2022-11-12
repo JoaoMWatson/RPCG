@@ -15,11 +15,11 @@
 enum play_what
     {
         PLAYING = 1,
-        MAIN_GAME,
-        BISHOP_GAME,
-        KING_GAME,
-        PAWN_GAME,
-        TOWER_GAME
+        MAIN_GAME = 2,
+        BISHOP_GAME = 3,
+        KING_GAME = 4,
+        PAWN_GAME = 5,
+        TOWER_GAME = 6
     };
 
 int main()
@@ -47,19 +47,28 @@ int main()
                     case MAIN_GAME:
                         player_update();       
                         map_update(&player.position_x, &player.position_y);
-                        npc_update(player.position_x, player.position_y);
+                        npc_update(player.position_x, player.position_y, &play);
                         break;
                     
                     case PAWN_GAME:
-                        
-                        break;  
-                                 
-                }
-                if(key[ALLEGRO_KEY_P])
-                    play = MAIN_GAME;
-                if(key[ALLEGRO_KEY_Y])
-                    play = PAWN_GAME;
+                        player_update(); 
+                        break;
 
+                    case BISHOP_GAME:
+                        player_update(); 
+                        break; 
+
+                    case TOWER_GAME:
+                        player_update(); 
+                        break;
+
+                    case KING_GAME:
+                        player_update(); 
+                        break;                     
+                }
+                if(key[ALLEGRO_KEY_M])
+                    play = MAIN_GAME;
+                
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;
                 redraw = true;
@@ -96,7 +105,28 @@ int main()
                     al_clear_to_color(al_map_rgb(0,100,0));
 
                     display_post_draw(); 
-                   break;          
+                   break;
+
+                case BISHOP_GAME:
+                    display_pre_draw();
+                    al_clear_to_color(al_map_rgb(0,0,100));
+
+                    display_post_draw(); 
+                   break; 
+
+                case TOWER_GAME:
+                    display_pre_draw();
+                    al_clear_to_color(al_map_rgb(100,0,0));
+
+                    display_post_draw(); 
+                   break;
+
+                case KING_GAME:
+                    display_pre_draw();
+                    al_clear_to_color(al_map_rgb(50,100,50));
+
+                    display_post_draw(); 
+                   break;     
             }
             
             redraw = false;
