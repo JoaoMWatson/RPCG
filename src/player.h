@@ -9,6 +9,7 @@
 typedef struct PROTAGONIST {
     int x, y;
     int position_x, position_y;
+    ALLEGRO_BITMAP *sprite;
 } PROTAGONIST;
 PROTAGONIST player;
 
@@ -18,6 +19,9 @@ void init_player(void) {
     player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
     player.position_x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     player.position_y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
+
+    player.sprite = al_load_bitmap("src/images/pawn.png");
+    must_init(true, player.sprite, "player sprite");
 
     return;
 }
@@ -33,18 +37,6 @@ void player_update(void)
         player.position_y -= PROTAGONIST_SPEED;
     else if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S])
         player.position_y += PROTAGONIST_SPEED;
-
-    /*
-    if(player.x < 0)
-        player.x = 0;
-    if(player.y < 0)
-        player.y = 0;
-   
-    if(player.x > PROTAGONIST_MAX_X)
-        player.x = PROTAGONIST_MAX_X;
-    if(player.y > PROTAGONIST_MAX_Y)
-        player.y = PROTAGONIST_MAX_Y;
-    */
 
     return;
 }
