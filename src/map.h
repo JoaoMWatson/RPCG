@@ -98,28 +98,28 @@ void init_map(void) {
 }
 
 
-bool collision(int player_x, int player_y, int x, int y, int width, int height) {
+bool collision(int player_x, int player_y, int x, int y, int width, int height, int play_width, int play_height) {
     if(player_x > x + width) return false;
-    if(player_x + PROTAGONIST_W < x) return false;
+    if(player_x + play_width < x) return false;
     if(player_y > y + height) return false;
-    if(player_y + PROTAGONIST_H < y) return false;
+    if(player_y + play_height < y) return false;
 
     return true;
 }
 
 
-void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int x, int y, int width, int height) {
+void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int x, int y, int width, int height, int play_width, int play_height, int speed) {
     if(collision) {
         if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A] || key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D]) {    
-            if(*player_position_x + PROTAGONIST_SPEED < x + width) {  
-                *player_position_x = x - PROTAGONIST_W - 1;
-            } else if(*player_position_x + PROTAGONIST_SPEED + PROTAGONIST_W > x) {
+            if(*player_position_x + speed < x + width) {  
+                *player_position_x = x - play_width - 1;
+            } else if(*player_position_x + speed + play_width > x) {
                 *player_position_x = x + width + 1;
             }  
         } else if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W] || key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S]) {
-            if(*player_position_y + PROTAGONIST_SPEED < y + height) {
-                *player_position_y = y - PROTAGONIST_H - 1;
-            } else if(*player_position_y + PROTAGONIST_SPEED + PROTAGONIST_H > y) {
+            if(*player_position_y + speed < y + height) {
+                *player_position_y = y - play_height - 1;
+            } else if(*player_position_y + speed + play_height > y) {
                 *player_position_y = y + height + 1;
             } 
         }
@@ -147,16 +147,16 @@ void detect_collision(int *player_position_x, int *player_position_y)
             || map[i][j] == CORNER_LEFT 
             || map[i][j] == CORNER_RIGHT)
             {
-                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size);
-                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size);
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             } 
             else if(j == bishop.position_x && i == bishop.position_y
                  || j == king.position_x && i == king.position_y
-                 || j == pawn.position_x && i == pawn.position_y
+                 || j == knight.position_x && i == knight.position_y
                  || j == tower.position_x && i == tower.position_y) 
             {
-                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, common_size, common_size);
-                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, common_size, common_size);
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, common_size, common_size, PROTAGONIST_W, PROTAGONIST_H);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, common_size, common_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             }
            
             //if(col)

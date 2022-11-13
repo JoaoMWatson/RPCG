@@ -7,10 +7,15 @@
 #include <allegro5/allegro_acodec.h> // sounds
 #include <allegro5/allegro_image.h>
 
+bool collision(int player_x, int player_y, int x, int y, int width, int height, int play_width, int play_height);
+void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int x, int y, int width, int height, int play_width, int play_height, int speed);
+
 #include "src/structure.h"
 #include "src/player.h"
 #include "src/map.h"
 #include "src/npc.h"
+#include "src/parallel_game.h"
+
 
 enum play_what
     {
@@ -18,7 +23,7 @@ enum play_what
         MAIN_GAME = 2,
         BISHOP_GAME = 3,
         KING_GAME = 4,
-        PAWN_GAME = 5,
+        KNIGHT_GAME = 5,
         TOWER_GAME = 6
     };
 
@@ -30,7 +35,6 @@ int main()
     init_map();
     init_sprites_map();
     init_player(); 
-    init_parallel_player();
     init_npc(tile_size);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
 
@@ -51,7 +55,7 @@ int main()
                         npc_update(player.position_x, player.position_y, &play);
                         break;
                     
-                    case PAWN_GAME:
+                    case KNIGHT_GAME:
                         parallel_player_update();                        
                         break;
 
@@ -101,11 +105,12 @@ int main()
                     display_post_draw();
                     break;
                 
-                case PAWN_GAME:
+                case KNIGHT_GAME:
                     display_pre_draw();
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     parallel_player_draw();
+                    enemy_draw();
 
                     display_post_draw(); 
                    break;
@@ -115,6 +120,7 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     parallel_player_draw();
+                    enemy_draw();
 
                     display_post_draw(); 
                    break; 
@@ -124,6 +130,7 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     parallel_player_draw();
+                    enemy_draw();
 
                     display_post_draw(); 
                    break;
@@ -133,6 +140,7 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     parallel_player_draw();
+                    enemy_draw();
 
                     display_post_draw(); 
                    break;     
