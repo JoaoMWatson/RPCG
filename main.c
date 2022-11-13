@@ -38,7 +38,6 @@ int main()
     init_npc(tile_size);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
 
-    
 
     while(PLAYING) 
     {
@@ -56,7 +55,9 @@ int main()
                         break;
                     
                     case KNIGHT_GAME:
-                        parallel_player_update();                        
+                        parallel_player_update();
+                        add_shot();
+                        shot_update();                  
                         break;
 
                     case BISHOP_GAME:
@@ -111,6 +112,7 @@ int main()
 
                     parallel_player_draw();
                     enemy_draw();
+                    shot_draw();
 
                     display_post_draw(); 
                    break;

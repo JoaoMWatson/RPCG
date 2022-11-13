@@ -28,6 +28,89 @@ void enemy_draw(void) {
 }
 
 
+typedef struct SHOT {
+    int x, y;
+    int speed;
+    bool used;
+} SHOT;
+
+#define SHOTS_N 200
+SHOT shots[SHOTS_N];
+
+
+void init_shot(void) {
+    for(int i = 0; i < SHOTS_N; i++) {
+        shots[i].speed = 1;
+        shots[i].used = false;
+    }
+
+    return;
+}
+
+int timing = 0;
+void add_shot(void) {
+    timing++;
+    if(!(timing % 40)) {
+        for(int i = 0; i < SHOTS_N - 3; i += 4) {
+            if(!shots[i].used) {
+                shots[i].x = enemy.x + enemy.width/2;
+                shots[i].y = enemy.y + enemy.height;
+                shots[i].used = true;
+
+                shots[i+1].x = enemy.x + enemy.width/2;
+                shots[i+1].y = enemy.y;
+                shots[i+1].used = true;
+
+                shots[i+2].x = enemy.x + enemy.width;
+                shots[i+2].y = enemy.y + enemy.height/2;
+                shots[i+2].used = true;
+
+                shots[i+3].x = enemy.x;
+                shots[i+3].y = enemy.y + enemy.height/2;
+                shots[i+3].used = true;
+
+                break;
+            }
+        }
+    }
+    return;
+}
+
+
+void shot_update(void) {
+    for(int i = 0; i < SHOTS_N - 3; i += 4) {
+        if(shots[i].used) {
+            shots[i].y += shots[i].speed;
+            shots[i+1].y -= shots[i].speed;
+            shots[i+2].x += shots[i].speed;
+            shots[i+3].x -= shots[i].speed;
+
+            if(shots[i].y > BUFFER_H)
+                shots[i].used = false;
+            else if(shots[i+1].y < 0)
+                shots[i+1].used = false;
+            else if(shots[i+2].x > BUFFER_W)
+                shots[i+2].used = false;
+            else if(shots[i+3].x < 0)
+                shots[i+3].used = false;
+        }
+    }
+
+    return;
+}
+
+
+void shot_draw(void) {
+    for(int i = 0; i < SHOTS_N; i++) {
+        if(shots[i].used) {
+            al_draw_filled_circle(shots[i].x, shots[i].y, 2.2, al_map_rgb(255, 255, 255));
+        }
+    }
+
+    return;
+}
+
+
 #define PARALLEL_PROTAGONIST_W 10
 #define PARALLEL_PROTAGONIST_H 10
 #define PARALLEL_PROTAGONIST_SPEED 2
@@ -42,6 +125,14 @@ typedef struct PARALLEL_PLAYER {
     int invincible_timer;
 } PARALLEL_PLAYER;
 PARALLEL_PLAYER parallel_player;
+
+
+void parallel_collision(bool col_enemy) {
+    if(col_enemy)
+        parallel_player.lives--;
+
+    return;
+}
 
 
 void init_parallel_player(void) {
@@ -88,6 +179,8 @@ void parallel_player_update(void) {
     col_enemy = collision(parallel_player.x, parallel_player.y, enemy.x, enemy.y, enemy.width, enemy.height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H);
     collision_reaction(col_enemy, &parallel_player.x, &parallel_player.y, enemy.x, enemy.y, enemy.width, enemy.height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H, PARALLEL_PROTAGONIST_SPEED);
 
+    parallel_collision(col_enemy);
+
     if(parallel_player.invincible_timer) 
         parallel_player.invincible_timer--;
     else {
@@ -103,5 +196,8 @@ void parallel_player_draw(void) {
 
     return;
 }
+
+
+
 
 #endif

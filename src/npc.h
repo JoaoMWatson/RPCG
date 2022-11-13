@@ -115,6 +115,7 @@ void npc_update(int player_x, int player_y, int *play) {
         } else if(it_kni) {
             init_parallel_player();
             init_enemy();
+            init_shot();
             knight_iteration(play);
         } else if(it_tow) {
             init_parallel_player();
