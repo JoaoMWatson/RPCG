@@ -28,89 +28,6 @@ void enemy_draw(void) {
 }
 
 
-typedef struct SHOT {
-    int x, y;
-    int speed;
-    bool used;
-} SHOT;
-
-#define SHOTS_N 200
-SHOT shots[SHOTS_N];
-
-
-void init_shot(void) {
-    for(int i = 0; i < SHOTS_N; i++) {
-        shots[i].speed = 1;
-        shots[i].used = false;
-    }
-
-    return;
-}
-
-int timing = 0;
-void add_shot(void) {
-    timing++;
-    if(!(timing % 40)) {
-        for(int i = 0; i < SHOTS_N - 3; i += 4) {
-            if(!shots[i].used) {
-                shots[i].x = enemy.x + enemy.width/2;
-                shots[i].y = enemy.y + enemy.height;
-                shots[i].used = true;
-
-                shots[i+1].x = enemy.x + enemy.width/2;
-                shots[i+1].y = enemy.y;
-                shots[i+1].used = true;
-
-                shots[i+2].x = enemy.x + enemy.width;
-                shots[i+2].y = enemy.y + enemy.height/2;
-                shots[i+2].used = true;
-
-                shots[i+3].x = enemy.x;
-                shots[i+3].y = enemy.y + enemy.height/2;
-                shots[i+3].used = true;
-
-                break;
-            }
-        }
-    }
-    return;
-}
-
-
-void shot_update(void) {
-    for(int i = 0; i < SHOTS_N - 3; i += 4) {
-        if(shots[i].used) {
-            shots[i].y += shots[i].speed;
-            shots[i+1].y -= shots[i].speed;
-            shots[i+2].x += shots[i].speed;
-            shots[i+3].x -= shots[i].speed;
-
-            if(shots[i].y > BUFFER_H)
-                shots[i].used = false;
-            else if(shots[i+1].y < 0)
-                shots[i+1].used = false;
-            else if(shots[i+2].x > BUFFER_W)
-                shots[i+2].used = false;
-            else if(shots[i+3].x < 0)
-                shots[i+3].used = false;
-        }
-    }
-
-    return;
-}
-
-
-void shot_draw(void) {
-    for(int i = 0; i < SHOTS_N; i++) {
-        if(shots[i].used) {
-            al_draw_filled_circle(shots[i].x, shots[i].y, 2.2, al_map_rgb(255, 255, 255));
-        }
-    }
-
-    return;
-}
-
-
 #define PARALLEL_PROTAGONIST_W 10
 #define PARALLEL_PROTAGONIST_H 10
 #define PARALLEL_PROTAGONIST_SPEED 2
@@ -127,14 +44,6 @@ typedef struct PARALLEL_PLAYER {
 PARALLEL_PLAYER parallel_player;
 
 
-void parallel_collision(bool col_enemy) {
-    if(col_enemy)
-        parallel_player.lives--;
-
-    return;
-}
-
-
 void init_parallel_player(void) {
     parallel_player.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     parallel_player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2) + 50;
@@ -148,8 +57,6 @@ void init_parallel_player(void) {
 
 bool col_enemy;
 void parallel_player_update(void) {
-    if(parallel_player.lives < 0)
-        return;
 
     if(parallel_player.respawn_timer)
     {
@@ -179,7 +86,6 @@ void parallel_player_update(void) {
     col_enemy = collision(parallel_player.x, parallel_player.y, enemy.x, enemy.y, enemy.width, enemy.height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H);
     collision_reaction(col_enemy, &parallel_player.x, &parallel_player.y, enemy.x, enemy.y, enemy.width, enemy.height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H, PARALLEL_PROTAGONIST_SPEED);
 
-    parallel_collision(col_enemy);
 
     if(parallel_player.invincible_timer) 
         parallel_player.invincible_timer--;
@@ -198,6 +104,105 @@ void parallel_player_draw(void) {
 }
 
 
+typedef struct SHOT {
+    int x, y;
+    int speed;
+    float size;
+    bool used;
+} SHOT;
 
+#define SHOTS_N 98
+SHOT shots[SHOTS_N];
+
+
+void init_shot(void) {
+    for(int i = 0; i < SHOTS_N; i++) {
+        shots[i].speed = 1;
+        shots[i].used = false;
+        shots[i].size = 2.2;
+    }
+
+    return;
+}
+
+int timing = 0;
+void add_shot(void) {
+    timing++;
+    if(!(timing % 40)) {
+        for(int i = 0; i < SHOTS_N - 3; i += 4) {
+            if(!shots[i].used && !shots[i+1].used && !shots[i+2].used && !shots[i+3].used) {
+                shots[i].x = enemy.x + enemy.width/2;
+                shots[i].y = enemy.y + enemy.height;
+                shots[i].used = true;
+
+                shots[i+1].x = enemy.x + enemy.width/2;
+                shots[i+1].y = enemy.y;
+                shots[i+1].used = true;
+
+                shots[i+2].x = enemy.x + enemy.width;
+                shots[i+2].y = enemy.y + enemy.height/2;
+                shots[i+2].used = true;
+
+                shots[i+3].x = enemy.x;
+                shots[i+3].y = enemy.y + enemy.height/2;
+                shots[i+3].used = true;
+
+                break;
+            }
+        }
+    }
+    return;
+}
+
+
+bool col_shot;
+void shot_collision(SHOT *shot, int play_x, int play_y, int x, int y, int width, int height) {
+    col_shot = collision(play_x, play_y, x, y, width, height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H);
+    if(col_shot) {
+        printf("\natigindo");
+        
+        shot->used = false;
+        
+        }
+
+    return;
+}
+
+
+void shot_update(void) {
+    for(int i = 0; i < SHOTS_N - 3; i += 4) {
+        if(shots[i].used || shots[i+1].used || shots[i+2].used || shots[i+3].used) {
+            shots[i].y += shots[i].speed;
+            shots[i+1].y -= shots[i].speed;
+            shots[i+2].x += shots[i].speed;
+            shots[i+3].x -= shots[i].speed;
+
+            if(shots[i].y > BUFFER_H)
+                shots[i].used = false;
+            else if(shots[i+1].y < 0)
+                shots[i+1].used = false;
+            else if(shots[i+2].x > BUFFER_W)
+                shots[i+2].used = false;
+            else if(shots[i+3].x < 0)
+                shots[i+3].used = false;
+            
+            for(int n = 0; n < 4; n++)
+                shot_collision(&shots[i+n], parallel_player.x, parallel_player.y, shots[i+n].x, shots[i+n].y, shots[i+n].size, shots[i+n].size);
+        }
+    }
+
+    return;
+}
+
+
+void shot_draw(void) {
+    for(int i = 0; i < SHOTS_N; i++) {
+        if(shots[i].used) {
+            al_draw_filled_circle(shots[i].x, shots[i].y, shots[i].size, al_map_rgb(255, 255, 255));
+        }
+    }
+
+    return;
+}
 
 #endif
