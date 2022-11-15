@@ -59,9 +59,10 @@ int main()
                     
                     case KNIGHT_GAME:
                         parallel_player_update();
+                        enemy_update(parallel_player.x, parallel_player.y);
                         add_shot();
                         shot_update();
-                        tower_update(&play);                
+                        tower_update(&play, &player.tower);                
                         break;
 
                     case BISHOP_GAME:

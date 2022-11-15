@@ -32,6 +32,8 @@ void game_over(bool *lost, int *play) {
     }
     //al_draw_text(font, al_map_rgb(195, 195, 195), BUFFER_W/4, BUFFER_H/2 - 5, 0, "A confraria não gostou da sua habilidade");
     //al_draw_textf(font, al_map_rgb(155, 155, 155), BUFFER_W/2, 400, ALLEGRO_ALIGN_CENTRE, "Hello world!%d - %d", BUFFER_W, BUFFER_H);
+
+    return;
 }
 
 
@@ -53,6 +55,22 @@ void init_enemy(void) {
 }
 
 
+void enemy_update(int play_x, int play_y) {
+    if(tic_tac > 2) {
+        if(enemy.x > play_x)
+            enemy.x--;
+        else if(enemy.x < play_x)
+            enemy.x++;
+        
+        if(enemy.y > play_y)
+            enemy.y--;
+        else if(enemy.y < play_y)  
+            enemy.y++;
+    }
+    return;
+}
+
+
 void enemy_draw(void) {
     al_draw_filled_rectangle(enemy.x, enemy.y, enemy.x + enemy.height, enemy.y + enemy.width, al_map_rgb(255, 255, 255));
 
@@ -62,7 +80,7 @@ void enemy_draw(void) {
 
 #define PARALLEL_PROTAGONIST_W 10
 #define PARALLEL_PROTAGONIST_H 10
-#define PARALLEL_PROTAGONIST_SPEED 2
+#define PARALLEL_PROTAGONIST_SPEED 4
 #define PARALLEL_PROTAGONIST_MAX_X (BUFFER_W - PARALLEL_PROTAGONIST_W)
 #define PARALLEL_PROTAGONIST_MAX_Y (BUFFER_H - PARALLEL_PROTAGONIST_H)
 
@@ -243,13 +261,14 @@ void bishop_update(int *play) {
 }
 */
 
-void tower_update(int *play) {
+void tower_update(int *play, bool *achieved) {
     tic_tac = time_count();
-    printf("\n%d", tic_tac);
+    //printf("\n%d", tic_tac);
     if(tic_tac > 5) {
-       printf("\nvenceu");
+       // printf("\nvenceu");
        parallel_player.tower_done = true;
        parallel_player.knight_done = true;
+       *achieved = true;
        *play = 2;
     } else if(parallel_player.lost) {
         restart_time();
