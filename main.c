@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_font.h> // writing
+#include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_primitives.h> // draw 
 #include <allegro5/allegro_audio.h> // sounds
 #include <allegro5/allegro_acodec.h> // sounds
@@ -24,7 +25,8 @@ enum play_what
         BISHOP_GAME = 3,
         KING_GAME = 4,
         KNIGHT_GAME = 5,
-        TOWER_GAME = 6
+        TOWER_GAME = 6,
+        GAME_OVER = 7
     };
 
 int main()
@@ -41,6 +43,7 @@ int main()
 
     while(PLAYING) 
     {
+        
         al_wait_for_event(queue, &event);
 
         switch(event.type)
@@ -57,7 +60,8 @@ int main()
                     case KNIGHT_GAME:
                         parallel_player_update();
                         add_shot();
-                        shot_update();                  
+                        shot_update();
+                        tower_update(&play);                
                         break;
 
                     case BISHOP_GAME:
@@ -70,7 +74,10 @@ int main()
 
                     case KING_GAME:
                         parallel_player_update();  
-                        break;                     
+                        break;
+
+                    case GAME_OVER:
+                        break;                    
                 }
                 if(key[ALLEGRO_KEY_M])
                     play = MAIN_GAME;
@@ -115,7 +122,7 @@ int main()
                     shot_draw();
 
                     display_post_draw(); 
-                   break;
+                    break;
 
                 case BISHOP_GAME:
                     display_pre_draw();
@@ -125,7 +132,7 @@ int main()
                     enemy_draw();
 
                     display_post_draw(); 
-                   break; 
+                    break; 
 
                 case TOWER_GAME:
                     display_pre_draw();
@@ -135,7 +142,7 @@ int main()
                     enemy_draw();
 
                     display_post_draw(); 
-                   break;
+                    break;
 
                 case KING_GAME:
                     display_pre_draw();
@@ -145,7 +152,14 @@ int main()
                     enemy_draw();
 
                     display_post_draw(); 
-                   break;     
+                    break;     
+                case GAME_OVER:
+                    display_pre_draw();
+
+                    game_over(&parallel_player.lost, &play);
+
+                    display_post_draw(); 
+                    break;
             }
             
             redraw = false;

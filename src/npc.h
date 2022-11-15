@@ -105,22 +105,30 @@ void npc_update(int player_x, int player_y, int *play) {
         it_tow = detect_iteration(player_x, player_y, tower.position_map_x, tower.position_map_y, tower.width, tower.height);
 
         if(it_bis) {
-            init_parallel_player();
-            init_enemy();
-            bishop_iteration(play);
+            if(!parallel_player.bishop_done) { 
+                init_parallel_player();
+                init_enemy();
+                bishop_iteration(play);
+            }
         } else if(it_kin) {
-            init_parallel_player();
-            init_enemy();
-            king_iteration(play);
+            if(!parallel_player.king_done) { 
+                init_parallel_player();
+                init_enemy();
+                king_iteration(play);
+            }
         } else if(it_kni) {
-            init_parallel_player();
-            init_enemy();
-            init_shot();
-            knight_iteration(play);
+            if(!parallel_player.knight_done) {
+                init_parallel_player();
+                init_enemy();
+                init_shot();
+                knight_iteration(play);
+            }
         } else if(it_tow) {
-            init_parallel_player();
-            init_enemy();
-            tower_iteration(play);
+            if(!parallel_player.tower_done) {
+                init_parallel_player();
+                init_enemy();
+                tower_iteration(play);
+            }
         }
     } 
 

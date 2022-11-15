@@ -2,14 +2,46 @@
 #define PARALLEL_GAME
 #include "map.h"
 
+int count_timer = 0;
+int tic_tac;
+
+void restart_time(void) {
+    count_timer = 0;
+    
+    return;
+}
+
+int time_count(void) {
+    int timer_counted;
+
+    al_set_timer_count(timer, count_timer++);
+    timer_counted = (int) count_timer/30;
+
+    return timer_counted;
+}
+
+void game_over(bool *lost, int *play) {
+    tic_tac = time_count();
+
+    if(tic_tac < 2) {
+    al_draw_filled_rectangle(0, BUFFER_H/4, BUFFER_W, BUFFER_H - BUFFER_H/4, al_map_rgb(155, 155, 155));
+    al_draw_filled_rectangle(0 + 10, BUFFER_H/4 + 10, BUFFER_W - 10, BUFFER_H - BUFFER_H/4 - 10, al_map_rgb(9, 9, 9));
+    } else {
+        lost = false;
+        *play = 2;
+    }
+    //al_draw_text(font, al_map_rgb(195, 195, 195), BUFFER_W/4, BUFFER_H/2 - 5, 0, "A confraria não gostou da sua habilidade");
+    //al_draw_textf(font, al_map_rgb(155, 155, 155), BUFFER_W/2, 400, ALLEGRO_ALIGN_CENTRE, "Hello world!%d - %d", BUFFER_W, BUFFER_H);
+}
+
+
 typedef struct ENEMY {
     int x, y;
     int height;
     int width;
-
-    int shot_timer;
 } ENEMY;
 ENEMY enemy;
+
 
 void init_enemy(void) {
     enemy.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
@@ -36,10 +68,11 @@ void enemy_draw(void) {
 
 typedef struct PARALLEL_PLAYER {
     int x, y;
-
-    int lives;
-    int respawn_timer;
-    int invincible_timer;
+    bool lost;
+    bool bishop_done;
+    bool tower_done;
+    bool knight_done;
+    bool king_done;
 } PARALLEL_PLAYER;
 PARALLEL_PLAYER parallel_player;
 
@@ -47,9 +80,13 @@ PARALLEL_PLAYER parallel_player;
 void init_parallel_player(void) {
     parallel_player.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     parallel_player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2) + 50;
-    parallel_player.lives = 3;
-    parallel_player.respawn_timer = 0;
-    parallel_player.invincible_timer = 120;
+    parallel_player.lost = false;
+    parallel_player.bishop_done = false;
+    parallel_player.tower_done = false;
+    parallel_player.knight_done = false;
+    parallel_player.king_done = false;
+    
+    count_timer = 0;
 
     return;
 }
@@ -57,12 +94,6 @@ void init_parallel_player(void) {
 
 bool col_enemy;
 void parallel_player_update(void) {
-
-    if(parallel_player.respawn_timer)
-    {
-        parallel_player.respawn_timer--;
-        return;
-    }
 
     if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A])
         parallel_player.x -= PARALLEL_PROTAGONIST_SPEED;
@@ -85,13 +116,6 @@ void parallel_player_update(void) {
 
     col_enemy = collision(parallel_player.x, parallel_player.y, enemy.x, enemy.y, enemy.width, enemy.height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H);
     collision_reaction(col_enemy, &parallel_player.x, &parallel_player.y, enemy.x, enemy.y, enemy.width, enemy.height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H, PARALLEL_PROTAGONIST_SPEED);
-
-
-    if(parallel_player.invincible_timer) 
-        parallel_player.invincible_timer--;
-    else {
-        
-    }
 
     return;
 }
@@ -124,6 +148,7 @@ void init_shot(void) {
 
     return;
 }
+
 
 int timing = 0;
 void add_shot(void) {
@@ -158,12 +183,10 @@ void add_shot(void) {
 bool col_shot;
 void shot_collision(SHOT *shot, int play_x, int play_y, int x, int y, int width, int height) {
     col_shot = collision(play_x, play_y, x, y, width, height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H);
-    if(col_shot) {
-        printf("\natigindo");
-        
+    if(col_shot) { 
         shot->used = false;
-        
-        }
+        parallel_player.lost = true;
+    }
 
     return;
 }
@@ -205,4 +228,49 @@ void shot_draw(void) {
     return;
 }
 
+/*
+void bishop_update(int *play) {
+    al_set_timer_count(timer, count_timer++);
+    timer_counted = count_timer/30;
+    printf("\n%d", (int) timer_counted);
+    if(timer_counted > 5) {
+       printf("\nvenceu");
+       parallel_player.bishop_done = true;
+       *play = 2;
+    }
+    
+    return;
+}
+*/
+
+void tower_update(int *play) {
+    tic_tac = time_count();
+    printf("\n%d", tic_tac);
+    if(tic_tac > 5) {
+       printf("\nvenceu");
+       parallel_player.tower_done = true;
+       parallel_player.knight_done = true;
+       *play = 2;
+    } else if(parallel_player.lost) {
+        restart_time();
+        *play = 7;
+    }
+    
+    return;
+}
+
+/*
+void knight_update(int *play) {
+    al_set_timer_count(timer, count_timer++);
+    timer_counted = count_timer/30;
+    printf("\n%d", (int) timer_counted);
+    if(timer_counted > 5) {
+       printf("\nvenceu");
+       parallel_player.knight_done = true;
+       *play = 2;
+    } 
+    
+    return;
+}
+*/
 #endif

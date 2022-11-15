@@ -40,6 +40,7 @@ bool init_display(bool check)
 {
     al_set_new_display_option(ALLEGRO_SAMPLE_BUFFERS, 1, ALLEGRO_SUGGEST);
     al_set_new_display_option(ALLEGRO_SAMPLES, 8, ALLEGRO_SUGGEST);
+    al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
 
     display = al_create_display(DISP_W, DISP_H); // window size (width x height)
     check = must_init(check, display, "display");
@@ -116,6 +117,8 @@ bool init_structure_all(void)
     check = must_init(check, al_install_keyboard(), "keyboard");
     check = must_init(check, al_init_primitives_addon(), "primitives");
     check = must_init(check, al_init_image_addon(), "image");
+    check = must_init(check, al_init_font_addon(), "font addon");
+    check = must_init(check, al_init_ttf_addon(), "ttf addon");
 
     void keyboard_init();
 
