@@ -60,17 +60,25 @@ int main()
                     case KNIGHT_GAME:
                         parallel_player_update();
                         enemy_update(parallel_player.x, parallel_player.y);
-                        add_shot();
-                        shot_update();
+                        add_shot(2);
+                        shot_update(2);
                         tower_update(&play, &player.tower);                
                         break;
 
                     case BISHOP_GAME:
-                        parallel_player_update();  
+                        parallel_player_update();
+                        enemy_update(parallel_player.x, parallel_player.y);
+                        add_shot(3);
+                        shot_update(3);
+                        bishop_update(&play, &player.bishop);   
                         break; 
 
                     case TOWER_GAME:
-                        parallel_player_update();  
+                        parallel_player_update(); 
+                        enemy_update(parallel_player.x, parallel_player.y);
+                        add_shot(2);
+                        shot_update(2);
+                        tower_update(&play, &player.tower);  
                         break;
 
                     case KING_GAME:
@@ -131,6 +139,7 @@ int main()
 
                     parallel_player_draw();
                     enemy_draw();
+                    shot_draw();
 
                     display_post_draw(); 
                     break; 
@@ -141,6 +150,7 @@ int main()
 
                     parallel_player_draw();
                     enemy_draw();
+                    shot_draw();
 
                     display_post_draw(); 
                     break;

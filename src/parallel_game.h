@@ -23,7 +23,7 @@ int time_count(void) {
 void game_over(bool *lost, int *play) {
     tic_tac = time_count();
 
-    if(tic_tac < 2) {
+    if(tic_tac < 1) {
     al_draw_filled_rectangle(0, BUFFER_H/4, BUFFER_W, BUFFER_H - BUFFER_H/4, al_map_rgb(155, 155, 155));
     al_draw_filled_rectangle(0 + 10, BUFFER_H/4 + 10, BUFFER_W - 10, BUFFER_H - BUFFER_H/4 - 10, al_map_rgb(9, 9, 9));
     } else {
@@ -56,7 +56,7 @@ void init_enemy(void) {
 
 
 void enemy_update(int play_x, int play_y) {
-    if(tic_tac > 2) {
+    if(tic_tac > 5 && tic_tac % 4) {
         if(enemy.x > play_x)
             enemy.x--;
         else if(enemy.x < play_x)
@@ -163,14 +163,14 @@ void init_shot(void) {
         shots[i].used = false;
         shots[i].size = 2.2;
     }
+    printf("inicializado\n");
 
     return;
 }
 
 
 int timing = 0;
-void add_shot(void) {
-    timing++;
+void add_shot_tower(void) {
     if(!(timing % 40)) {
         for(int i = 0; i < SHOTS_N - 3; i += 4) {
             if(!shots[i].used && !shots[i+1].used && !shots[i+2].used && !shots[i+3].used) {
@@ -194,6 +194,47 @@ void add_shot(void) {
             }
         }
     }
+
+    return;
+}
+
+
+void add_shot_bishop(void) {
+    if(!(timing % 40)) {
+        for(int i = 0; i < SHOTS_N - 3; i += 4) {
+            if(!shots[i].used && !shots[i+1].used && !shots[i+2].used && !shots[i+3].used) {
+                shots[i].x = enemy.x + enemy.width;
+                shots[i].y = enemy.y + enemy.height;
+                shots[i].used = true;
+
+                shots[i+1].x = enemy.x;
+                shots[i+1].y = enemy.y;
+                shots[i+1].used = true;
+
+                shots[i+2].x = enemy.x + enemy.width;
+                shots[i+2].y = enemy.y + shots[i].size;
+                shots[i+2].used = true;
+
+                shots[i+3].x = enemy.x;
+                shots[i+3].y = enemy.y + enemy.height;
+                shots[i+3].used = true;
+
+                break;
+            }
+        }
+    }
+
+    return;
+}
+
+
+void add_shot(int each) {
+    timing++;
+    if(each == 2)
+        add_shot_tower();
+    else if(each == 3)
+        add_shot_bishop();
+
     return;
 }
 
@@ -210,13 +251,37 @@ void shot_collision(SHOT *shot, int play_x, int play_y, int x, int y, int width,
 }
 
 
-void shot_update(void) {
+void shot_update_tower(int i) {
+    shots[i].y += shots[i].speed;
+    shots[i+1].y -= shots[i].speed;
+    shots[i+2].x += shots[i].speed;
+    shots[i+3].x -= shots[i].speed;
+
+    return;
+}
+
+
+void shot_update_bishop(int i) {
+    shots[i].y += shots[i].speed;
+    shots[i].x += shots[i].speed;
+    shots[i+1].y -= shots[i].speed;
+    shots[i+1].x -= shots[i].speed;
+    shots[i+2].x += shots[i].speed;
+    shots[i+2].y -= shots[i].speed;
+    shots[i+3].x -= shots[i].speed;
+    shots[i+3].y += shots[i].speed;
+
+    return;
+}
+
+
+void shot_update(int each) {
     for(int i = 0; i < SHOTS_N - 3; i += 4) {
         if(shots[i].used || shots[i+1].used || shots[i+2].used || shots[i+3].used) {
-            shots[i].y += shots[i].speed;
-            shots[i+1].y -= shots[i].speed;
-            shots[i+2].x += shots[i].speed;
-            shots[i+3].x -= shots[i].speed;
+            if(each == 2)
+                shot_update_tower(i);
+            else if(each == 3)
+                shot_update_bishop(i);
 
             if(shots[i].y > BUFFER_H)
                 shots[i].used = false;
@@ -238,36 +303,38 @@ void shot_update(void) {
 
 void shot_draw(void) {
     for(int i = 0; i < SHOTS_N; i++) {
-        if(shots[i].used) {
-            al_draw_filled_circle(shots[i].x, shots[i].y, shots[i].size, al_map_rgb(255, 255, 255));
+        if(shots[i].used) {            
+            al_draw_filled_circle(shots[i].x + 1, shots[i].y - 2, shots[i].size, al_map_rgb(255, 255, 255));
         }
     }
 
     return;
 }
 
-/*
-void bishop_update(int *play) {
-    al_set_timer_count(timer, count_timer++);
-    timer_counted = count_timer/30;
-    printf("\n%d", (int) timer_counted);
-    if(timer_counted > 5) {
-       printf("\nvenceu");
+
+void bishop_update(int *play, bool *achieved) {
+    tic_tac = time_count();
+    //printf("\n%d", tic_tac);
+    if(tic_tac > 15) {
+       // printf("\nvenceu");
        parallel_player.bishop_done = true;
+       *achieved = true;
        *play = 2;
+    } else if(parallel_player.lost) {
+        restart_time();
+        *play = 7;
     }
     
     return;
 }
-*/
+
 
 void tower_update(int *play, bool *achieved) {
     tic_tac = time_count();
     //printf("\n%d", tic_tac);
-    if(tic_tac > 5) {
+    if(tic_tac > 15) {
        // printf("\nvenceu");
        parallel_player.tower_done = true;
-       parallel_player.knight_done = true;
        *achieved = true;
        *play = 2;
     } else if(parallel_player.lost) {

@@ -108,6 +108,7 @@ void npc_update(int player_x, int player_y, int *play) {
             if(!parallel_player.bishop_done) { 
                 init_parallel_player();
                 init_enemy();
+                init_shot();
                 bishop_iteration(play);
             }
         } else if(it_kin) {
@@ -127,6 +128,7 @@ void npc_update(int player_x, int player_y, int *play) {
             if(!parallel_player.tower_done) {
                 init_parallel_player();
                 init_enemy();
+                init_shot();
                 tower_iteration(play);
             }
         }
