@@ -37,6 +37,7 @@ int main()
     init_map();
     init_sprites_map();
     init_player(); 
+    init_parallel_bool();
     init_npc(tile_size);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
 
@@ -59,10 +60,7 @@ int main()
                     
                     case KNIGHT_GAME:
                         parallel_player_update();
-                        enemy_update(parallel_player.x, parallel_player.y);
-                        add_shot(2);
-                        shot_update(2);
-                        tower_update(&play, &player.tower);                
+                        knight_update(&play, &player.tower);                
                         break;
 
                     case BISHOP_GAME:
@@ -133,9 +131,7 @@ int main()
                     display_pre_draw();
                     al_clear_to_color(al_map_rgb(0,0,0));
 
-                    parallel_player_draw();
-                    enemy_draw();
-                    shot_draw();
+                    //parallel_player_draw();
 
                     display_post_draw(); 
                     break;

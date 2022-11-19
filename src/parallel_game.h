@@ -111,15 +111,20 @@ typedef struct PARALLEL_PLAYER {
 } PARALLEL_PLAYER;
 PARALLEL_PLAYER parallel_player;
 
+void init_parallel_bool(void) {
+    parallel_player.bishop_done = false;
+    parallel_player.tower_done = false;
+    parallel_player.knight_done = false;
+    parallel_player.king_done = false;
+    
+    return;
+}
+
 
 void init_parallel_player(void) {
     parallel_player.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     parallel_player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2) + 50;
     parallel_player.lost = false;
-    parallel_player.bishop_done = false;
-    parallel_player.tower_done = false;
-    parallel_player.knight_done = false;
-    parallel_player.king_done = false;
     parallel_player.width = PROTAGONIST_W;
     parallel_player.height = PROTAGONIST_H;
     
@@ -471,10 +476,10 @@ void shot_draw_player(void) {
     return;
 }
 
-/*
+
 void knight_update(int *play, bool *achieved) {
     tic_tac = time_count();
-    //printf("\n%d", tic_tac);
+    printf("\n%d", tic_tac);
     if(tic_tac > 15) {
        // printf("\nvenceu");
        parallel_player.knight_done = true;
@@ -487,7 +492,7 @@ void knight_update(int *play, bool *achieved) {
     
     return;
 }
-*/
+
 
 void bishop_update(int *play, bool *achieved) {
     tic_tac = time_count();

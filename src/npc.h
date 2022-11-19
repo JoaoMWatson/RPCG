@@ -104,15 +104,21 @@ void npc_update(int player_x, int player_y, int *play) {
         it_kni = detect_iteration(player_x, player_y, knight.position_map_x, knight.position_map_y, knight.width, knight.height);
         it_tow = detect_iteration(player_x, player_y, tower.position_map_x, tower.position_map_y, tower.width, tower.height);
 
+        printf("kni - %s, bis - %s, tow - %s, kin - %s\n",
+                parallel_player.knight_done? "true" : "false", 
+                parallel_player.bishop_done? "true" : "false",
+                parallel_player.tower_done? "true" : "false",
+                parallel_player.king_done? "true" : "false");
+
         if(it_bis) {
-            if(!parallel_player.bishop_done) { 
+            if(!parallel_player.bishop_done && parallel_player.knight_done) { 
                 init_parallel_player();
                 init_enemy();
                 init_shot();
                 bishop_iteration(play);
             }
         } else if(it_kin) {
-            if(!parallel_player.king_done) { 
+            if(!parallel_player.king_done && parallel_player.bishop_done && parallel_player.tower_done) { 
                 init_parallel_player();
                 init_enemy();
                 init_shot();
@@ -121,13 +127,14 @@ void npc_update(int player_x, int player_y, int *play) {
             }
         } else if(it_kni) {
             if(!parallel_player.knight_done) {
-                init_parallel_player();
-                init_enemy();
-                init_shot();
+                //init_parallel_player();
+                parallel_player.knight_done = true;
+                //init_enemy();
+                //init_shot();
                 knight_iteration(play);
             }
         } else if(it_tow) {
-            if(!parallel_player.tower_done) {
+            if(!parallel_player.tower_done && parallel_player.bishop_done) {
                 init_parallel_player();
                 init_enemy();
                 init_shot();
