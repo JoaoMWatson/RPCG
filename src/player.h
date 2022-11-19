@@ -12,6 +12,7 @@ typedef struct PROTAGONIST {
     bool knight;
     bool bishop;
     bool tower;
+    bool king;
     ALLEGRO_BITMAP *sprite;
 } PROTAGONIST;
 PROTAGONIST player;
@@ -25,6 +26,7 @@ void init_player(void) {
     player.knight = false;
     player.bishop = false;
     player.tower = false;
+    player.king = false;
 
     player.sprite = al_load_bitmap("src/images/pawn.png");
     must_init(true, player.sprite, "player sprite");

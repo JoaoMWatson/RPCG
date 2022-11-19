@@ -38,7 +38,7 @@ void game_over(bool *lost, int *play) {
 
 
 typedef struct ENEMY {
-    int x, y;
+    float x, y;
     int height;
     int width;
 } ENEMY;
@@ -71,6 +71,21 @@ void enemy_update(int play_x, int play_y) {
 }
 
 
+void enemy_king_update(int play_x, int play_y) {
+    if(tic_tac > 5) {
+        if(enemy.x > play_x)
+            enemy.x++;
+        else if(enemy.x < play_x)
+            enemy.x--;
+            
+        if(enemy.y > play_y)
+            enemy.y++;
+        else if(enemy.y < play_y)  
+            enemy.y--;
+    }
+}
+
+
 void enemy_draw(void) {
     al_draw_filled_rectangle(enemy.x, enemy.y, enemy.x + enemy.height, enemy.y + enemy.width, al_map_rgb(255, 255, 255));
 
@@ -86,6 +101,8 @@ void enemy_draw(void) {
 
 typedef struct PARALLEL_PLAYER {
     int x, y;
+    int width;
+    int height;
     bool lost;
     bool bishop_done;
     bool tower_done;
@@ -103,6 +120,8 @@ void init_parallel_player(void) {
     parallel_player.tower_done = false;
     parallel_player.knight_done = false;
     parallel_player.king_done = false;
+    parallel_player.width = PROTAGONIST_W;
+    parallel_player.height = PROTAGONIST_H;
     
     count_timer = 0;
 
@@ -155,6 +174,7 @@ typedef struct SHOT {
 
 #define SHOTS_N 98
 SHOT shots[SHOTS_N];
+SHOT shots_player[SHOTS_N];
 
 
 void init_shot(void) {
@@ -163,6 +183,18 @@ void init_shot(void) {
         shots[i].used = false;
         shots[i].size = 2.2;
     }
+    printf("inicializado\n");
+
+    return;
+}
+
+
+void init_shot_player(void) {
+    for(int i = 0; i < SHOTS_N; i++) {
+        shots_player[i].speed = 1;
+        shots_player[i].used = false;
+        shots_player[i].size = 2.2;
+    }   
     printf("inicializado\n");
 
     return;
@@ -230,10 +262,58 @@ void add_shot_bishop(void) {
 
 void add_shot(int each) {
     timing++;
-    if(each == 2)
+    if(each == 2 || each == 1 && tic_tac < 5)
         add_shot_tower();
     else if(each == 3)
         add_shot_bishop();
+
+    return;
+}
+
+
+void add_shot_player(void) {
+    timing++;
+    if(!(timing % 4)) {
+        for(int i = 0; i < SHOTS_N - 7; i += 8) {
+            if(!shots_player[i].used && !shots_player[i+1].used && !shots_player[i+2].used && !shots_player[i+3].used &&
+               !shots_player[i+4].used && !shots_player[i+5].used && !shots_player[i+6].used && !shots_player[i+7].used) {
+
+                shots_player[i].x = parallel_player.x + parallel_player.width/2;
+                shots_player[i].y = parallel_player.y + parallel_player.height;
+                shots_player[i].used = true;
+
+                shots_player[i+1].x = parallel_player.x + parallel_player.width/2;
+                shots_player[i+1].y = parallel_player.y;
+                shots_player[i+1].used = true;
+
+                shots_player[i+2].x = parallel_player.x + parallel_player.width;
+                shots_player[i+2].y = parallel_player.y + parallel_player.height/2;
+                shots_player[i+2].used = true;
+
+                shots_player[i+3].x = parallel_player.x;
+                shots_player[i+3].y = parallel_player.y + parallel_player.height/2;
+                shots_player[i+3].used = true;
+
+                shots_player[i+4].x = parallel_player.x + parallel_player.width;
+                shots_player[i+4].y = parallel_player.y + parallel_player.height;
+                shots_player[i+4].used = true;
+
+                shots_player[i+5].x = parallel_player.x;
+                shots_player[i+5].y = parallel_player.y;
+                shots_player[i+5].used = true;
+
+                shots_player[i+6].x = parallel_player.x + parallel_player.width;
+                shots_player[i+6].y = parallel_player.y + shots_player[i].size;
+                shots_player[i+6].used = true;
+
+                shots_player[i+7].x = parallel_player.x;
+                shots_player[i+7].y = parallel_player.y + parallel_player.height;
+                shots_player[i+7].used = true;
+
+                break;
+            }
+        }    
+    }
 
     return;
 }
@@ -245,6 +325,16 @@ void shot_collision(SHOT *shot, int play_x, int play_y, int x, int y, int width,
     if(col_shot) { 
         shot->used = false;
         parallel_player.lost = true;
+    }
+
+    return;
+}
+
+
+void shot_collision_player(SHOT *shot, int play_x, int play_y, int x, int y, int width, int height) {
+    col_shot = collision(play_x, play_y, x, y, width, height, enemy.width, enemy.height);
+    if(col_shot) { 
+        printf("acertou\n");
     }
 
     return;
@@ -278,22 +368,81 @@ void shot_update_bishop(int i) {
 void shot_update(int each) {
     for(int i = 0; i < SHOTS_N - 3; i += 4) {
         if(shots[i].used || shots[i+1].used || shots[i+2].used || shots[i+3].used) {
-            if(each == 2)
+            if(each == 2 || each == 1 && tic_tac < 5)
                 shot_update_tower(i);
             else if(each == 3)
                 shot_update_bishop(i);
 
-            if(shots[i].y > BUFFER_H)
+            if(each != 1) {
+                if(shots[i].y > BUFFER_H)
                 shots[i].used = false;
-            else if(shots[i+1].y < 0)
-                shots[i+1].used = false;
-            else if(shots[i+2].x > BUFFER_W)
-                shots[i+2].used = false;
-            else if(shots[i+3].x < 0)
-                shots[i+3].used = false;
+                else if(shots[i+1].y < 0)
+                    shots[i+1].used = false;
+                else if(shots[i+2].x > BUFFER_W)
+                    shots[i+2].used = false;
+                else if(shots[i+3].x < 0)
+                    shots[i+3].used = false;
+            } else {
+                if(shots[i].y > enemy.y + enemy.height + 8)
+                shots[i].used = false;
+                if(shots[i+1].y < enemy.y - 8)
+                    shots[i+1].used = false;
+                if(shots[i+2].x > enemy.x + enemy.width + 8)
+                    shots[i+2].used = false;
+                if(shots[i+3].x < enemy.x - 8)
+                    shots[i+3].used = false;
+            }
             
             for(int n = 0; n < 4; n++)
-                shot_collision(&shots[i+n], parallel_player.x, parallel_player.y, shots[i+n].x, shots[i+n].y, shots[i+n].size, shots[i+n].size);
+                if(shots[i+n].used)
+                    shot_collision(&shots[i+n], parallel_player.x, parallel_player.y, shots[i+n].x, shots[i+n].y, shots[i+n].size, shots[i+n].size);
+        }
+    }
+
+    return;
+}
+
+
+void shot_update_player(void) {
+    for(int i = 0; i < SHOTS_N - 7; i += 8) {
+        if(shots_player[i].used || shots_player[i+1].used || shots_player[i+2].used || shots_player[i+3].used ||
+           shots_player[i+4].used || shots_player[i+5].used || shots_player[i+6].used || shots_player[i+7].used) {
+
+            shots_player[i].y += shots_player[i].speed;
+            shots_player[i+1].y -= shots_player[i].speed;
+            shots_player[i+2].x += shots_player[i].speed;
+            shots_player[i+3].x -= shots_player[i].speed;
+    
+            shots_player[i+4].y += shots_player[i].speed;
+            shots_player[i+4].x += shots_player[i].speed;
+            shots_player[i+5].y -= shots_player[i].speed;
+            shots_player[i+5].x -= shots_player[i].speed;
+            shots_player[i+6].x += shots_player[i].speed;
+            shots_player[i+6].y -= shots_player[i].speed;
+            shots_player[i+7].x -= shots_player[i].speed;
+            shots_player[i+7].y += shots_player[i].speed;
+
+            if(shots_player[i].y > BUFFER_H)
+                shots_player[i].used = false;
+            if(shots_player[i+1].y < 0)
+                shots_player[i+1].used = false;
+            if(shots_player[i+2].x > BUFFER_W)
+                shots_player[i+2].used = false;
+            if(shots_player[i+3].x < 0)
+                shots_player[i+3].used = false;
+            if(shots_player[i+4].y > BUFFER_H)
+                shots_player[i+4].used = false;
+            if(shots_player[i+5].y < 0)
+                shots_player[i+5].used = false;
+            if(shots_player[i+6].x > BUFFER_W)
+                shots_player[i+6].used = false;
+            if(shots_player[i+7].x < 0)
+                shots_player[i+7].used = false;
+
+            
+            for(int n = 0; n < 8; n++)
+                if(shots_player[i+n].used)
+                    shot_collision_player(&shots_player[i+n], enemy.x, enemy.y, shots_player[i+n].x, shots_player[i+n].y, shots_player[i+n].size, shots_player[i+n].size);
         }
     }
 
@@ -304,13 +453,41 @@ void shot_update(int each) {
 void shot_draw(void) {
     for(int i = 0; i < SHOTS_N; i++) {
         if(shots[i].used) {            
-            al_draw_filled_circle(shots[i].x + 1, shots[i].y - 2, shots[i].size, al_map_rgb(255, 255, 255));
+            al_draw_filled_circle(shots[i].x, shots[i].y, shots[i].size, al_map_rgb(255, 255, 255));
         }
     }
 
     return;
 }
 
+
+void shot_draw_player(void) {
+    for(int i = 0; i < SHOTS_N; i++) {
+        if(shots_player[i].used) {            
+            al_draw_filled_circle(shots_player[i].x + 2, shots_player[i].y + 2, shots_player[i].size, al_map_rgb(255, 255, 255));
+        }
+    }
+
+    return;
+}
+
+/*
+void knight_update(int *play, bool *achieved) {
+    tic_tac = time_count();
+    //printf("\n%d", tic_tac);
+    if(tic_tac > 15) {
+       // printf("\nvenceu");
+       parallel_player.knight_done = true;
+       *achieved = true;
+       *play = 2;
+    } else if(parallel_player.lost) {
+        restart_time();
+        *play = 7;
+    }
+    
+    return;
+}
+*/
 
 void bishop_update(int *play, bool *achieved) {
     tic_tac = time_count();
@@ -345,18 +522,22 @@ void tower_update(int *play, bool *achieved) {
     return;
 }
 
-/*
-void knight_update(int *play) {
-    al_set_timer_count(timer, count_timer++);
-    timer_counted = count_timer/30;
-    printf("\n%d", (int) timer_counted);
-    if(timer_counted > 5) {
-       printf("\nvenceu");
-       parallel_player.knight_done = true;
+
+void king_update(int *play, bool *achieved) {
+    tic_tac = time_count();
+    //printf("\n%d", tic_tac);
+    if(tic_tac > 15) {
+       // printf("\nvenceu");
+       parallel_player.king_done = true;
+       *achieved = true;
        *play = 2;
-    } 
+    } else if(parallel_player.lost) {
+        restart_time();
+        *play = 7;
+    }
     
     return;
 }
-*/
+
+
 #endif

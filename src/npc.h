@@ -115,6 +115,8 @@ void npc_update(int player_x, int player_y, int *play) {
             if(!parallel_player.king_done) { 
                 init_parallel_player();
                 init_enemy();
+                init_shot();
+                init_shot_player();
                 king_iteration(play);
             }
         } else if(it_kni) {

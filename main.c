@@ -82,7 +82,14 @@ int main()
                         break;
 
                     case KING_GAME:
-                        parallel_player_update();  
+                        parallel_player_update();
+                        enemy_king_update(parallel_player.x, parallel_player.y);
+                        add_shot(1);
+                        if(key[ALLEGRO_KEY_X])
+                            add_shot_player();
+                        shot_update(1);
+                        shot_update_player();
+                        tower_update(&play, &player.king);  
                         break;
 
                     case GAME_OVER:
@@ -161,6 +168,9 @@ int main()
 
                     parallel_player_draw();
                     enemy_draw();
+                    shot_draw();
+                    
+                    shot_draw_player();
 
                     display_post_draw(); 
                     break;     

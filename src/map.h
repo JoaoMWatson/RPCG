@@ -18,22 +18,30 @@ typedef struct SPRITE_MAP
     ALLEGRO_BITMAP* corner_bottom;
     ALLEGRO_BITMAP* floor;
     ALLEGRO_BITMAP* wall;
+    ALLEGRO_BITMAP* border_top_left;
+    ALLEGRO_BITMAP* border_top_right;
+    ALLEGRO_BITMAP* border_bottom_left;
+    ALLEGRO_BITMAP* border_bottom_right;
 }SPRITE_MAP;
 SPRITE_MAP sprite_map;
 
 enum sprite_block
 {
-    VOIDING = 10,
-    CORNER_TOP_LEFT = 20,
-    CORNER_TOP_RIGHT = 30,
-    CORNER_BOTTOM_LEFT = 40,
-    CORNER_BOTTOM_RIGHT = 50,
-    CORNER_LEFT = 60,
-    CORNER_RIGHT = 70,
-    CORNER_TOP = 80,
-    CORNER_BOTTOM = 90,
-    FLOOR = 100,
-    WALL = 110
+    VOIDING = 10,             //vazio
+    CORNER_TOP_LEFT = 20,     //canto superior esquerdo
+    CORNER_TOP_RIGHT = 30,    // canto superior direito
+    CORNER_BOTTOM_LEFT = 40,  // canto inferior esquerdo
+    CORNER_BOTTOM_RIGHT = 50, //canto inferior direito
+    CORNER_LEFT = 60,         // canto esquerdo
+    CORNER_RIGHT = 70,        //canto direito
+    CORNER_TOP = 80,          //canto superior
+    CORNER_BOTTOM = 90,       //canto inferior
+    FLOOR = 100,              //piso
+    WALL = 110,                // muro
+    BORDER_TOP_LEFT = 130,     //borda superior esquerdo
+    BORDER_TOP_RIGHT = 140,    // borda superior direito
+    BORDER_BOTTOM_LEFT = 150,  // borda inferior esquerdo
+    BORDER_BOTTOM_RIGHT = 160   // borda inferior direita
 };
 
 
@@ -51,12 +59,21 @@ void init_sprites_map(void)
     must_init(true, sprite_map._sheet, "inside map spritesheet");
     
     if(sprite_map._sheet != NULL) {
-        sprite_map.checkered_floor = grab_sprite_map(64, 0, 32, 32);
-        sprite_map.voiding = grab_sprite_map(32, 32, 32, 32);
-        sprite_map.corner_bottom_right = grab_sprite_map(96, 64, 32, 32);
-        sprite_map.corner_bottom = grab_sprite_map(64, 32, 32, 32);
-        sprite_map.corner_right = grab_sprite_map(96, 32, 32, 32);
-        sprite_map.wall= grab_sprite_map(0, 32, 32, 32);
+        sprite_map.voiding = grab_sprite_map(64, 128, 32, 32);
+        sprite_map.corner_top_left = grab_sprite_map(0, 64, 32, 32);
+        sprite_map.corner_top_right = grab_sprite_map(96, 32, 32, 32);
+        sprite_map.corner_bottom_left = grab_sprite_map(32, 64, 32, 32);
+        sprite_map.corner_bottom_right = grab_sprite_map(64, 32, 32, 32);
+        sprite_map.corner_left = grab_sprite_map(0, 96, 32, 32);
+        sprite_map.corner_right = grab_sprite_map(64, 64, 32, 32);
+        sprite_map.corner_top = grab_sprite_map(96, 64, 32, 32);
+        sprite_map.corner_bottom = grab_sprite_map(32, 96, 32, 32);
+        sprite_map.checkered_floor = grab_sprite_map(0, 0, 32, 32);
+        sprite_map.wall= grab_sprite_map(96, 0, 32, 32);
+        sprite_map.border_top_left = grab_sprite_map(32, 128, 32, 32);
+        sprite_map.border_top_right = grab_sprite_map(0, 128, 32, 32);
+        sprite_map.border_bottom_left = grab_sprite_map(64, 96, 32, 32);
+        sprite_map.border_bottom_right = grab_sprite_map(96, 96, 32, 32);
     }
 
     return;
@@ -145,7 +162,11 @@ void detect_collision(int *player_position_x, int *player_position_y)
             || map[i][j] == CORNER_BOTTOM 
             || map[i][j] == WALL
             || map[i][j] == CORNER_LEFT 
-            || map[i][j] == CORNER_RIGHT)
+            || map[i][j] == CORNER_RIGHT
+            || map[i][j] == BORDER_TOP_LEFT 
+            || map[i][j] == BORDER_TOP_RIGHT 
+            || map[i][j] == BORDER_BOTTOM_RIGHT 
+            || map[i][j] == BORDER_BOTTOM_LEFT)
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
@@ -195,11 +216,11 @@ void map_draw()
                     break;
 
                 case CORNER_TOP_LEFT:
-                    /* code */
+                   al_draw_bitmap(sprite_map.corner_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
                 
                 case CORNER_TOP_RIGHT:
-                    /* code */
+                   al_draw_bitmap(sprite_map.corner_top_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 case CORNER_BOTTOM_RIGHT:
@@ -207,11 +228,11 @@ void map_draw()
                     break;
 
                 case CORNER_BOTTOM_LEFT:
-                    /* code */
+                    al_draw_bitmap(sprite_map.corner_bottom_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
-
+                    
                 case CORNER_LEFT:
-                    /* code */
+                    al_draw_bitmap(sprite_map.corner_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 case CORNER_RIGHT:
@@ -219,7 +240,7 @@ void map_draw()
                     break;          
 
                 case CORNER_TOP:
-                    /* code */
+                    al_draw_bitmap(sprite_map.corner_top, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 case CORNER_BOTTOM:
@@ -232,6 +253,22 @@ void map_draw()
 
                 case WALL:
                     al_draw_bitmap(sprite_map.wall, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case BORDER_TOP_LEFT:
+                   al_draw_bitmap(sprite_map.border_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+                
+                case BORDER_TOP_RIGHT:
+                   al_draw_bitmap(sprite_map.border_top_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case BORDER_BOTTOM_RIGHT:
+                    al_draw_bitmap(sprite_map.border_bottom_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);           
+                    break;
+
+                case BORDER_BOTTOM_LEFT:
+                    al_draw_bitmap(sprite_map.border_bottom_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 default:
@@ -259,6 +296,11 @@ void destroy_sprites_map(void)
     al_destroy_bitmap(sprite_map.corner_bottom);
     al_destroy_bitmap(sprite_map.floor);
     al_destroy_bitmap(sprite_map.wall);
+    al_destroy_bitmap(sprite_map.border_top_left);
+    al_destroy_bitmap(sprite_map.border_top_right);
+    al_destroy_bitmap(sprite_map.border_bottom_left);
+    al_destroy_bitmap(sprite_map.border_bottom_right);
+
     return;
 }
 
