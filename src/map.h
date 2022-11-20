@@ -18,10 +18,24 @@ typedef struct SPRITE_MAP
     ALLEGRO_BITMAP* corner_bottom;
     ALLEGRO_BITMAP* floor;
     ALLEGRO_BITMAP* wall;
+    ALLEGRO_BITMAP* red_wall;
     ALLEGRO_BITMAP* border_top_left;
     ALLEGRO_BITMAP* border_top_right;
     ALLEGRO_BITMAP* border_bottom_left;
     ALLEGRO_BITMAP* border_bottom_right;
+    ALLEGRO_BITMAP* door;
+    ALLEGRO_BITMAP* flag;
+    ALLEGRO_BITMAP* torch;
+    ALLEGRO_BITMAP* rug_top_left;
+    ALLEGRO_BITMAP* rug_top_right;
+    ALLEGRO_BITMAP* rug_bottom_left;
+    ALLEGRO_BITMAP* rug_bottom_right;
+    ALLEGRO_BITMAP* rug_top_center;
+    ALLEGRO_BITMAP* rug_bottom_center;
+    ALLEGRO_BITMAP* windows;
+    ALLEGRO_BITMAP* red_windows;
+ 
+
 }SPRITE_MAP;
 SPRITE_MAP sprite_map;
 
@@ -38,11 +52,23 @@ enum sprite_block
     CORNER_BOTTOM = 90,       //canto inferior
     FLOOR = 100,              //piso
     WALL = 110,                // muro
-    BORDER_TOP_LEFT = 130,     //borda superior esquerdo
-    BORDER_TOP_RIGHT = 140,    // borda superior direito
-    BORDER_BOTTOM_LEFT = 150,  // borda inferior esquerdo
-    BORDER_BOTTOM_RIGHT = 160   // borda inferior direita
-};
+    RED_WALL = 111,
+    BORDER_TOP_LEFT = 25,      //borda superior esquerdo
+    BORDER_TOP_RIGHT = 35,     // borda superior direito
+    BORDER_BOTTOM_LEFT = 45,   // borda inferior esquerdo
+    BORDER_BOTTOM_RIGHT = 55,  // borda inferior direitO
+    DOOR = 112,
+    FLAG = 113,
+    TORCH = 114,
+    RUG_TOP_LEFT = 115,
+    RUG_TOP_RIGHT = 116,
+    RUG_BOTTOM_LEFT = 117,
+    RUG_BOTTOM_RIGHT = 118,
+    RUG_TOP_CENTER = 119,
+    RUG_BOTTOM_CENTER = 120,
+    WINDOWS = 121,
+    RED_WINDOWS = 122, 
+     };
 
 
 ALLEGRO_BITMAP* grab_sprite_map(int x, int y, int w, int h)
@@ -59,21 +85,34 @@ void init_sprites_map(void)
     must_init(true, sprite_map._sheet, "inside map spritesheet");
     
     if(sprite_map._sheet != NULL) {
-        sprite_map.voiding = grab_sprite_map(64, 128, 32, 32);
-        sprite_map.corner_top_left = grab_sprite_map(0, 64, 32, 32);
-        sprite_map.corner_top_right = grab_sprite_map(96, 32, 32, 32);
-        sprite_map.corner_bottom_left = grab_sprite_map(32, 64, 32, 32);
-        sprite_map.corner_bottom_right = grab_sprite_map(64, 32, 32, 32);
-        sprite_map.corner_left = grab_sprite_map(0, 96, 32, 32);
-        sprite_map.corner_right = grab_sprite_map(64, 64, 32, 32);
-        sprite_map.corner_top = grab_sprite_map(96, 64, 32, 32);
-        sprite_map.corner_bottom = grab_sprite_map(32, 96, 32, 32);
+        sprite_map.voiding = grab_sprite_map(32, 160, 32, 32);
+        sprite_map.corner_top_left = grab_sprite_map(128, 96, 32, 32);
+        sprite_map.corner_top_right = grab_sprite_map(96, 96, 32, 32);
+        sprite_map.corner_bottom_left = grab_sprite_map(32, 96, 32, 32);
+        sprite_map.corner_bottom_right = grab_sprite_map(64, 96, 32, 32);
+        sprite_map.corner_left = grab_sprite_map(128, 128, 32, 32);
+        sprite_map.corner_right = grab_sprite_map(0, 160, 32, 32);
+        sprite_map.corner_top = grab_sprite_map(96, 128, 32, 32);
+        sprite_map.corner_bottom = grab_sprite_map(160, 128, 32, 32);
         sprite_map.checkered_floor = grab_sprite_map(0, 0, 32, 32);
-        sprite_map.wall= grab_sprite_map(96, 0, 32, 32);
-        sprite_map.border_top_left = grab_sprite_map(32, 128, 32, 32);
-        sprite_map.border_top_right = grab_sprite_map(0, 128, 32, 32);
-        sprite_map.border_bottom_left = grab_sprite_map(64, 96, 32, 32);
-        sprite_map.border_bottom_right = grab_sprite_map(96, 96, 32, 32);
+        sprite_map.wall = grab_sprite_map(96, 32, 32, 32);
+        sprite_map.red_wall = grab_sprite_map(32, 32, 32, 32);
+        sprite_map.border_top_left = grab_sprite_map(160, 96, 32, 32);
+        sprite_map.border_top_right = grab_sprite_map(64, 128, 32, 32);
+        sprite_map.border_bottom_left = grab_sprite_map(0, 128, 32, 32);
+        sprite_map.border_bottom_right = grab_sprite_map(32, 128, 32, 32);
+        sprite_map.door = grab_sprite_map(0, 96, 32, 32);
+        sprite_map.flag = grab_sprite_map(160, 64, 32, 32);
+        sprite_map.torch = grab_sprite_map(0, 64, 32, 32);
+        sprite_map.rug_top_left = grab_sprite_map(96, 0, 32, 32);
+        sprite_map.rug_top_right = grab_sprite_map(160, 0, 32, 32);
+        sprite_map.rug_bottom_left= grab_sprite_map(128, 0, 32, 32);
+        sprite_map.rug_bottom_right = grab_sprite_map(0, 32, 32, 32);
+        sprite_map.rug_top_center= grab_sprite_map(32, 0, 32, 32);
+        sprite_map.rug_bottom_center = grab_sprite_map(64, 0, 32, 32);
+        sprite_map.windows = grab_sprite_map(128, 32, 32, 32);
+        sprite_map.red_windows = grab_sprite_map(160, 32, 32, 32);
+        
     }
 
     return;
@@ -161,12 +200,18 @@ void detect_collision(int *player_position_x, int *player_position_y)
             || map[i][j] == CORNER_TOP 
             || map[i][j] == CORNER_BOTTOM 
             || map[i][j] == WALL
+            || map[i][j] == RED_WALL
             || map[i][j] == CORNER_LEFT 
             || map[i][j] == CORNER_RIGHT
             || map[i][j] == BORDER_TOP_LEFT 
             || map[i][j] == BORDER_TOP_RIGHT 
             || map[i][j] == BORDER_BOTTOM_RIGHT 
-            || map[i][j] == BORDER_BOTTOM_LEFT)
+            || map[i][j] == BORDER_BOTTOM_LEFT
+            || map[i][j] == DOOR
+            || map[i][j] == FLAG
+            || map[i][j] == TORCH 
+            || map[i][j] == WINDOWS 
+            || map[i][j] == RED_WINDOWS  )
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
@@ -254,6 +299,10 @@ void map_draw()
                 case WALL:
                     al_draw_bitmap(sprite_map.wall, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
+                
+                case RED_WALL:
+                    al_draw_bitmap(sprite_map.red_wall, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
 
                 case BORDER_TOP_LEFT:
                    al_draw_bitmap(sprite_map.border_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
@@ -269,6 +318,49 @@ void map_draw()
 
                 case BORDER_BOTTOM_LEFT:
                     al_draw_bitmap(sprite_map.border_bottom_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case DOOR:
+                    al_draw_bitmap(sprite_map.door, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case FLAG:
+                    al_draw_bitmap(sprite_map.flag, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);          
+                    break;
+
+                case TORCH:
+                    al_draw_bitmap(sprite_map.torch, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case RUG_TOP_LEFT:
+                   al_draw_bitmap(sprite_map.rug_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+                
+                case RUG_TOP_RIGHT:
+                   al_draw_bitmap(sprite_map.rug_top_right , xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case RUG_BOTTOM_LEFT:
+                    al_draw_bitmap(sprite_map.rug_bottom_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);           
+                    break;
+                
+                case RUG_BOTTOM_RIGHT :
+                   al_draw_bitmap(sprite_map.rug_bottom_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+                
+                case RUG_TOP_CENTER :
+                   al_draw_bitmap(sprite_map.rug_top_center, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case RUG_BOTTOM_CENTER :
+                    al_draw_bitmap(sprite_map.rug_bottom_center, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);           
+                    break;
+                case WINDOWS :
+                   al_draw_bitmap(sprite_map.windows, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    break;
+
+                case RED_WINDOWS:
+                    al_draw_bitmap(sprite_map.red_windows, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);           
                     break;
 
                 default:
@@ -296,10 +388,23 @@ void destroy_sprites_map(void)
     al_destroy_bitmap(sprite_map.corner_bottom);
     al_destroy_bitmap(sprite_map.floor);
     al_destroy_bitmap(sprite_map.wall);
+    al_destroy_bitmap(sprite_map.red_wall);
     al_destroy_bitmap(sprite_map.border_top_left);
     al_destroy_bitmap(sprite_map.border_top_right);
     al_destroy_bitmap(sprite_map.border_bottom_left);
     al_destroy_bitmap(sprite_map.border_bottom_right);
+    al_destroy_bitmap(sprite_map.door);
+    al_destroy_bitmap(sprite_map.flag);
+    al_destroy_bitmap(sprite_map.torch);
+    al_destroy_bitmap(sprite_map.rug_top_left);
+    al_destroy_bitmap(sprite_map.rug_top_right);
+    al_destroy_bitmap(sprite_map.rug_bottom_left);
+    al_destroy_bitmap(sprite_map.rug_bottom_right);
+    al_destroy_bitmap(sprite_map.rug_top_center);
+    al_destroy_bitmap(sprite_map.rug_bottom_center);
+    al_destroy_bitmap(sprite_map.windows);
+    al_destroy_bitmap(sprite_map.red_windows);
+
 
     return;
 }
