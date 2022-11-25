@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <allegro5/allegro5.h>
 #include <allegro5/allegro_font.h> // writing
 #include <allegro5/allegro_ttf.h>
@@ -16,6 +17,7 @@ void collision_reaction(bool collision, int *player_position_x, int *player_posi
 #include "src/map.h"
 #include "src/npc.h"
 #include "src/parallel_game.h"
+#include "src/screenplay.h"
 
 
 enum play_what
@@ -60,7 +62,7 @@ int main()
                     
                     case KNIGHT_GAME:
                         parallel_player_update();
-                        knight_update(&play);              
+                        knight_update(&play, &player.knight);              
                         break;
 
                     case BISHOP_GAME:
@@ -131,7 +133,7 @@ int main()
                     display_pre_draw();
                     al_clear_to_color(al_map_rgb(0,0,0));
 
-                    //parallel_player_draw();
+                    knight_script_draw();
 
                     display_post_draw(); 
                     break;

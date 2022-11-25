@@ -1,6 +1,7 @@
 #ifndef PARALLEL_GAME
 #define PARALLEL_GAME
 #include "map.h"
+#include "screenplay.h"
 
 int count_timer = 0;
 int tic_tac;
@@ -476,18 +477,13 @@ void shot_draw_player(void) {
     return;
 }
 
-
-void knight_update(int *play) {
+int oi = 0;
+void knight_update(int *play, int *which) {
     tic_tac = time_count();
-    printf("\n%d", tic_tac);
-    if(tic_tac > 15) {
-       // printf("\nvenceu");
-       parallel_player.knight_done = true;
-       *play = 2;
-    } else if(parallel_player.lost) {
-        restart_time();
-        *play = 7;
-    }
+
+    if(tic_tac > 0)
+        knight_script(&parallel_player.knight_done, which, play);
+    
     
     return;
 }

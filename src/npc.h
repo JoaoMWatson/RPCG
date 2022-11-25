@@ -127,10 +127,7 @@ void npc_update(int player_x, int player_y, int *play) {
             }
         } else if(it_kni) {
             if(!parallel_player.knight_done) {
-                //init_parallel_player();
-                parallel_player.knight_done = true;
-                //init_enemy();
-                //init_shot();
+                //parallel_player.knight_done = true;
                 knight_iteration(play);
             }
         } else if(it_tow) {
