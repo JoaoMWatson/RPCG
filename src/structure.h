@@ -29,8 +29,8 @@ bool must_init(bool check, bool test, const char *description)
 
 
 /************* DISPLAY STUFF *************/
-#define BUFFER_W 205
-#define BUFFER_H 205
+#define BUFFER_W 200
+#define BUFFER_H 250
 
 #define DISP_SCALE 3
 #define DISP_W (BUFFER_W * DISP_SCALE)
@@ -44,6 +44,7 @@ bool init_display(bool check)
 
     display = al_create_display(DISP_W, DISP_H); // window size (width x height)
     check = must_init(check, display, "display");
+    al_set_window_position(display, DISP_W, DISP_H/4);
 
     buffer = al_create_bitmap(BUFFER_W, BUFFER_H);
     check = must_init(check, buffer, "bitmap buffer");

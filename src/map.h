@@ -211,7 +211,7 @@ void detect_collision(int *player_position_x, int *player_position_y)
             || map[i][j] == FLAG
             || map[i][j] == TORCH 
             || map[i][j] == WINDOWS 
-            || map[i][j] == RED_WINDOWS  )
+            || map[i][j] == RED_WINDOWS)
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
@@ -261,11 +261,11 @@ void map_draw()
                     break;
 
                 case CORNER_TOP_LEFT:
-                   al_draw_bitmap(sprite_map.corner_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    al_draw_bitmap(sprite_map.corner_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
                 
                 case CORNER_TOP_RIGHT:
-                   al_draw_bitmap(sprite_map.corner_top_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    al_draw_bitmap(sprite_map.corner_top_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 case CORNER_BOTTOM_RIGHT:
@@ -305,11 +305,11 @@ void map_draw()
                     break;
 
                 case BORDER_TOP_LEFT:
-                   al_draw_bitmap(sprite_map.border_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    al_draw_bitmap(sprite_map.border_top_left, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
                 
                 case BORDER_TOP_RIGHT:
-                   al_draw_bitmap(sprite_map.border_top_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    al_draw_bitmap(sprite_map.border_top_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 case BORDER_BOTTOM_RIGHT:
@@ -345,18 +345,18 @@ void map_draw()
                     break;
                 
                 case RUG_BOTTOM_RIGHT :
-                   al_draw_bitmap(sprite_map.rug_bottom_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    al_draw_bitmap(sprite_map.rug_bottom_right, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
                 
                 case RUG_TOP_CENTER :
-                   al_draw_bitmap(sprite_map.rug_top_center, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    al_draw_bitmap(sprite_map.rug_top_center, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 case RUG_BOTTOM_CENTER :
                     al_draw_bitmap(sprite_map.rug_bottom_center, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);           
                     break;
                 case WINDOWS :
-                   al_draw_bitmap(sprite_map.windows, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
+                    al_draw_bitmap(sprite_map.windows, xOff + tile_size * (count % map_columns), yOff + tile_size * (count / map_columns), 0);
                     break;
 
                 case RED_WINDOWS:
@@ -364,6 +364,7 @@ void map_draw()
                     break;
 
                 default:
+                    printf("ALERT! Número desconhecido no maping.txt\n");
                     break;
             }                
 

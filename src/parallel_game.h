@@ -477,13 +477,12 @@ void shot_draw_player(void) {
 }
 
 
-void knight_update(int *play, bool *achieved) {
+void knight_update(int *play) {
     tic_tac = time_count();
     printf("\n%d", tic_tac);
     if(tic_tac > 15) {
        // printf("\nvenceu");
        parallel_player.knight_done = true;
-       *achieved = true;
        *play = 2;
     } else if(parallel_player.lost) {
         restart_time();
@@ -494,13 +493,12 @@ void knight_update(int *play, bool *achieved) {
 }
 
 
-void bishop_update(int *play, bool *achieved) {
+void bishop_update(int *play) {
     tic_tac = time_count();
     //printf("\n%d", tic_tac);
     if(tic_tac > 15) {
        // printf("\nvenceu");
        parallel_player.bishop_done = true;
-       *achieved = true;
        *play = 2;
     } else if(parallel_player.lost) {
         restart_time();
@@ -511,13 +509,12 @@ void bishop_update(int *play, bool *achieved) {
 }
 
 
-void tower_update(int *play, bool *achieved) {
+void tower_update(int *play) {
     tic_tac = time_count();
     //printf("\n%d", tic_tac);
     if(tic_tac > 15) {
        // printf("\nvenceu");
        parallel_player.tower_done = true;
-       *achieved = true;
        *play = 2;
     } else if(parallel_player.lost) {
         restart_time();
@@ -528,13 +525,12 @@ void tower_update(int *play, bool *achieved) {
 }
 
 
-void king_update(int *play, bool *achieved) {
+void king_update(int *play) {
     tic_tac = time_count();
     //printf("\n%d", tic_tac);
     if(tic_tac > 15) {
        // printf("\nvenceu");
        parallel_player.king_done = true;
-       *achieved = true;
        *play = 2;
     } else if(parallel_player.lost) {
         restart_time();

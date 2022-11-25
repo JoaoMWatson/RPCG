@@ -60,7 +60,7 @@ int main()
                     
                     case KNIGHT_GAME:
                         parallel_player_update();
-                        knight_update(&play, &player.tower);                
+                        knight_update(&play);              
                         break;
 
                     case BISHOP_GAME:
@@ -68,7 +68,7 @@ int main()
                         enemy_update(parallel_player.x, parallel_player.y);
                         add_shot(3);
                         shot_update(3);
-                        bishop_update(&play, &player.bishop);   
+                        bishop_update(&play);  
                         break; 
 
                     case TOWER_GAME:
@@ -76,7 +76,7 @@ int main()
                         enemy_update(parallel_player.x, parallel_player.y);
                         add_shot(2);
                         shot_update(2);
-                        tower_update(&play, &player.tower);  
+                        tower_update(&play);  
                         break;
 
                     case KING_GAME:
@@ -87,7 +87,7 @@ int main()
                             add_shot_player();
                         shot_update(1);
                         shot_update_player();
-                        tower_update(&play, &player.king);  
+                        tower_update(&play);  
                         break;
 
                     case GAME_OVER:
