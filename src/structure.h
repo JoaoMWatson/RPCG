@@ -78,7 +78,9 @@ void display_post_draw(void) {
 /************* KEYBOARD STUFF *************/
 #define KEY_SEEN     1
 #define KEY_RELEASED 2
+ALLEGRO_KEYBOARD_STATE *k;
 unsigned char key[ALLEGRO_KEY_MAX];
+unsigned char key_up[ALLEGRO_KEY_MAX];
 
 void keyboard_init(void) 
 {
@@ -99,6 +101,7 @@ void keyboard_update(ALLEGRO_EVENT* event)
 
         case ALLEGRO_EVENT_KEY_DOWN:
             key[event->keyboard.keycode] = KEY_SEEN | KEY_RELEASED;
+            key_up[event->keyboard.keycode] = KEY_RELEASED;
             break;
         case ALLEGRO_EVENT_KEY_UP:
             key[event->keyboard.keycode] &= KEY_RELEASED;
@@ -121,7 +124,7 @@ bool init_structure_all(void)
     check = must_init(check, al_init_font_addon(), "font addon");
     check = must_init(check, al_init_ttf_addon(), "ttf addon");
 
-    void keyboard_init();
+    keyboard_init();
 
     // smooth the edges of primitives 
     

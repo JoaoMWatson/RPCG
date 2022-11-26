@@ -1,6 +1,7 @@
 #ifndef NPC
 #define NPC
 #include "parallel_game.h"
+#include "screenplay.h"
 
 typedef struct NPC
 {
@@ -98,12 +99,13 @@ bool it_kin;
 bool it_kni;
 bool it_tow;
 void npc_update(int player_x, int player_y, int *play) {
-    if(key[ALLEGRO_KEY_E]) {
-        it_bis = detect_iteration(player_x, player_y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height);
-        it_kin = detect_iteration(player_x, player_y, king.position_map_x, king.position_map_y, king.width, king.height);
-        it_kni = detect_iteration(player_x, player_y, knight.position_map_x, knight.position_map_y, knight.width, knight.height);
-        it_tow = detect_iteration(player_x, player_y, tower.position_map_x, tower.position_map_y, tower.width, tower.height);
+    it_bis = detect_iteration(player_x, player_y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height);
+    it_kin = detect_iteration(player_x, player_y, king.position_map_x, king.position_map_y, king.width, king.height);
+    it_kni = detect_iteration(player_x, player_y, knight.position_map_x, knight.position_map_y, knight.width, knight.height);
+    it_tow = detect_iteration(player_x, player_y, tower.position_map_x, tower.position_map_y, tower.width, tower.height);
 
+    if(key[ALLEGRO_KEY_E]) {
+        
         printf("kni - %s, bis - %s, tow - %s, kin - %s\n",
                 parallel_player.knight_done? "true" : "false", 
                 parallel_player.bishop_done? "true" : "false",
@@ -118,7 +120,7 @@ void npc_update(int player_x, int player_y, int *play) {
                 bishop_iteration(play);
             }
         } else if(it_kin) {
-            if(!parallel_player.king_done && parallel_player.bishop_done && parallel_player.tower_done) { 
+            if(!parallel_player.king_done && parallel_player.tower_done) { 
                 init_parallel_player();
                 init_enemy();
                 init_shot();
@@ -127,8 +129,10 @@ void npc_update(int player_x, int player_y, int *play) {
             }
         } else if(it_kni) {
             if(!parallel_player.knight_done) {
-                //parallel_player.knight_done = true;
                 knight_iteration(play);
+            } else {
+                sc_kni.map_it = !sc_kni.map_it;
+                knight_script(&parallel_player.king_done, &player.knight, play);
             }
         } else if(it_tow) {
             if(!parallel_player.tower_done && parallel_player.bishop_done) {

@@ -446,9 +446,10 @@ void shot_update_player(void) {
                 shots_player[i+7].used = false;
 
             
-            for(int n = 0; n < 8; n++)
+            for(int n = 0; n < 8; n++) {
                 if(shots_player[i+n].used)
                     shot_collision_player(&shots_player[i+n], enemy.x, enemy.y, shots_player[i+n].x, shots_player[i+n].y, shots_player[i+n].size, shots_player[i+n].size);
+            }
         }
     }
 

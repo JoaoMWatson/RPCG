@@ -55,7 +55,8 @@ int main()
                 switch (play)
                 {
                     case MAIN_GAME:
-                        player_update();       
+                        if(!sc_kni.map_it)
+                            player_update();       
                         map_update(&player.position_x, &player.position_y);
                         npc_update(player.position_x, player.position_y, &play);
                         break;
@@ -124,6 +125,8 @@ int main()
                     map_draw();
                     player_draw();
                     npc_draw(xOff, yOff);
+                    if(sc_kni.map_it)
+                        knight_script_draw();
                    
                     display_post_draw();
                     break;
@@ -165,8 +168,7 @@ int main()
 
                     parallel_player_draw();
                     enemy_draw();
-                    shot_draw();
-                    
+                    shot_draw(); 
                     shot_draw_player();
 
                     display_post_draw(); 
