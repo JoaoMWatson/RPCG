@@ -2,6 +2,7 @@
 #define NPC
 #include "parallel_game.h"
 #include "screenplay.h"
+#include "map.h"
 
 typedef struct NPC
 {
