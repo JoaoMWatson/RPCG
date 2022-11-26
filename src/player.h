@@ -57,4 +57,11 @@ void player_draw(void)
     return;
 }
 
+
+void destroy_player(void) {
+    al_destroy_bitmap(player.sprite);
+
+    return;
+}
+
 #endif

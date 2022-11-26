@@ -61,7 +61,6 @@ int main()
                         break;
                     
                     case KNIGHT_GAME:
-                        parallel_player_update();
                         knight_update(&play, &player.knight);              
                         break;
 
@@ -125,7 +124,7 @@ int main()
                     map_draw();
                     player_draw();
                     npc_draw(xOff, yOff);
-
+                   
                     display_post_draw();
                     break;
                 
@@ -188,6 +187,7 @@ int main()
 
 
     destroy_structure_all();
+    destroy_player();
     destroy_sprites_map();
     
     

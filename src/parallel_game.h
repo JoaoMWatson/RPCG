@@ -481,9 +481,10 @@ int oi = 0;
 void knight_update(int *play, int *which) {
     tic_tac = time_count();
 
-    if(tic_tac > 0)
+    if(count_timer > 3) {
         knight_script(&parallel_player.knight_done, which, play);
-    
+        restart_time();
+    }
     
     return;
 }
