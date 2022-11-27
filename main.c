@@ -123,10 +123,10 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     map_draw();
-                    player_draw();
                     npc_draw(xOff, yOff);
                     if(sc_kni.map_it)
                         knight_script_draw();
+                    player_draw();
                    
                     display_post_draw();
                     break;

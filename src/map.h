@@ -95,10 +95,10 @@ enum sprite_block
 };
 
 
-ALLEGRO_BITMAP* grab_sprite_map(int x, int y, int w, int h)
+ALLEGRO_BITMAP* grab_sprite_map(int x, int y, int w, int h, char m[])
 {
     ALLEGRO_BITMAP* sprite = al_create_sub_bitmap(sprite_map._sheet, x, y, w, h);
-    must_init(true, sprite, "sprite grab");
+    must_init(true, sprite, m);
     return sprite;
 }
 
@@ -109,47 +109,47 @@ void init_sprites_map(void)
     must_init(true, sprite_map._sheet, "inside map spritesheet");
     
     if(sprite_map._sheet != NULL) {
-        sprite_map.voiding = grab_sprite_map(64, 128, 32, 32);
-        sprite_map.corner_top_left = grab_sprite_map(64, 96, 32, 32);
-        sprite_map.corner_top_right = grab_sprite_map(32, 96, 32, 32);
-        sprite_map.corner_bottom_left = grab_sprite_map(256, 64, 32, 32);
-        sprite_map.corner_bottom_right = grab_sprite_map(0, 96, 32, 32);
-        sprite_map.corner_left = grab_sprite_map(256, 96, 32, 32);
-        sprite_map.corner_right = grab_sprite_map(32, 128, 32, 32);
-        sprite_map.corner_top = grab_sprite_map(224, 96, 32, 32);
-        sprite_map.corner_bottom = grab_sprite_map(0, 128, 32, 32);
-        sprite_map.checkered_floor = grab_sprite_map(0, 0, 32, 32);
-        sprite_map.wall = grab_sprite_map(160, 32, 32, 32);
-        sprite_map.red_wall = grab_sprite_map(128, 32, 32, 32);
-        sprite_map.border_top_left = grab_sprite_map(96, 96, 32, 32);
-        sprite_map.border_top_right = grab_sprite_map(192, 96, 32, 32);
-        sprite_map.border_bottom_left = grab_sprite_map(128, 96, 32, 32);
-        sprite_map.border_bottom_right = grab_sprite_map(160, 96, 32, 32);
-        sprite_map.door = grab_sprite_map(224, 64, 32, 32);
-        sprite_map.flag = grab_sprite_map(160, 64, 32, 32);
-        sprite_map.red_flag = grab_sprite_map(192, 64, 32, 32);
-        sprite_map.rug_top_left = grab_sprite_map(96, 32, 32, 32);
-        sprite_map.rug_top_right = grab_sprite_map(32, 32, 32, 32);
-        sprite_map.rug_bottom_left= grab_sprite_map(64, 32, 32, 32);
-        sprite_map.rug_bottom_right = grab_sprite_map(0, 32, 32, 32);
-        sprite_map.rug_top_center= grab_sprite_map(256, 0, 32, 32);
-        sprite_map.rug_bottom_center = grab_sprite_map(224, 0, 32, 32);
-        sprite_map.windows = grab_sprite_map(192, 32, 32, 32);
-        sprite_map.red_windows = grab_sprite_map(224, 32, 32, 32);
+        sprite_map.voiding = grab_sprite_map(64, 128, 32, 32, "voiding");
+        sprite_map.corner_top_left = grab_sprite_map(64, 96, 32, 32, "corner top left");
+        sprite_map.corner_top_right = grab_sprite_map(32, 96, 32, 32, "corner to right");
+        sprite_map.corner_bottom_left = grab_sprite_map(256, 64, 32, 32, "corner bottom left");
+        sprite_map.corner_bottom_right = grab_sprite_map(0, 96, 32, 32, "corner bottom right");
+        sprite_map.corner_left = grab_sprite_map(256, 96, 32, 32, "corner left");
+        sprite_map.corner_right = grab_sprite_map(32, 128, 32, 32, "corner right");
+        sprite_map.corner_top = grab_sprite_map(224, 96, 32, 32, "corner top");
+        sprite_map.corner_bottom = grab_sprite_map(0, 128, 32, 32, "corner bottom");
+        sprite_map.checkered_floor = grab_sprite_map(0, 0, 32, 32, "checkered floor");
+        sprite_map.wall = grab_sprite_map(160, 32, 32, 32, "wall");
+        sprite_map.red_wall = grab_sprite_map(128, 32, 32, 32, "red wall");
+        sprite_map.border_top_left = grab_sprite_map(96, 96, 32, 32, "border top left");
+        sprite_map.border_top_right = grab_sprite_map(192, 96, 32, 32, "border top right");
+        sprite_map.border_bottom_left = grab_sprite_map(128, 96, 32, 32, "border bottom left");
+        sprite_map.border_bottom_right = grab_sprite_map(160, 96, 32, 32, "border bottom right");
+        sprite_map.door = grab_sprite_map(224, 64, 32, 32, "door");
+        sprite_map.flag = grab_sprite_map(160, 64, 32, 32, "flag");
+        sprite_map.red_flag = grab_sprite_map(192, 64, 32, 32, "red flag");
+        sprite_map.rug_top_left = grab_sprite_map(96, 32, 32, 32, "rug top left");
+        sprite_map.rug_top_right = grab_sprite_map(32, 32, 32, 32, "rug top right");
+        sprite_map.rug_bottom_left= grab_sprite_map(64, 32, 32, 32, "rug bottom left");
+        sprite_map.rug_bottom_right = grab_sprite_map(0, 32, 32, 32, "rug bottom right");
+        sprite_map.rug_top_center= grab_sprite_map(256, 0, 32, 32, "rug top center");
+        sprite_map.rug_bottom_center = grab_sprite_map(224, 0, 32, 32, "rug bottom center");
+        sprite_map.windows = grab_sprite_map(192, 32, 32, 32, "windows");
+        sprite_map.red_windows = grab_sprite_map(224, 32, 32, 32, "red windows");
 
-        sprite_map.table_bottom_right = grab_sprite_map(32, 0, 32, 32);
-        sprite_map.table_bottom_left = grab_sprite_map(64, 0, 32, 32);
-        sprite_map.table_bottom = grab_sprite_map(96, 0, 32, 32);
-        sprite_map.table_top_right = grab_sprite_map(128, 0, 32, 32);
-        sprite_map.table_top_left = grab_sprite_map(160, 0, 32, 32);
-        sprite_map.table_top = grab_sprite_map(192, 0, 32, 32);
-        sprite_map.torch_center = grab_sprite_map(256, 32, 32, 32);
-        sprite_map.torch_left = grab_sprite_map(0, 64, 32, 32);
-        sprite_map.blue_torch_center = grab_sprite_map(96, 64, 32, 32);
-        sprite_map.blue_torch_left = grab_sprite_map(128, 64, 32, 32);
+        sprite_map.table_bottom_right = grab_sprite_map(32, 0, 32, 32, "table bottom right");
+        sprite_map.table_bottom_left = grab_sprite_map(64, 0, 32, 32, "table bottom left");
+        sprite_map.table_bottom = grab_sprite_map(96, 0, 32, 32, "table bottom");
+        sprite_map.table_top_right = grab_sprite_map(128, 0, 32, 32, "table top right");
+        sprite_map.table_top_left = grab_sprite_map(160, 0, 32, 32, "table top left");
+        sprite_map.table_top = grab_sprite_map(192, 0, 32, 32, "table top");
+        sprite_map.torch_center = grab_sprite_map(256, 32, 32, 32, "torch center");
+        sprite_map.torch_left = grab_sprite_map(0, 64, 32, 32, "torch left");
+        sprite_map.blue_torch_center = grab_sprite_map(96, 64, 32, 32, "blue torch center");
+        sprite_map.blue_torch_left = grab_sprite_map(128, 64, 32, 32, "blue torch left");
 
-        sprite_map.red_wall_torch_center = grab_sprite_map(32, 64, 32, 32);
-        sprite_map.red_wall_torch_left = grab_sprite_map(64, 64, 32, 32);
+        sprite_map.red_wall_torch_center = grab_sprite_map(32, 64, 32, 32, "red wall torch center");
+        sprite_map.red_wall_torch_left = grab_sprite_map(64, 64, 32, 32, "ted wall torch left");
     }
 
     return;
@@ -247,12 +247,7 @@ void detect_collision(int *player_position_x, int *player_position_y)
             || map[i][j] == DOOR
             || map[i][j] == FLAG
             || map[i][j] == RED_FLAG 
-            || map[i][j] == RUG_TOP_LEFT
-            || map[i][j] == RUG_TOP_RIGHT
-            || map[i][j] == RUG_BOTTOM_LEFT
-            || map[i][j] == RUG_BOTTOM_RIGHT
-            || map[i][j] == RUG_TOP_CENTER
-            || map[i][j] == RUG_BOTTOM_CENTER
+            || map[i][j] == WINDOWS 
             || map[i][j] == RED_WINDOWS
             || map[i][j] == TABLE_BOTTOM_RIGHT
             || map[i][j] == TABLE_BOTTOM_LEFT
@@ -272,12 +267,24 @@ void detect_collision(int *player_position_x, int *player_position_y)
             } 
             else if(j == bishop.position_x && i == bishop.position_y
                  || j == king.position_x && i == king.position_y
-                 || j == knight.position_x && i == knight.position_y
                  || j == tower.position_x && i == tower.position_y) 
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, common_size, common_size, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, common_size, common_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
+            } else if(j == knight.position_x && i == knight.position_y) {
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, knight.width, knight.height, PROTAGONIST_W, PROTAGONIST_H);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, knight.width, knight.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
+            } /*else if(j == bishop.position_x && i == bishop.position_y) {
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, bishop.width, bishop.height, PROTAGONIST_W, PROTAGONIST_H);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, bishop.width, bishop.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
+            } else if(j == tower.position_x && i == tower.position_y) {
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tower.width, tower.height, PROTAGONIST_W, PROTAGONIST_H);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tower.width, tower.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
+            } else if(j == king.position_x && i == king.position_y) {
+                col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, king.width, king.height, PROTAGONIST_W, PROTAGONIST_H);
+                collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, king.width, king.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             }
+            */
            
             //if(col)
             //   printf("Void - x.%d, y.%d Player - %d, %d Colission - %s\n", j*tile_size, i*tile_size, *player_position_x, *player_position_y, col ? "true" : "false");
