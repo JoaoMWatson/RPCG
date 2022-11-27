@@ -167,10 +167,9 @@ FILE* tile_map;
     
 int map[12][46];
 void init_map(void) { 
-   
     tile_map = fopen("src/tiles/maping.txt", "r");
     if(tile_map == NULL) {
-        fprintf(stderr, "Arquivo não foi aberto\n");
+        fprintf(stderr, "Arquivo de tiles não foi aberto\n");
         exit(1);
     }
     

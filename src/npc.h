@@ -135,10 +135,18 @@ void npc_update(int player_x, int player_y, int *play) {
         } else if(it_kni) {
             if(!parallel_player.knight_done) {
                 knight_iteration(play);
-            } else {
+            } else if(!parallel_player.tower_done && !parallel_player.bishop_done){
                 sc_kni.map_it = !sc_kni.map_it;
                 player.knight = 3;
-                knight_script(&parallel_player.king_done, &player.knight, play);
+                knight_script(&parallel_player.knight_done, &player.knight, play);
+            } else if(!parallel_player.tower_done) {
+                sc_kni.map_it = !sc_kni.map_it;
+                player.knight = 4;
+                knight_script(&parallel_player.knight_done, &player.knight, play);
+            } else if(!parallel_player.king_done) {
+                sc_kni.map_it = !sc_kni.map_it;
+                player.knight = 5;
+                knight_script(&parallel_player.knight_done, &player.knight, play);
             }
         } else if(it_tow) {
             if(!parallel_player.tower_done && parallel_player.bishop_done) {

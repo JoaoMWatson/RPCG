@@ -38,6 +38,7 @@ int main()
     init_structure_all();
     init_map();
     init_sprites_map();
+    init_script_file();
     init_player(); 
     init_parallel_bool();
     init_npc(tile_size);
@@ -55,7 +56,10 @@ int main()
                 switch (play)
                 {
                     case MAIN_GAME:
-                        if(!sc_kni.map_it)
+                        if((!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
+                        || (!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
+                        || (!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
+                        || (!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it))
                             player_update();       
                         map_update(&player.position_x, &player.position_y);
                         npc_update(player.position_x, player.position_y, &play);
