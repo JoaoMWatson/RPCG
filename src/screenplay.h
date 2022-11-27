@@ -12,6 +12,8 @@ typedef struct SCRIPT {
 SCRIPT sc_kni;
 
 SCRIPT sc_bis;
+SCRIPT sc_tow;
+SCRIPT sc_kin;
 int size_line = 12;
 
 

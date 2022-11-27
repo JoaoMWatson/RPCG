@@ -6,6 +6,7 @@ ALLEGRO_EVENT_QUEUE* queue;
 ALLEGRO_DISPLAY* display;
 ALLEGRO_BITMAP* buffer;
 ALLEGRO_FONT* font;
+ALLEGRO_FONT* font_title;
 ALLEGRO_EVENT event;
 
 bool done = false;
@@ -137,6 +138,7 @@ bool init_structure_all(void)
     check = must_init(check, queue, "queue");
 
     font = al_load_font("src/fonts/lady.ttf", 12, 2);
+    font_title = al_load_font("src/fonts/lady.ttf", 24, 2);
     check = must_init(check, font, "font");
 
     check = init_display(check);
@@ -155,6 +157,7 @@ bool init_structure_all(void)
 void destroy_structure_all(void)
 {
     al_destroy_font(font);
+    al_destroy_font(font_title);
     al_destroy_bitmap(buffer);
     al_destroy_display(display);
     al_destroy_timer(timer);

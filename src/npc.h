@@ -16,15 +16,15 @@ typedef struct NPC
 }npc;
 
 const int common_size = 28;
-npc bishop = {17, 6, common_size, common_size};
+npc bishop = {13, 5, common_size, common_size};
 npc king = {38, 6, common_size, common_size};
 npc knight = {5, 4, 38, 39};
 npc tower = {27, 5, common_size, common_size};
 
 
 void init_npc(int size) {
-    bishop.position_map_x = bishop.position_x * knight.width;
-    bishop.position_map_y = bishop.position_y * knight.height;
+    bishop.position_map_x = bishop.position_x * 32;
+    bishop.position_map_y = bishop.position_y * size;
 
     king.position_map_x = king.position_x * size;
     king.position_map_y = king.position_y * size;
@@ -51,7 +51,7 @@ void each_npc_draw(int x, int y, int position_x, int position_y, int width, int 
 void npc_draw(int x, int y) {
     each_npc_draw(x, y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height, 0, 100, 200);
     each_npc_draw(x, y, king.position_map_x, king.position_map_y, king.width, king.height, 200, 0, 100);
-    //each_npc_draw(x, y, knight.position_map_x, knight.position_map_y, knight.width, knight.height, 100, 200, 100);
+    each_npc_draw(x, y, knight.position_map_x, knight.position_map_y, knight.width, knight.height, 100, 200, 100);
     al_draw_bitmap(knight.sprite, x + knight.position_map_x, y + knight.position_map_y, 0);
     each_npc_draw(x, y, tower.position_map_x, tower.position_map_y, tower.width, tower.height, 100, 20, 100);
     
@@ -104,13 +104,13 @@ bool it_kin;
 bool it_kni;
 bool it_tow;
 void npc_update(int player_x, int player_y, int *play) {
+    tic_tac = time_count();
     it_bis = detect_iteration(player_x, player_y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height);
     it_kin = detect_iteration(player_x, player_y, king.position_map_x, king.position_map_y, king.width, king.height);
     it_kni = detect_iteration(player_x, player_y, knight.position_map_x, knight.position_map_y, knight.width, knight.height);
     it_tow = detect_iteration(player_x, player_y, tower.position_map_x, tower.position_map_y, tower.width, tower.height);
 
-    if(key[ALLEGRO_KEY_E]) {
-        
+    if(key[ALLEGRO_KEY_E] && count_timer > 2) {
         printf("kni - %s, bis - %s, tow - %s, kin - %s\n",
                 parallel_player.knight_done? "true" : "false", 
                 parallel_player.bishop_done? "true" : "false",
@@ -147,6 +147,7 @@ void npc_update(int player_x, int player_y, int *play) {
                 tower_iteration(play);
             }
         }
+        restart_time();
     } 
 
     return;

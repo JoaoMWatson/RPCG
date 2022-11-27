@@ -24,14 +24,18 @@ int time_count(void) {
 void game_over(bool *lost, int *play) {
     tic_tac = time_count();
 
-    if(tic_tac < 1) {
-    al_draw_filled_rectangle(0, BUFFER_H/4, BUFFER_W, BUFFER_H - BUFFER_H/4, al_map_rgb(155, 155, 155));
-    al_draw_filled_rectangle(0 + 10, BUFFER_H/4 + 10, BUFFER_W - 10, BUFFER_H - BUFFER_H/4 - 10, al_map_rgb(9, 9, 9));
+    if(tic_tac < 2) {
+    al_draw_filled_rectangle(0, BUFFER_H/4, BUFFER_W, BUFFER_H - BUFFER_H/4, al_map_rgba(35, 35, 35, 205));
+
+    al_draw_rectangle(0 + 6, BUFFER_H/4 + 6, BUFFER_W - 6, BUFFER_H - BUFFER_H/4 - 6, al_map_rgba(205, 205, 205, 205), 0);
+    //al_draw_filled_rectangle(0 + 10, BUFFER_H/4 + 10, BUFFER_W - 10, BUFFER_H - BUFFER_H/4 - 10, al_map_rgb(9, 9, 9));
     } else {
         lost = false;
         *play = 2;
     }
-    //al_draw_text(font, al_map_rgb(195, 195, 195), BUFFER_W/4, BUFFER_H/2 - 5, 0, "A confraria não gostou da sua habilidade");
+    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 - 18, ALLEGRO_ALIGN_CENTRE, "Você não conseguiu se");
+    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 + 6, ALLEGRO_ALIGN_CENTRE, "demostrar resistente");
+
     //al_draw_textf(font, al_map_rgb(155, 155, 155), BUFFER_W/2, 400, ALLEGRO_ALIGN_CENTRE, "Hello world!%d - %d", BUFFER_W, BUFFER_H);
 
     return;
@@ -482,7 +486,7 @@ int oi = 0;
 void knight_update(int *play, int *which) {
     tic_tac = time_count();
 
-    if(count_timer > 3) {
+    if(count_timer > 1) {
         knight_script(&parallel_player.knight_done, which, play);
         restart_time();
     }
