@@ -7,11 +7,28 @@ typedef struct SCRIPT_FILE {
     int line;
     char speech[44];
 } SCRIPT_FILE;
-SCRIPT_FILE script_file_knight[4];
-const int count_lines_knight = 4;
+
+SCRIPT_FILE script_file_knight[16];
+const int count_lines_knight = 16;
+
+SCRIPT_FILE script_file_bishop[16];
+const int count_lines_bishop = 16;
+
+SCRIPT_FILE script_file_tower[16];
+const int count_lines_tower = 16;
+
+SCRIPT_FILE script_file_king[16];
+const int count_lines_king = 16;
+
+SCRIPT_FILE script_file_pawn[16];
+const int count_lines_pawn = 16;
 
 
 FILE* s_file_knight;
+FILE* s_file_bishop;
+FILE* s_file_tower;
+FILE* s_file_king;
+FILE* s_file_pawn;
 
 
 void init_each_script_file(FILE *s_file, SCRIPT_FILE *each, int count_lines, char path[]) {
@@ -34,7 +51,10 @@ void init_each_script_file(FILE *s_file, SCRIPT_FILE *each, int count_lines, cha
 
 void init_script_file(void) {
     init_each_script_file(s_file_knight, script_file_knight, count_lines_knight, "src/script/knight_script.txt");
-    //printf("%d - %s\n", script_file_knight[1].line, script_file_knight[1].speech);
+    init_each_script_file(s_file_bishop, script_file_bishop, count_lines_bishop, "src/script/bishop_script.txt");
+    init_each_script_file(s_file_tower, script_file_tower, count_lines_tower, "src/script/tower_script.txt");
+    init_each_script_file(s_file_king, script_file_king, count_lines_king, "src/script/king_script.txt");
+    init_each_script_file(s_file_pawn, script_file_pawn, count_lines_pawn, "src/script/pawn_script.txt");
     return;
 }
 
@@ -48,6 +68,7 @@ SCRIPT sc_kni;
 SCRIPT sc_bis;
 SCRIPT sc_tow;
 SCRIPT sc_kin;
+SCRIPT sc_paw;
 
 int size_line = 12;
 
@@ -73,40 +94,27 @@ void knight_script(bool *done, int *which, int *play) {
     switch(*which) {
         case 0:
             for(int i = 0; i < 4; i++)
-                strcpy(sc_kni.line[i], script_file_knight[i].speech);
+                strcpy(sc_kni.line[i], script_file_knight[4 * 0 + i].speech);
             break;
 
         case 1:
-            strcpy(sc_kni.line[0], "Cavaleiro, por favor ");
-            strcpy(sc_kni.line[1], "não me mate.");
-            strcpy(sc_kni.line[2], "");
-            strcpy(sc_kni.line[3], "");
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * 1 + i].speech);
             break;
 
-        case 2:           
-            *done = true;
-            *play = 2;
+        case 2:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * 2 + i].speech);        
             break;
 
         case 3:
-            strcpy(sc_kni.line[0], "Você deveria ir falar com ");
-            strcpy(sc_kni.line[1], " o bispo e a torre eles ");
-            strcpy(sc_kni.line[2], "estavam muito interessados em ");
-            strcpy(sc_kni.line[3], "te conhecer");
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * 3 + i].speech);
             break;
 
         case 4:
-            strcpy(sc_kni.line[0], "Você deveria ir falar com ");
-            strcpy(sc_kni.line[1], " a torre ela ");
-            strcpy(sc_kni.line[2], "estava muito interessados em ");
-            strcpy(sc_kni.line[3], "te conhecer");
-            break;
-
-        case 5:
-            strcpy(sc_kni.line[0], "Parabens");
-            strcpy(sc_kni.line[1], " Eles falaram que você foi bem");
-            strcpy(sc_kni.line[2], "se sinta a vontade para ");
-            strcpy(sc_kni.line[3], "explorar");
+            *done = true;
+            *play = 2;
             break;
     }
     next(which); 
@@ -115,7 +123,7 @@ void knight_script(bool *done, int *which, int *play) {
 }
 
 /*
-void bishop_script(bool *done, int *which, int *play) {
+void bishop_script(int *which, int *play) {
     switch(*which) {
         case 0:
             strcpy(sc_kni.line_one, "01234567890123456789012345678901234567");
@@ -178,12 +186,12 @@ void king_script(bool *done, int *which, int *play) {
 }
 */
 
-void knight_script_draw(void) {
+void script_draw(SCRIPT sc) {
     script_background(205);
-    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 5 - 2, 0, sc_kni.line[0]);
-    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 4 - 2, 0, sc_kni.line[1]);
-    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 3 - 2, 0, sc_kni.line[2]);
-    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 2 - 2, 0, sc_kni.line[3]);
+    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 5 - 2, 0, sc.line[0]);
+    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 4 - 2, 0, sc.line[1]);
+    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 3 - 2, 0, sc.line[2]);
+    al_draw_text(font, al_map_rgb(255, 255, 255), 9, BUFFER_H - size_line * 2 - 2, 0, sc.line[3]);
 
 }
 

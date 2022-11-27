@@ -138,7 +138,7 @@ bool init_structure_all(void)
     check = must_init(check, queue, "queue");
 
     font = al_load_font("src/fonts/lady.ttf", 12, 2);
-    font_title = al_load_font("src/fonts/lady.ttf", 24, 2);
+    font_title = al_load_font("src/fonts/lady.ttf", 30, 2);
     check = must_init(check, font, "font");
 
     check = init_display(check);

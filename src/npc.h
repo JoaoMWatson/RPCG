@@ -51,8 +51,8 @@ void each_npc_draw(int x, int y, int position_x, int position_y, int width, int 
 void npc_draw(int x, int y) {
     each_npc_draw(x, y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height, 0, 100, 200);
     each_npc_draw(x, y, king.position_map_x, king.position_map_y, king.width, king.height, 200, 0, 100);
-    each_npc_draw(x, y, knight.position_map_x, knight.position_map_y, knight.width, knight.height, 100, 200, 100);
     al_draw_bitmap(knight.sprite, x + knight.position_map_x, y + knight.position_map_y, 0);
+    //each_npc_draw(x, y, knight.position_map_x, knight.position_map_y, knight.width, knight.height, 100, 200, 100);
     each_npc_draw(x, y, tower.position_map_x, tower.position_map_y, tower.width, tower.height, 100, 20, 100);
     
     return;
@@ -137,15 +137,15 @@ void npc_update(int player_x, int player_y, int *play) {
                 knight_iteration(play);
             } else if(!parallel_player.tower_done && !parallel_player.bishop_done){
                 sc_kni.map_it = !sc_kni.map_it;
-                player.knight = 3;
+                // player.knight = 3;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
             } else if(!parallel_player.tower_done) {
                 sc_kni.map_it = !sc_kni.map_it;
-                player.knight = 4;
+                // player.knight = 4;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
             } else if(!parallel_player.king_done) {
                 sc_kni.map_it = !sc_kni.map_it;
-                player.knight = 5;
+                // player.knight = 5;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
             }
         } else if(it_tow) {

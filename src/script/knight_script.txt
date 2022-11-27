@@ -3,17 +3,17 @@
 2	Seja bem-vindo, eu sou o cavalo, fui
 3	designado para te receber.
 
-4
-5
-6
-7
+4	TORRE: Como já deve ter percebido, para
+5	se mover, pode usar as setas no teclado
+6	ou o WSAD. Já para interagir ou nos
+7	diálogos a tecla E.
 
-8
+8	TORRE: A tecla X também funciona...
 9
 10
 11
 
-12
+12	TORRE: ...
 13
 14
 15

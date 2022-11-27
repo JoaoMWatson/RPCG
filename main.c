@@ -18,6 +18,7 @@ void collision_reaction(bool collision, int *player_position_x, int *player_posi
 #include "src/npc.h"
 #include "src/parallel_game.h"
 #include "src/screenplay.h"
+#include "src/stand_screen.h"
 
 
 enum play_what
@@ -146,6 +147,10 @@ int main()
                     display_pre_draw();
                     al_clear_to_color(al_map_rgb(0,0,0));
 
+                    menu_draw();
+                    // good_ending();
+                    // bad_ending();
+
                     display_post_draw();
                     break;
 
@@ -156,7 +161,7 @@ int main()
                     map_draw();
                     npc_draw(xOff, yOff);
                     if(sc_kni.map_it)
-                        knight_script_draw();
+                        script_draw(sc_kni);
                     player_draw();
                    
                     display_post_draw();
@@ -166,7 +171,7 @@ int main()
                     display_pre_draw();
                     al_clear_to_color(al_map_rgb(0,0,0));
 
-                    knight_script_draw();
+                    script_draw(sc_kni);
 
                     display_post_draw(); 
                     break;
@@ -219,12 +224,12 @@ int main()
 
                 case END_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,0));
+                    al_clear_to_color(al_map_rgb(32,21,41));
 
                     if(parallel_player.king_dead)
-                        // good_ending();
-                    // else
-                        // end_ending();
+                        good_ending();
+                    else
+                        bad_ending();
 
                     display_post_draw(); 
                     break; 

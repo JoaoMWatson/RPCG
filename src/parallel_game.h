@@ -33,8 +33,8 @@ void game_over(bool *lost, int *play) {
         lost = false;
         *play = 2;
     }
-    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 - 18, ALLEGRO_ALIGN_CENTRE, "Você não conseguiu se");
-    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 + 6, ALLEGRO_ALIGN_CENTRE, "demostrar resistente");
+    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 - 18, ALLEGRO_ALIGN_CENTRE, "Você não teve");
+    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 + 6, ALLEGRO_ALIGN_CENTRE, "determinação");
 
     //al_draw_textf(font, al_map_rgb(155, 155, 155), BUFFER_W/2, 400, ALLEGRO_ALIGN_CENTRE, "Hello world!%d - %d", BUFFER_W, BUFFER_H);
 
@@ -113,6 +113,7 @@ typedef struct PARALLEL_PLAYER {
     bool tower_done;
     bool knight_done;
     bool king_done;
+    bool king_dead;
 } PARALLEL_PLAYER;
 PARALLEL_PLAYER parallel_player;
 
@@ -121,6 +122,7 @@ void init_parallel_bool(void) {
     parallel_player.tower_done = false;
     parallel_player.knight_done = false;
     parallel_player.king_done = false;
+    parallel_player.king_dead = false;
     
     return;
 }
@@ -344,6 +346,7 @@ void shot_collision(SHOT *shot, int play_x, int play_y, int x, int y, int width,
 void shot_collision_player(SHOT *shot, int play_x, int play_y, int x, int y, int width, int height) {
     col_shot = collision(play_x, play_y, x, y, width, height, enemy.width, enemy.height);
     if(col_shot) { 
+        parallel_player.king_dead = true;
         printf("acertou\n");
     }
 
@@ -497,7 +500,7 @@ void time_draw(int time_counting) {
 void knight_update(int *play, int *which) {
     tic_tac = time_count();
 
-    if(count_timer > 1) {
+    if(count_timer > 3) {
         knight_script(&parallel_player.knight_done, which, play);
         restart_time();
     }
@@ -539,12 +542,19 @@ void tower_update(int *play) {
 void king_update(int *play) {
     tic_tac = time_count();
 
-    if(tic_tac > time_win) {
+    if(parallel_player.king_dead) {
        parallel_player.king_done = true;
-       *play = 2;
-    } else if(parallel_player.lost) {
+       printf("venceu do rei\n");
+       *play = 8;
+    } else if(parallel_player.lost
+            || (enemy.x < 0 
+             || enemy.y < 0
+             || enemy.x > BUFFER_W
+             || enemy.y > BUFFER_H)) {
+        printf("perdeu pro rei\n");
+        parallel_player.king_done = true;
         restart_time();
-        *play = 7;
+        *play = 8;
     }
     
     return;
