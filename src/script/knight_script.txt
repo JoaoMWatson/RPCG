@@ -1,0 +1,35 @@
+0	TORRE: Olha só você aí, o novo peão da
+1	confraria. 
+2	Seja bem-vindo, eu sou o cavalo, fui
+3	designado para te receber.
+
+4
+5
+6
+7
+
+8
+9
+10
+11
+
+12
+13
+14
+15
+
+16
+17
+18
+19
+
+20
+21
+22
+23
+
+24
+25
+26
+27
+

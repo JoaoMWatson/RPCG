@@ -196,6 +196,7 @@ int main()
 
     destroy_structure_all();
     destroy_player();
+    destroy_npc();
     destroy_sprites_map();
     
     
