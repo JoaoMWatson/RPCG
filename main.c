@@ -22,18 +22,19 @@ void collision_reaction(bool collision, int *player_position_x, int *player_posi
 
 enum play_what
     {
+        MENU = 0,
         PLAYING = 1,
         MAIN_GAME = 2,
         BISHOP_GAME = 3,
         KING_GAME = 4,
         KNIGHT_GAME = 5,
         TOWER_GAME = 6,
-        GAME_OVER = 7
+        GAME_OVER = 7,
+        END_GAME = 8
     };
 
-int main()
-{
-    int play = MAIN_GAME;
+void start(int *play) {
+    *play = MENU;
 
     init_structure_all();
     init_map();
@@ -43,6 +44,15 @@ int main()
     init_parallel_bool();
     init_npc(tile_size);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
+
+    return;
+}
+
+int main()
+{
+    int play;
+
+    start(&play);
 
 
     while(PLAYING) 
@@ -55,6 +65,11 @@ int main()
             case ALLEGRO_EVENT_TIMER:
                 switch (play)
                 {
+                    case MENU:
+                        if(key[ALLEGRO_KEY_ENTER])
+                            play = 2;
+                        break;
+
                     case MAIN_GAME:
                         if((!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
                         || (!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
@@ -89,14 +104,19 @@ int main()
                         parallel_player_update();
                         enemy_king_update(parallel_player.x, parallel_player.y);
                         add_shot(1);
-                        if(key[ALLEGRO_KEY_X])
+                        if(key[ALLEGRO_KEY_X] && count_timer%2 == 0)
                             add_shot_player();
                         shot_update(1);
                         shot_update_player();
-                        tower_update(&play);  
+                        king_update(&play);  
                         break;
 
                     case GAME_OVER:
+                        break;  
+
+                    case END_GAME:
+                        if(key[ALLEGRO_KEY_L])
+                            start(&play);
                         break;                    
                 }
                 if(key[ALLEGRO_KEY_M])
@@ -122,6 +142,13 @@ int main()
         {
             switch (play)
             {
+                case MENU:
+                    display_pre_draw();
+                    al_clear_to_color(al_map_rgb(0,0,0));
+
+                    display_post_draw();
+                    break;
+
                 case MAIN_GAME:
                     display_pre_draw();
                     al_clear_to_color(al_map_rgb(0,0,0));
@@ -176,9 +203,12 @@ int main()
                     enemy_draw();
                     shot_draw(); 
                     shot_draw_player();
+                    if(tic_tac < 6)
+                        time_draw(tic_tac);
 
                     display_post_draw(); 
-                    break;     
+                    break;   
+
                 case GAME_OVER:
                     display_pre_draw();
 
@@ -186,6 +216,18 @@ int main()
 
                     display_post_draw(); 
                     break;
+
+                case END_GAME:
+                    display_pre_draw();
+                    al_clear_to_color(al_map_rgb(0,0,0));
+
+                    if(parallel_player.king_dead)
+                        // good_ending();
+                    // else
+                        // end_ending();
+
+                    display_post_draw(); 
+                    break; 
             }
             
             redraw = false;
