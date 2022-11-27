@@ -137,6 +137,7 @@ void npc_update(int player_x, int player_y, int *play) {
                 knight_iteration(play);
             } else {
                 sc_kni.map_it = !sc_kni.map_it;
+                player.knight = 3;
                 knight_script(&parallel_player.king_done, &player.knight, play);
             }
         } else if(it_tow) {

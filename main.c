@@ -147,6 +147,7 @@ int main()
                     parallel_player_draw();
                     enemy_draw();
                     shot_draw();
+                    time_draw(tic_tac);
 
                     display_post_draw(); 
                     break; 
@@ -158,6 +159,7 @@ int main()
                     parallel_player_draw();
                     enemy_draw();
                     shot_draw();
+                    time_draw(tic_tac);
 
                     display_post_draw(); 
                     break;

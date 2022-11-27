@@ -482,7 +482,18 @@ void shot_draw_player(void) {
     return;
 }
 
-int oi = 0;
+
+int time_win = 15;
+void time_draw(int time_counting) {
+    int show_time = time_win - time_counting;
+
+    al_draw_textf(font, al_map_rgb(255, 255, 255), 4, 2, 0, "Timer: %d", show_time);
+    // al_draw_text(font, al_map_rgba(255, 255, 255, 255), 10, 10, 0, "Timer: ");
+
+    return;
+}
+
+
 void knight_update(int *play, int *which) {
     tic_tac = time_count();
 
@@ -497,9 +508,8 @@ void knight_update(int *play, int *which) {
 
 void bishop_update(int *play) {
     tic_tac = time_count();
-    //printf("\n%d", tic_tac);
-    if(tic_tac > 15) {
-       // printf("\nvenceu");
+
+    if(tic_tac > time_win) {
        parallel_player.bishop_done = true;
        *play = 2;
     } else if(parallel_player.lost) {
@@ -513,9 +523,8 @@ void bishop_update(int *play) {
 
 void tower_update(int *play) {
     tic_tac = time_count();
-    //printf("\n%d", tic_tac);
-    if(tic_tac > 15) {
-       // printf("\nvenceu");
+
+    if(tic_tac > time_win) {
        parallel_player.tower_done = true;
        *play = 2;
     } else if(parallel_player.lost) {
@@ -529,9 +538,8 @@ void tower_update(int *play) {
 
 void king_update(int *play) {
     tic_tac = time_count();
-    //printf("\n%d", tic_tac);
-    if(tic_tac > 15) {
-       // printf("\nvenceu");
+
+    if(tic_tac > time_win) {
        parallel_player.king_done = true;
        *play = 2;
     } else if(parallel_player.lost) {
