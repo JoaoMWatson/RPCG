@@ -250,6 +250,7 @@ int main()
     destroy_player();
     destroy_npc();
     destroy_sprites_map();
+    destroy_parallel_game();
     
     
     return 0;

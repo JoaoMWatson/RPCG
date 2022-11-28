@@ -46,6 +46,7 @@ typedef struct ENEMY {
     float x, y;
     int height;
     int width;
+    ALLEGRO_BITMAP *sprite[4];
 } ENEMY;
 ENEMY enemy;
 
@@ -53,8 +54,13 @@ ENEMY enemy;
 void init_enemy(void) {
     enemy.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     enemy.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
-    enemy.height = 10;
-    enemy.width = 10;
+    enemy.height = 12;
+    enemy.width = 12;
+
+    enemy.sprite[1] = al_load_bitmap("src/images/mini_bishop.png");
+    must_init(true, enemy.sprite[1], "mini bishop");
+    enemy.sprite[2] = al_load_bitmap("src/images/mini_tower.png");
+    enemy.sprite[3] = al_load_bitmap("src/images/mini_king.png");
 
     return;
 }
@@ -93,6 +99,7 @@ void enemy_king_update(int play_x, int play_y) {
 
 void enemy_draw(void) {
     al_draw_filled_rectangle(enemy.x, enemy.y, enemy.x + enemy.height, enemy.y + enemy.width, al_map_rgb(255, 255, 255));
+    al_draw_bitmap(enemy.sprite[1], enemy.x, enemy.y, 0);
 
     return;
 }
@@ -114,6 +121,7 @@ typedef struct PARALLEL_PLAYER {
     bool knight_done;
     bool king_done;
     bool king_dead;
+    ALLEGRO_BITMAP *sprite;
 } PARALLEL_PLAYER;
 PARALLEL_PLAYER parallel_player;
 
@@ -123,6 +131,8 @@ void init_parallel_bool(void) {
     parallel_player.knight_done = false;
     parallel_player.king_done = false;
     parallel_player.king_dead = false;
+    
+    parallel_player.sprite = al_load_bitmap("src/images/mini_pawn.png");
     
     return;
 }
@@ -171,7 +181,8 @@ void parallel_player_update(void) {
 
 
 void parallel_player_draw(void) {
-    al_draw_filled_rectangle(parallel_player.x, parallel_player.y, parallel_player.x + PARALLEL_PROTAGONIST_W, parallel_player.y + PARALLEL_PROTAGONIST_H, al_map_rgb(255, 255, 255));
+    //al_draw_filled_rectangle(parallel_player.x, parallel_player.y, parallel_player.x + PARALLEL_PROTAGONIST_W, parallel_player.y + PARALLEL_PROTAGONIST_H, al_map_rgb(255, 255, 255));
+    al_draw_bitmap(parallel_player.sprite, parallel_player.x, parallel_player.y, 0);
 
     return;
 }
@@ -491,7 +502,6 @@ void time_draw(int time_counting) {
     int show_time = time_win - time_counting;
 
     al_draw_textf(font, al_map_rgb(255, 255, 255), 4, 2, 0, "Timer: %d", show_time);
-    // al_draw_text(font, al_map_rgba(255, 255, 255, 255), 10, 10, 0, "Timer: ");
 
     return;
 }
@@ -557,6 +567,17 @@ void king_update(int *play) {
         *play = 8;
     }
     
+    return;
+}
+
+
+void destroy_parallel_game(void) {
+    al_destroy_bitmap(enemy.sprite[0]);
+    al_destroy_bitmap(enemy.sprite[1]);
+    al_destroy_bitmap(enemy.sprite[2]);
+    al_destroy_bitmap(enemy.sprite[3]);
+    al_destroy_bitmap(parallel_player.sprite);
+
     return;
 }
 
