@@ -16,7 +16,7 @@ typedef struct NPC
 }npc;
 
 const int common_size = 28;
-npc bishop = {13, 5, common_size, common_size};
+npc bishop = {13, 5, 26, 32};
 npc king = {40, 5, 24, 32};
 npc knight = {5, 4, 26, 37};
 npc tower = {27, 5, common_size, common_size};
@@ -25,6 +25,8 @@ npc tower = {27, 5, common_size, common_size};
 void init_npc(int size) {
     bishop.position_map_x = bishop.position_x * size;
     bishop.position_map_y = bishop.position_y * size;
+    bishop.sprite = al_load_bitmap("src/images/bishop.png");
+    must_init(true, bishop.sprite, "bishop sprite");
 
     king.position_map_x = king.position_x * size;
     king.position_map_y = king.position_y * size;
@@ -56,6 +58,7 @@ void npc_draw(int x, int y) {
     //each_npc_draw(x, y, knight.position_map_x, knight.position_map_y, knight.width, knight.height, 100, 200, 100);
     al_draw_bitmap(knight.sprite, x + knight.position_map_x - 9, y + knight.position_map_y - 2, 0);
     al_draw_bitmap(king.sprite, x + king.position_map_x, y + king.position_map_y, 0);
+    al_draw_bitmap(bishop.sprite, x + bishop.position_map_x, y + bishop.position_map_y, 0);
     each_npc_draw(x, y, tower.position_map_x, tower.position_map_y, tower.width, tower.height, 100, 20, 100);
     
     return;

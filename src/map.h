@@ -264,18 +264,17 @@ void detect_collision(int *player_position_x, int *player_position_y)
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             } 
-            else if(j == bishop.position_x && i == bishop.position_y
-                 || j == tower.position_x && i == tower.position_y) 
+            else if(j == tower.position_x && i == tower.position_y) 
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, common_size, common_size, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, common_size, common_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             } else if(j == knight.position_x && i == knight.position_y) {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, knight.width, knight.height, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, knight.width, knight.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
-            } /*else if(j == bishop.position_x && i == bishop.position_y) {
+            } else if(j == bishop.position_x && i == bishop.position_y) {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, bishop.width, bishop.height, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, bishop.width, bishop.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
-            } else if(j == tower.position_x && i == tower.position_y) {
+            } /*else if(j == tower.position_x && i == tower.position_y) {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tower.width, tower.height, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tower.width, tower.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             } */else if(j == king.position_x && i == king.position_y) {
