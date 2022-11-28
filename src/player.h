@@ -1,7 +1,7 @@
 #ifndef PLAYER
 #define PLAYER
 
-#define PROTAGONIST_W 10
+#define PROTAGONIST_W 26
 #define PROTAGONIST_H 10
 
 #define PROTAGONIST_SPEED 2
@@ -134,7 +134,8 @@ void player_update(void)
 
 void player_draw(void)
 {
-    al_draw_bitmap(player.sprite[posicao], player.x -12, player.y - 12, 0);
+    //al_draw_filled_rectangle(player.x, player.y, player.x + PROTAGONIST_W, player.y + PROTAGONIST_H, al_map_rgb(255, 0, 0));
+    al_draw_bitmap(player.sprite[posicao], player.x - 1, player.y - 18, 0);
 
     return;
 }
