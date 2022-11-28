@@ -145,14 +145,14 @@ bool col_enemy;
 void parallel_player_update(void) {
 
     if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A])
-        parallel_player.x -= PARALLEL_PROTAGONIST_SPEED;
+        parallel_player.x -= PARALLEL_PROTAGONIST_SPEED; 
     else if(key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D])
-        parallel_player.x += PARALLEL_PROTAGONIST_SPEED;
+        parallel_player.x += PARALLEL_PROTAGONIST_SPEED;  
     else if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W])
         parallel_player.y -= PARALLEL_PROTAGONIST_SPEED;
     else if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S])
         parallel_player.y += PARALLEL_PROTAGONIST_SPEED;
-
+        
     if(parallel_player.x < 0)
         parallel_player.x = 0;
     if(parallel_player.y < 0)

@@ -1,6 +1,8 @@
 #ifndef STRUCTURE
 #define STRUCTURE
 
+#include "audio.h"
+
 ALLEGRO_TIMER* timer;
 ALLEGRO_EVENT_QUEUE* queue;
 ALLEGRO_DISPLAY* display;
@@ -124,6 +126,7 @@ bool init_structure_all(void)
     check = must_init(check, al_init_image_addon(), "image");
     check = must_init(check, al_init_font_addon(), "font addon");
     check = must_init(check, al_init_ttf_addon(), "ttf addon");
+    init_audio();
 
     keyboard_init();
 
@@ -162,6 +165,7 @@ void destroy_structure_all(void)
     al_destroy_display(display);
     al_destroy_timer(timer);
     al_destroy_event_queue(queue);
+    destroy_audios();
 
     return;
 }

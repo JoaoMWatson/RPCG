@@ -79,10 +79,15 @@ int main()
                             player_update();       
                         map_update(&player.position_x, &player.position_y);
                         npc_update(player.position_x, player.position_y, &play);
+
+                        al_play_sample_instance(main_game_audio_instance);
+                        al_stop_sample_instance(mini_game_audio_instance);
                         break;
                     
                     case KNIGHT_GAME:
-                        knight_update(&play, &player.knight);              
+                        knight_update(&play, &player.knight); 
+                        al_stop_sample_instance(main_game_audio_instance);
+                        //al_play_sample_instance(mini_game_audio_instance);             
                         break;
 
                     case BISHOP_GAME:

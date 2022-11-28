@@ -89,9 +89,9 @@ void player_update(void)
                 posicao++;
             }
         }
-        // if(player.x - 10  < 0 || player.x + 10 > 0) {
-        //     al_play_sample_instance(movement_audio_instance);
-        // }
+        if(player.x - 10  < 0 || player.x + 10 > 0) {
+            al_play_sample_instance(movement_audio_instance);
+        }
     } 
     else if(key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D]) {
         player.position_x += PROTAGONIST_SPEED;
@@ -105,9 +105,9 @@ void player_update(void)
                 posicao++;
             }
         }
-        // if(player.x - 10  < 0 || player.x + 10 > 0) {
-        //     al_play_sample_instance(movement_audio_instance);
-        // }
+        if(player.x - 10  < 0 || player.x + 10 > 0) {
+            al_play_sample_instance(movement_audio_instance);
+        }
     } 
     else if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W]) {
         player.position_y -= PROTAGONIST_SPEED;
@@ -121,9 +121,9 @@ void player_update(void)
                 posicao++;
             }
         }
-        // if(player.y - 10 < 0 || player.y + 10 > 0) {
-        //     al_play_sample_instance(movement_audio_instance);
-        // } 
+        if(player.y - 10 < 0 || player.y + 10 > 0) {
+            al_play_sample_instance(movement_audio_instance);
+        } 
     }     
     else if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S]) {
         player.position_y += PROTAGONIST_SPEED;
@@ -137,9 +137,9 @@ void player_update(void)
                 posicao++;
             }
         }
-        // if(player.y - 10 < 0 || player.y + 10 > 0) {
-        //     al_play_sample_instance(movement_audio_instance);
-        // }  
+        if(player.y - 10 < 0 || player.y + 10 > 0) {
+            al_play_sample_instance(movement_audio_instance);
+        }  
     }
 
     troca_sprite++;
