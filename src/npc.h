@@ -151,15 +151,15 @@ void npc_update(int player_x, int player_y, int *play) {
                 knight_iteration(play);
             } else if(!parallel_player.tower_done && !parallel_player.bishop_done){
                 sc_kni.map_it = !sc_kni.map_it;
-                // player.knight = 3;
+                player.knight = 13;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
             } else if(!parallel_player.tower_done) {
                 sc_kni.map_it = !sc_kni.map_it;
-                // player.knight = 4;
+                player.knight = 14;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
             } else if(!parallel_player.king_done) {
                 sc_kni.map_it = !sc_kni.map_it;
-                // player.knight = 5;
+                player.knight = 15;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
             }
         } else if(it_tow) {

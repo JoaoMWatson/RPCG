@@ -1,35 +1,74 @@
-0   TORRE: Olha só você aí, o novo peão da
+0	CAVALO:  Olha só você aí, o novo peão da 
 1	confraria.
 2	Seja bem-vindo, eu sou o cavalo, fui
 3	designado para te receber.
 
-4	TORRE: Como já deve ter percebido, para
-5	se mover, pode usar as setas no teclado
-6	ou o WSAD. Já para interagir ou nos
-7	diálogos a tecla E.
+4	CAVALO:  Como já deve ter percebido, 
+5	para se mover, pode usar as setas no 
+6	teclado ou o WSAD. Já para interagir ou 
+7	para passar os diálogos, use a tecla E.
 
-8	TORRE: A tecla X também funciona...
+8	CAVALO:  Apenas, não aperte a tecla X...
 9
 10
 11
 
-12	TORRE: ...
+12	CAVALO:  ...você não está pronto ainda...
 13
 14
 15
 
-16
-17
-18
-19
+16	CAVALO:  Voltando ao que interessa, vou
+17	avisar sobre as funções de cada membro   
+18	da confraria. Cada um tem seu movimento   
+19	especifico e estrategico dentro do tabuleiro
 
-20
-21
-22
-23
+20	CAVALO: Eu, o cavalo, ando dois quadrados 
+21	na vertical e um quadrado na horizontal 
+22	ou dois quadrados na horizontal e depois 
+23	um na vertical. Ou se preferir, ando em L.
 
-24
-25
-26
-27
+24	CAVALO:  Você, como um mero peão (rsrs),  
+25	sua função é proteger o rei e esbarrar no  
+26	peão inimigo a frente ou eliminar qualquer  
+27	peça que estiver uma casa na diagonal.
 
+28	CAVALO:  Além disso, você como peão, deve 
+29	demonstrar determinação (sem referência).
+30	Sempre seguir em frente, como se o fim do
+31	tabuleiro, fosso o unico destino.
+
+32	CAVALO:  Já sabendo do necessário, vá
+33	conhecer os outros membros da confraria.
+34	
+35
+
+36	CAVALO:  Mas, saiba que eles não são tão 
+37	legais como eu. Eles desafiarão sua  
+38	agilidade e estratégia. Te aconselho a 
+39	não desapontá-los.
+
+40	CAVALO:  Resista durante o tempo proposto 
+41	para prosseguir. 
+42
+43
+
+44	CAVALO:  Agora saia, vou trocar minha 
+45	ferradura
+46
+47	~ iiihriii
+
+48	CAVALO:  Vá procurar o bispo e a torre 
+49
+50
+51
+
+52	CAVALO:  A torre está curiosa, acho que o   
+53	bispo falou de você.
+54
+55
+
+56	CAVALO:  Muito bem, você provou sua
+57	determinação.
+58
+59

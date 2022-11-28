@@ -37,14 +37,12 @@ enum play_what
 void start(int *play) {
     *play = MENU;
 
-    init_structure_all();
     init_map();
     init_sprites_map();
     init_script_file();
     init_player(); 
     init_parallel_bool();
     init_npc(tile_size);
-    al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
 
     return;
 }
@@ -53,7 +51,9 @@ int main()
 {
     int play;
 
+    init_structure_all();
     start(&play);
+    al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
 
 
     while(PLAYING) 

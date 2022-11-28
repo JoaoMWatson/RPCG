@@ -5,11 +5,11 @@
 
 typedef struct SCRIPT_FILE {
     int line;
-    char speech[44];
+    char speech[50];
 } SCRIPT_FILE;
 
-SCRIPT_FILE script_file_knight[16];
-const int count_lines_knight = 16;
+SCRIPT_FILE script_file_knight[60];
+const int count_lines_knight = 60;
 
 SCRIPT_FILE script_file_bishop[16];
 const int count_lines_bishop = 16;
@@ -60,7 +60,7 @@ void init_script_file(void) {
 
 
 typedef struct SCRIPT {
-    char line[4][44];;
+    char line[4][50];
     bool map_it;
 } SCRIPT;
 
@@ -94,27 +94,82 @@ void knight_script(bool *done, int *which, int *play) {
     switch(*which) {
         case 0:
             for(int i = 0; i < 4; i++)
-                strcpy(sc_kni.line[i], script_file_knight[4 * 0 + i].speech);
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
             break;
 
         case 1:
             for(int i = 0; i < 4; i++)
-                strcpy(sc_kni.line[i], script_file_knight[4 * 1 + i].speech);
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
             break;
 
         case 2:
             for(int i = 0; i < 4; i++)
-                strcpy(sc_kni.line[i], script_file_knight[4 * 2 + i].speech);        
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);        
             break;
 
         case 3:
             for(int i = 0; i < 4; i++)
-                strcpy(sc_kni.line[i], script_file_knight[4 * 3 + i].speech);
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
             break;
 
         case 4:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 5:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 6:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 7:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 8:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 9:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 10:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 11:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
+            break;
+
+        case 12:
             *done = true;
             *play = 2;
+            break;
+
+        case 13:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * 12 + i].speech);
+            break;
+
+        case 14:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * 13 + i].speech);
+            break;
+
+        case 15:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kni.line[i], script_file_knight[4 * 14 + i].speech);
             break;
     }
     next(which); 
