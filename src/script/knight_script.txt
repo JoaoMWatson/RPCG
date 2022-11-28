@@ -1,5 +1,5 @@
-0	TORRE: Olha só você aí, o novo peão da
-1	confraria. 
+0   TORRE: Olha só você aí, o novo peão da
+1	confraria.
 2	Seja bem-vindo, eu sou o cavalo, fui
 3	designado para te receber.
 

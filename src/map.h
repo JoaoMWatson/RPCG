@@ -265,7 +265,6 @@ void detect_collision(int *player_position_x, int *player_position_y)
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             } 
             else if(j == bishop.position_x && i == bishop.position_y
-                 || j == king.position_x && i == king.position_y
                  || j == tower.position_x && i == tower.position_y) 
             {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, common_size, common_size, PROTAGONIST_W, PROTAGONIST_H);
@@ -279,11 +278,11 @@ void detect_collision(int *player_position_x, int *player_position_y)
             } else if(j == tower.position_x && i == tower.position_y) {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tower.width, tower.height, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tower.width, tower.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
-            } else if(j == king.position_x && i == king.position_y) {
+            } */else if(j == king.position_x && i == king.position_y) {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, king.width, king.height, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, king.width, king.height, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             }
-            */
+            
            
             //if(col)
             //   printf("Void - x.%d, y.%d Player - %d, %d Colission - %s\n", j*tile_size, i*tile_size, *player_position_x, *player_position_y, col ? "true" : "false");
@@ -486,6 +485,7 @@ void map_draw()
 
 void destroy_sprites_map(void)
 {   
+    al_destroy_bitmap(sprite_map._sheet);
     al_destroy_bitmap(sprite_map.checkered_floor);
     al_destroy_bitmap(sprite_map.voiding);
     al_destroy_bitmap(sprite_map.corner_top_left);

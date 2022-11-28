@@ -17,17 +17,19 @@ typedef struct NPC
 
 const int common_size = 28;
 npc bishop = {13, 5, common_size, common_size};
-npc king = {38, 6, common_size, common_size};
-npc knight = {5, 4, 38, 39};
+npc king = {40, 5, 24, 32};
+npc knight = {5, 4, 26, 37};
 npc tower = {27, 5, common_size, common_size};
 
 
 void init_npc(int size) {
-    bishop.position_map_x = bishop.position_x * 32;
+    bishop.position_map_x = bishop.position_x * size;
     bishop.position_map_y = bishop.position_y * size;
 
     king.position_map_x = king.position_x * size;
     king.position_map_y = king.position_y * size;
+    king.sprite = al_load_bitmap("src/images/king.png");
+    must_init(true, king.sprite, "king sprite");
 
     knight.position_map_x = knight.position_x * size;
     knight.position_map_y = knight.position_y * size;
@@ -50,9 +52,10 @@ void each_npc_draw(int x, int y, int position_x, int position_y, int width, int 
 
 void npc_draw(int x, int y) {
     each_npc_draw(x, y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height, 0, 100, 200);
-    each_npc_draw(x, y, king.position_map_x, king.position_map_y, king.width, king.height, 200, 0, 100);
-    al_draw_bitmap(knight.sprite, x + knight.position_map_x, y + knight.position_map_y, 0);
+    //each_npc_draw(x, y, king.position_map_x, king.position_map_y, king.width, king.height, 200, 0, 100);
     //each_npc_draw(x, y, knight.position_map_x, knight.position_map_y, knight.width, knight.height, 100, 200, 100);
+    al_draw_bitmap(knight.sprite, x + knight.position_map_x - 9, y + knight.position_map_y - 2, 0);
+    al_draw_bitmap(king.sprite, x + king.position_map_x, y + king.position_map_y, 0);
     each_npc_draw(x, y, tower.position_map_x, tower.position_map_y, tower.width, tower.height, 100, 20, 100);
     
     return;
@@ -118,11 +121,19 @@ void npc_update(int player_x, int player_y, int *play) {
                 parallel_player.king_done? "true" : "false");
 
         if(it_bis) {
+            if(!parallel_player.bishop_done && !parallel_player.knight_done) {
+                /* TODO pedir para falar como cavalo */
+            }
             if(!parallel_player.bishop_done && parallel_player.knight_done) { 
+                /* TODO introduzir batalha */
                 init_parallel_player();
                 init_enemy();
                 init_shot();
                 bishop_iteration(play);
+            } else if(parallel_player.bishop_done && !parallel_player.tower_done) {
+                /* TODO pedir para falar com a torre */
+            } else if(parallel_player.bishop_done && parallel_player.tower_done) {
+                /* TODO pedir para explorar o castelo */
             }
         } else if(it_kin) {
             if(!parallel_player.king_done && parallel_player.tower_done) { 
