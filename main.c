@@ -162,7 +162,7 @@ int main()
                     npc_draw(xOff, yOff);
                     if(sc_kni.map_it)
                         script_draw(sc_kni);
-                    player_draw();
+                    player_draw(parallel_player.tower_done);
                    
                     display_post_draw();
                     break;
