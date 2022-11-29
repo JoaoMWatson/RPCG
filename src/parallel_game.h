@@ -557,7 +557,7 @@ void bishop_update(int *play) {
 void tower_update(int *play) {
     tic_tac = time_count();
 
-    if(tic_tac > time_win + 5) {
+    if(tic_tac > time_win) {
        parallel_player.tower_done = true;
        *play = 2;
     } else if(parallel_player.lost) {

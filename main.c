@@ -140,7 +140,7 @@ int main()
                             player.pawn = 0;
                         else 
                             player.pawn = 1;
-                            
+
                         pawn_script(&player.tower);
 
                         if(key[ALLEGRO_KEY_L])
@@ -177,7 +177,7 @@ int main()
 
                     menu_draw();
                     // good_ending();
-                    // bad_ending();
+                    // 
 
                     display_post_draw();
                     break;
@@ -265,6 +265,8 @@ int main()
                         good_ending();
                     else
                         bad_ending();
+                    
+                    info_return();
                     script_draw(sc_paw);
 
                     display_post_draw(); 

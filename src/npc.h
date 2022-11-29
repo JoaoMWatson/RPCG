@@ -19,7 +19,7 @@ const int common_size = 28;
 npc bishop = {17, 4, 26, 47};
 npc king = {41, 4, 24, 32};
 npc knight = {7, 4, 26, 37};
-npc tower = {27, 4, 32, 36};
+npc tower = {27, 3, 52, 72};
 
 
 void init_npc(int size) {
@@ -62,7 +62,7 @@ void npc_draw(int x, int y) {
     al_draw_bitmap(knight.sprite, x + knight.position_map_x - 9, y + knight.position_map_y - 2, 0);
     al_draw_bitmap(king.sprite, x + king.position_map_x, y + king.position_map_y, 0);
     al_draw_bitmap(bishop.sprite, x + bishop.position_map_x, y + bishop.position_map_y, 0);
-    al_draw_bitmap(tower.sprite, x + tower.position_map_x, y + tower.position_map_y, 0);
+    al_draw_bitmap(tower.sprite, x + tower.position_map_x - 8, y + tower.position_map_y, 0);
     
     return;
 }
