@@ -23,22 +23,22 @@ void damage_audio(void){
  //------MOVEMENT AUDIO------//
 
  void movement_audio(void){
-    movement = al_load_sample("src/audio/footsteps_6.ogg");
+    movement = al_load_sample("src/audio/footsteps_7.ogg");
     movement_audio_instance = al_create_sample_instance(movement);
 
     al_attach_sample_instance_to_mixer(movement_audio_instance, al_get_default_mixer());
-    al_set_sample_instance_gain(movement_audio_instance, 0.03);
+    al_set_sample_instance_gain(movement_audio_instance, 0.04);
  }
 
 //------AUDIO MAIN------//
 void main_game_audio(void){
 
-    main_audio = al_load_sample("src/audio/Great Boss.ogg");
+    main_audio = al_load_sample("src/audio/main_audio.ogg");
     main_game_audio_instance = al_create_sample_instance(main_audio);
     al_set_sample_instance_playmode(main_game_audio_instance, ALLEGRO_PLAYMODE_LOOP);
 
     al_attach_sample_instance_to_mixer(main_game_audio_instance, al_get_default_mixer());
-    al_set_sample_instance_gain(main_game_audio_instance, 0.032);
+    al_set_sample_instance_gain(main_game_audio_instance, 0.02);
 }
 
 //------AUDIO MINIGAME------//
@@ -49,7 +49,7 @@ void minigame_audio(void){
     al_set_sample_instance_playmode(mini_game_audio_instance,ALLEGRO_PLAYMODE_LOOP);
 
     al_attach_sample_instance_to_mixer(mini_game_audio_instance,al_get_default_mixer());
-    al_set_sample_instance_gain(mini_game_audio_instance, 0.032);
+    al_set_sample_instance_gain(mini_game_audio_instance, 0.018);
     
 }
 
