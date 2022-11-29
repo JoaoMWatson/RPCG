@@ -1,0 +1,56 @@
+0 TORRE:  Peão!? Onde? Ah, você ai...
+1 Cavalo está te esperando, vá falar com ele
+2
+3
+
+4 TORRE:  Não consigo falar com você agora, 
+5 estou terminando meu treinamento.
+6 Conheça o bispo, enquanto isso.
+7
+
+8 TORRE:  ...uh?
+9
+10
+11
+
+12 TORRE:  Quase não te vi ai. Pois bem, novo 
+13 peão, eu sou a poderosa Torre que vos fala!
+14
+15
+
+16 TORRE:  O bispo comentou da sua agilidade. 
+17 Duvido que seja grande coisa, até porque o 
+18 bispo e o cavalo são muito fracos comparados
+19 a Poderosa Torre
+
+20 TORRE:  Minha função é dominar as linhas 
+21 verticais e horizontais do tabuleiro, sem 
+22 contar que a poderosa torre tem contato 
+23 direto com o rei
+
+24 TORRE:  Como tenho essa proximidade com a 
+25 localização do rei, um movimento estrategico 
+26 que usamos é o Roque, onde trocamos de 
+27 posição para protege-lo
+
+28 TORRE:  Diferente do bispo, sou direto no 
+29 ataque. Você pode ter a impressão que será 
+30 mais tranquilo, mas nunca subestime a 
+31 Poderosa Torre
+
+32 TORRE:  No tabuleiro sou uma das peças mais
+33 valiosas. Enquanto, um mero peão como você
+34 vale 1, o Cavalo e o tal Bispo valem 3. A 
+35 Poderosa Torre vale 5.
+
+36 TORRE:  Demonstrarei meus movimentos e você 
+37 como peão da confraria deve se demonstrar
+38 suficientemente resiliente 
+39
+
+40 TORRE:  Vejo aqui de cima, que és uma peça
+41 com grande potencial. Fico feliz em estar
+42 do mesmo lado do tabuleiro que a Senhorita
+43
+
+
