@@ -200,15 +200,23 @@ void npc_update(int player_x, int player_y, int *play) {
         } 
         else if(it_tow) {
             if(!parallel_player.tower_done && !parallel_player.knight_done) {
-                /* TODO mandar falar com o cavalo */
+                sc_tow.map_it = !sc_tow.map_it;
+                player.tower = 0;
+                tower_script(&player.tower, play);
             }
             else if(!parallel_player.tower_done && !parallel_player.bishop_done) {
-                /* TODO mandar falar com o bispo */
+                sc_tow.map_it = !sc_tow.map_it;
+                player.tower = 1;
+                tower_script(&player.tower, play);
             }
             else if(!parallel_player.tower_done && parallel_player.bishop_done) {
-                if(player.bishop == 0) {
-                    /* TODO se apresentar */
+                if(player.tower < 10) {
+                    if(player.tower < 2)
+                        player.tower = 2;
+                    sc_tow.map_it = true;
+                    tower_script(&player.tower, play);
                 } else {
+                    sc_tow.map_it = false;
                     init_parallel_player();
                     init_enemy_game();
                     init_shot();
@@ -216,7 +224,9 @@ void npc_update(int player_x, int player_y, int *play) {
                 }
             }
             else if(parallel_player.tower_done) {
-                /* TODO mandar explorar o castelo */
+                sc_tow.map_it = !sc_tow.map_it;
+                player.tower = 10;
+                tower_script(&player.tower, play);
             }
         }
         restart_time();
