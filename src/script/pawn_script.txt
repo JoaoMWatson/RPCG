@@ -1,9 +1,9 @@
-0 O Rei conseguiu fugir...
-1 O Bispo e a Torre lhe ensinaram seus movimentos
+0 O Rei conseguiu fugir... O Bispo e
+1 a Torre lhe ensinaram seus movimentos
 2 O Cavalo te passou as instruções
 3 E mesmo assim, não pode agir...
 
-4 Robaste a coroa no Rei
-5 Como peão, pode adquirir os movimentos do Bispo
-6 e da Poderosa Torre
-7 Agora tomas a posição da peça mais forte, a Rainha
+4 Robaste a coroa no Rei. Como peão, pode
+5 adquirir os movimentos do Bispo e da 
+6 Poderosa Torre. Agora tomas a 
+7 posição da peça mais forte, a Rainha

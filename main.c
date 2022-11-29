@@ -36,7 +36,7 @@ enum play_what
 
 
 void end(void) {
-    destroy_structure_all();
+    
     destroy_player();
     destroy_npc();
     destroy_sprites_map();
@@ -137,19 +137,20 @@ int main()
 
                     case END_GAME:
                         if(parallel_player.king_dead) 
-                            player.pawn = 0;
-                        else 
                             player.pawn = 1;
+                        else 
+                            player.pawn = 0;
 
-                        pawn_script(&player.tower);
+                        pawn_script(&player.pawn);
 
-                        if(key[ALLEGRO_KEY_L])
+                        if(key[ALLEGRO_KEY_L]) {
                             end();
                             start(&play);
+                        }
                         break;                    
                 }
-                if(key[ALLEGRO_KEY_M])
-                    play = MAIN_GAME;
+                // if(key[ALLEGRO_KEY_M])
+                //     play = MAIN_GAME;
                 
                 if(key[ALLEGRO_KEY_ESCAPE])
                     done = true;
@@ -176,8 +177,6 @@ int main()
                     al_clear_to_color(al_map_rgb(20,20,20));
 
                     menu_draw();
-                    // good_ending();
-                    // 
 
                     display_post_draw();
                     break;
@@ -278,6 +277,7 @@ int main()
         
     }
 
+    destroy_structure_all();
     end();    
     
     return 0;

@@ -316,7 +316,7 @@ void add_shot(int each) {
 
 void add_shot_player(void) {
     timing++;
-    if(!(timing % 4)) {
+    if(true) {
         for(int i = 0; i < SHOTS_N - 7; i += 8) {
             if(!shots_player[i].used && !shots_player[i+1].used && !shots_player[i+2].used && !shots_player[i+3].used &&
                !shots_player[i+4].used && !shots_player[i+5].used && !shots_player[i+6].used && !shots_player[i+7].used) {

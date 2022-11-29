@@ -1,5 +1,5 @@
-0 REI:  O que você está fazendo aqui, não deveria
-1 estar conversando com o Cavalo?
+0 REI:  O que você está fazendo aqui, não 
+1 deveria estar conversando com o Cavalo?
 2 
 3
 
@@ -8,28 +8,28 @@
 6
 7
 
-8 REI:  HaHaHa, aprendeu alguns movimentos de 
-9 tabuleiro e agora se acha digno de se dirigir
-10 a mim dessa maneira
+8 REI:  HaHaHa, aprendeu alguns movimentos  
+9 de tabuleiro e agora se acha digno de se 
+10 dirigir a mim dessa maneira
 11
 
-12 REI:  Conseguiu cruzar pelas outras peças e já 
-13 está achando que vale algo? É bom ter um plano
-14 X, se quiser me enfretar
-15
+12 REI:  Conseguiu cruzar pelas outras 
+13 peças e já está achando que vale algo? 
+14 É bom ter um plano X, se quiser 
+15 me enfretar
 
 16 PEÃO:  ...
 17
 18
 19
 
-20 PEÃO:  Eu não fui apenas resiliente, eu fui um 
-21 peão que conseguiu cruzar até aqui. Eu adquiri
-22 os movimentos do bispo e da torre
-23
+20 PEÃO:  Eu não fui apenas resiliente, eu 
+21 fui um  peão que conseguiu cruzar até aqui. 
+22 Eu adquiri os movimentos do bispo 
+23 e da torre
 
-24 PEÃO:  Agora, estou aqui para tomar sua coroa  
-25
+24 PEÃO:  Agora, estou aqui para tomar  
+25 sua coroa
 26
 27
 
