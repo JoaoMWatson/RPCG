@@ -166,7 +166,7 @@ int main()
             {
                 case MENU:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,0));
+                    al_clear_to_color(al_map_rgb(20,20,20));
 
                     menu_draw();
                     // good_ending();
@@ -177,7 +177,7 @@ int main()
 
                 case MAIN_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,0));
+                    al_clear_to_color(al_map_rgb(20,20,20));
 
                     map_draw();
                     npc_draw(xOff, yOff);
@@ -194,7 +194,7 @@ int main()
                 
                 case KNIGHT_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,0));
+                    al_clear_to_color(al_map_rgb(20,20,20));
 
                     script_draw(sc_kni);
                     enemy_draw(4);
@@ -204,7 +204,7 @@ int main()
 
                 case BISHOP_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,0));
+                    al_clear_to_color(al_map_rgb(20,20,20));
 
                     parallel_player_draw();
                     enemy_draw(3);
@@ -216,7 +216,7 @@ int main()
 
                 case TOWER_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,0));
+                    al_clear_to_color(al_map_rgb(20,20,20));
 
                     parallel_player_draw();
                     enemy_draw(2);
@@ -228,7 +228,7 @@ int main()
 
                 case KING_GAME:
                     display_pre_draw();
-                    al_clear_to_color(al_map_rgb(0,0,0));
+                    al_clear_to_color(al_map_rgb(20,20,20));
 
                     parallel_player_draw();
                     enemy_draw(1);

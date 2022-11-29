@@ -120,11 +120,13 @@ void npc_update(int player_x, int player_y, int *play) {
     it_tow = detect_iteration(player_x, player_y, tower.position_map_x, tower.position_map_y, tower.width, tower.height);
 
     if(key[ALLEGRO_KEY_E] && count_timer > 2) {
+        /*
         printf("kni - %s, bis - %s, tow - %s, kin - %s\n",
                 parallel_player.knight_done? "true" : "false", 
                 parallel_player.bishop_done? "true" : "false",
                 parallel_player.tower_done? "true" : "false",
                 parallel_player.king_done? "true" : "false");
+        */
 
         if(it_bis) {
             if(!parallel_player.bishop_done && !parallel_player.knight_done) {

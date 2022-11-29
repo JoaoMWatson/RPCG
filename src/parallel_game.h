@@ -71,8 +71,8 @@ void init_enemy(void) {
 void init_enemy_game(void) {
     enemy.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     enemy.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
-    enemy.height = 12;
-    enemy.width = 12;
+    enemy.height = 24;
+    enemy.width = 26;
 
     return;
 }
@@ -110,21 +110,23 @@ void enemy_king_update(int play_x, int play_y) {
 
 
 void enemy_draw(int which) {
+    //al_draw_filled_rectangle(enemy.x, enemy.y, enemy.x + enemy.height, enemy.y + enemy.width, al_map_rgb(205, 205, 205));
     if(which == 4)
-        al_draw_bitmap(enemy.sprite[0], enemy.x, enemy.y, 0);
+        al_draw_bitmap(enemy.sprite[0], enemy.x - 2, enemy.y, 0);
     else if(which == 3)
-        al_draw_bitmap(enemy.sprite[1], enemy.x, enemy.y, 0);
+        al_draw_bitmap(enemy.sprite[1], enemy.x - 2, enemy.y, 0);
     else if(which == 2)
-        al_draw_bitmap(enemy.sprite[2], enemy.x, enemy.y, 0);
+        al_draw_bitmap(enemy.sprite[2], enemy.x - 2, enemy.y, 0);
     else if(which == 1)
-        al_draw_bitmap(enemy.sprite[3], enemy.x, enemy.y, 0);
+        al_draw_bitmap(enemy.sprite[3], enemy.x - 2, enemy.y, 0);
+        
 
     return;
 }
 
 
-#define PARALLEL_PROTAGONIST_W 10
-#define PARALLEL_PROTAGONIST_H 10
+#define PARALLEL_PROTAGONIST_W 14
+#define PARALLEL_PROTAGONIST_H 27
 #define PARALLEL_PROTAGONIST_SPEED 4
 #define PARALLEL_PROTAGONIST_MAX_X (BUFFER_W - PARALLEL_PROTAGONIST_W)
 #define PARALLEL_PROTAGONIST_MAX_Y (BUFFER_H - PARALLEL_PROTAGONIST_H)
@@ -200,7 +202,7 @@ void parallel_player_update(void) {
 
 void parallel_player_draw(void) {
     //al_draw_filled_rectangle(parallel_player.x, parallel_player.y, parallel_player.x + PARALLEL_PROTAGONIST_W, parallel_player.y + PARALLEL_PROTAGONIST_H, al_map_rgb(255, 255, 255));
-    al_draw_bitmap(parallel_player.sprite, parallel_player.x, parallel_player.y, 0);
+    al_draw_bitmap(parallel_player.sprite, parallel_player.x - 2, parallel_player.y -1, 0);
 
     return;
 }
