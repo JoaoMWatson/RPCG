@@ -1,6 +1,7 @@
 #ifndef MAP
 #define MAP
 #include "npc.h"
+#include "screenplay.h"
 
 typedef struct SPRITE_MAP 
 {
@@ -345,9 +346,34 @@ void detect_collision(int *player_position_x, int *player_position_y)
 }
 
 
+void detect_iteration_map(int *player_position_x, int *player_position_y) {
+    bool it;
+    tic_tac = time_count();
+
+    for(int i = 0; i < map_lines; i++)
+    {   
+        for(int j = 0; j < map_columns; j++) 
+        {
+            if(map[i][j] == DOOR) {
+                it = detect_iteration(*player_position_x, *player_position_y, j * 32, i * 32, 32, 32);
+                if(it && key[ALLEGRO_KEY_E] && count_timer > 2) {
+                    sc_map.map_it = !sc_map.map_it;
+                    player.map = 0;
+                    map_script(&player.map);
+                    restart_time();
+                } 
+            }
+        }
+    }
+
+    return;
+}
+
+
 void map_update(int *player_position_x, int *player_position_y)
 {
     detect_collision(player_position_x, player_position_y);
+    detect_iteration_map(player_position_x, player_position_y);
 
     xOff = -(*player_position_x - (BUFFER_W / 2) + (PROTAGONIST_W/2));
     yOff = -(*player_position_y - (BUFFER_H / 2) + (PROTAGONIST_H/2));  

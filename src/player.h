@@ -17,6 +17,7 @@ typedef struct PROTAGONIST {
     int tower;
     int king;
     int pawn;
+    int map;
     ALLEGRO_BITMAP *sprite_player_pawn;
     ALLEGRO_BITMAP* sprite_pawn[12];
     ALLEGRO_BITMAP *sprite_player_queen;
@@ -44,6 +45,7 @@ void init_player(void) {
     player.tower = 0;
     player.king = 0;
     player.pawn = 0;
+    player.map = 0;
 
     player.sprite_player_pawn = al_load_bitmap("src/images/pawn.png");
     player.sprite_pawn[0] = grab_sprite_player(player.sprite_player_pawn, 0, 0 , 28, 28, "player 00");

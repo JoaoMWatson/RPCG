@@ -87,7 +87,7 @@ int main()
                         break;
 
                     case MAIN_GAME:
-                        if(!sc_kni.map_it && !sc_bis.map_it && !sc_tow.map_it && !sc_kin.map_it)
+                        if(!sc_kni.map_it && !sc_bis.map_it && !sc_tow.map_it && !sc_kin.map_it && !sc_map.map_it)
                             player_update();       
                         map_update(&player.position_x, &player.position_y);
                         npc_update(player.position_x, player.position_y, &play);
@@ -205,6 +205,8 @@ int main()
                         script_draw(sc_tow);
                     else if(sc_kin.map_it)
                         script_draw(sc_kin);
+                    else if(sc_map.map_it )
+                        script_draw(sc_map); 
                     player_draw(parallel_player.tower_done);
                    
                     display_post_draw();

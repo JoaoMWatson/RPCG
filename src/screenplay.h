@@ -23,12 +23,15 @@ const int count_lines_king = 32;
 SCRIPT_FILE script_file_pawn[8];
 const int count_lines_pawn = 8;
 
+SCRIPT_FILE script_file_map[4];
+const int count_lines_map = 4;
 
 FILE* s_file_knight;
 FILE* s_file_bishop;
 FILE* s_file_tower;
 FILE* s_file_king;
 FILE* s_file_pawn;
+FILE* s_file_map;
 
 
 void init_each_script_file(FILE *s_file, SCRIPT_FILE *each, int count_lines, char path[]) {
@@ -55,6 +58,7 @@ void init_script_file(void) {
     init_each_script_file(s_file_tower, script_file_tower, count_lines_tower, "src/script/tower_script.txt");
     init_each_script_file(s_file_king, script_file_king, count_lines_king, "src/script/king_script.txt");
     init_each_script_file(s_file_pawn, script_file_pawn, count_lines_pawn, "src/script/pawn_script.txt");
+    init_each_script_file(s_file_map, script_file_map, count_lines_map, "src/script/map_script.txt");
     return;
 }
 
@@ -69,6 +73,7 @@ SCRIPT sc_bis;
 SCRIPT sc_tow;
 SCRIPT sc_kin;
 SCRIPT sc_paw;
+SCRIPT sc_map;
 
 int size_line = 12;
 
@@ -79,6 +84,7 @@ void init_bool_script(void) {
     sc_tow.map_it = false;
     sc_kin.map_it = false;
     sc_paw.map_it = false;
+    sc_map.map_it = false;
 
     return;
 }
@@ -369,6 +375,19 @@ void pawn_script(int *which) {
         case 1:
             for(int i = 0; i < 4; i++)
                 strcpy(sc_paw.line[i], script_file_pawn[4 * *which + i].speech);
+            break;
+    }
+
+    return;
+}
+
+
+void map_script(int *which) {
+    switch(*which)
+    {
+        case 0:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
             break;
     }
 
