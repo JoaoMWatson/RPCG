@@ -16,10 +16,10 @@ typedef struct NPC
 }npc;
 
 const int common_size = 28;
-npc bishop = {13, 5, 26, 32};
+npc bishop = {13, 5, 26, 47};
 npc king = {40, 5, 24, 32};
 npc knight = {5, 4, 26, 37};
-npc tower = {27, 5, common_size, common_size};
+npc tower = {29, 5, 32, 36};
 
 
 void init_npc(int size) {
@@ -40,6 +40,8 @@ void init_npc(int size) {
 
     tower.position_map_x = tower.position_x * size;
     tower.position_map_y = tower.position_y * size;
+    tower.sprite = al_load_bitmap("src/images/tower.png");
+    must_init(true, tower.sprite, "tower sprite");
 
     return;
 }
@@ -53,13 +55,14 @@ void each_npc_draw(int x, int y, int position_x, int position_y, int width, int 
 
 
 void npc_draw(int x, int y) {
-    each_npc_draw(x, y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height, 0, 100, 200);
+    //each_npc_draw(x, y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height, 0, 100, 200);
     //each_npc_draw(x, y, king.position_map_x, king.position_map_y, king.width, king.height, 200, 0, 100);
     //each_npc_draw(x, y, knight.position_map_x, knight.position_map_y, knight.width, knight.height, 100, 200, 100);
+    //each_npc_draw(x, y, tower.position_map_x, tower.position_map_y, tower.width, tower.height, 100, 20, 100);
     al_draw_bitmap(knight.sprite, x + knight.position_map_x - 9, y + knight.position_map_y - 2, 0);
     al_draw_bitmap(king.sprite, x + king.position_map_x, y + king.position_map_y, 0);
     al_draw_bitmap(bishop.sprite, x + bishop.position_map_x, y + bishop.position_map_y, 0);
-    each_npc_draw(x, y, tower.position_map_x, tower.position_map_y, tower.width, tower.height, 100, 20, 100);
+    al_draw_bitmap(tower.sprite, x + tower.position_map_x, y + tower.position_map_y, 0);
     
     return;
 }
@@ -126,48 +129,84 @@ void npc_update(int player_x, int player_y, int *play) {
         if(it_bis) {
             if(!parallel_player.bishop_done && !parallel_player.knight_done) {
                 /* TODO pedir para falar como cavalo */
-            }
-            if(!parallel_player.bishop_done && parallel_player.knight_done) { 
-                /* TODO introduzir batalha */
-                init_parallel_player();
-                init_enemy();
-                init_shot();
-                bishop_iteration(play);
-            } else if(parallel_player.bishop_done && !parallel_player.tower_done) {
+            } 
+            else if(!parallel_player.bishop_done && parallel_player.knight_done) { 
+                if(player.bishop == 0) {
+                    /* TODO Se apresentar */
+                } else {
+                    init_parallel_player();
+                    init_enemy_game();
+                    init_shot();
+                    bishop_iteration(play);
+                }
+            } 
+            else if(parallel_player.bishop_done && !parallel_player.tower_done) {
                 /* TODO pedir para falar com a torre */
-            } else if(parallel_player.bishop_done && parallel_player.tower_done) {
+            } 
+            else if(parallel_player.bishop_done && parallel_player.tower_done) {
                 /* TODO pedir para explorar o castelo */
             }
-        } else if(it_kin) {
-            if(!parallel_player.king_done && parallel_player.tower_done) { 
-                init_parallel_player();
-                init_enemy();
-                init_shot();
-                init_shot_player();
-                king_iteration(play);
+        } 
+        else if(it_kin) {
+            if(!parallel_player.king_done && !parallel_player.knight_done) {
+                /* TODO mandar falar com o cavalo */
             }
-        } else if(it_kni) {
+            else if(!parallel_player.king_done && (!parallel_player.bishop_done || !parallel_player.tower_done)) {
+                /* TODO mandar conhecer outras peças, se enturma vai */
+            }
+            else if(!parallel_player.king_done && parallel_player.tower_done) { 
+                if(player.king == 0) {
+                    /* TODO blabla mero peão*/
+                } else {
+                    /* ????? dialogo e fugir */
+                    init_parallel_player();
+                    init_enemy_game();
+                    init_shot();
+                    init_shot_player();
+                    king_iteration(play);
+                }
+            }
+        } 
+        else if(it_kni) {
             if(!parallel_player.knight_done) {
+                init_enemy_game();
                 knight_iteration(play);
-            } else if(!parallel_player.tower_done && !parallel_player.bishop_done){
+            } 
+            else if(!parallel_player.tower_done && !parallel_player.bishop_done){
                 sc_kni.map_it = !sc_kni.map_it;
                 player.knight = 13;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
-            } else if(!parallel_player.tower_done) {
+            } 
+            else if(!parallel_player.tower_done) {
                 sc_kni.map_it = !sc_kni.map_it;
                 player.knight = 14;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
-            } else if(!parallel_player.king_done) {
+            } 
+            else if(!parallel_player.king_done) {
                 sc_kni.map_it = !sc_kni.map_it;
                 player.knight = 15;
                 knight_script(&parallel_player.knight_done, &player.knight, play);
             }
-        } else if(it_tow) {
-            if(!parallel_player.tower_done && parallel_player.bishop_done) {
-                init_parallel_player();
-                init_enemy();
-                init_shot();
-                tower_iteration(play);
+        } 
+        else if(it_tow) {
+            if(!parallel_player.tower_done && !parallel_player.knight_done) {
+                /* TODO mandar falar com o cavalo */
+            }
+            else if(!parallel_player.tower_done && !parallel_player.bishop_done) {
+                /* TODO mandar falar com o bispo */
+            }
+            else if(!parallel_player.tower_done && parallel_player.bishop_done) {
+                if(player.bishop == 0) {
+                    /* TODO se apresentar */
+                } else {
+                    init_parallel_player();
+                    init_enemy_game();
+                    init_shot();
+                    tower_iteration(play);
+                }
+            }
+            else if(parallel_player.tower_done) {
+                /* TODO mandar explorar o castelo */
             }
         }
         restart_time();

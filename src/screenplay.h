@@ -73,6 +73,17 @@ SCRIPT sc_paw;
 int size_line = 12;
 
 
+void init_bool_script(void) {
+    sc_kni.map_it = false;
+    sc_bis.map_it = false;
+    sc_tow.map_it = false;
+    sc_kin.map_it = false;
+    sc_paw.map_it = false;
+
+    return;
+}
+
+
 void script_background(int a) {
     al_draw_filled_rectangle(0, BUFFER_H - size_line * 5 - 10, BUFFER_W, BUFFER_H, al_map_rgba(0, 0, 0, 205));
     al_draw_rectangle(5, BUFFER_H - size_line * 5 - 5, BUFFER_W - 5, BUFFER_H - 5, al_map_rgb(205, 205, 205), 1);
@@ -85,13 +96,14 @@ void next(int *which) {
     if(key[ALLEGRO_KEY_E]) {
         *which = *which + 1;
     }
-    printf("next - %d\n", *which);
+   //printf("next - %d\n", *which);
     return;
 }
 
 
 void knight_script(bool *done, int *which, int *play) {
-    switch(*which) {
+    switch(*which) 
+    {
         case 0:
             for(int i = 0; i < 4; i++)
                 strcpy(sc_kni.line[i], script_file_knight[4 * *which + i].speech);
@@ -177,69 +189,23 @@ void knight_script(bool *done, int *which, int *play) {
     return;
 }
 
-/*
+
 void bishop_script(int *which, int *play) {
-    switch(*which) {
+    switch(*which)
+    {
         case 0:
-            strcpy(sc_kni.line_one, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_two, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_three, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_four, "01234567890123456789012345678901234567");
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_knight[4 * *which + i].speech);
             break;
 
         case 1:
-            strcpy(sc_kni.line_one, "Cavaleiro, por favor ");
-            strcpy(sc_kni.line_two, "não me mate.");
-            strcpy(sc_kni.line_three, "");
-            strcpy(sc_kni.line_four, "");
             break;
     }
-    
+    next(which);
+
     return;
 }
 
-
-void tower_script(bool *done, int *which, int *play) {
-    switch(*which) {
-        case 0:
-            strcpy(sc_kni.line_one, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_two, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_three, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_four, "01234567890123456789012345678901234567");
-            break;
-
-        case 1:
-            strcpy(sc_kni.line_one, "Cavaleiro, por favor ");
-            strcpy(sc_kni.line_two, "não me mate.");
-            strcpy(sc_kni.line_three, "");
-            strcpy(sc_kni.line_four, "");
-            break;
-    }
-    
-    return;
-}
-
-
-void king_script(bool *done, int *which, int *play) {
-    switch(*which) {
-        case 0:
-            strcpy(sc_kni.line_one, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_two, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_three, "01234567890123456789012345678901234567");
-            strcpy(sc_kni.line_four, "01234567890123456789012345678901234567");
-            break;
-
-        case 1:
-            strcpy(sc_kni.line_one, "Cavaleiro, por favor ");
-            strcpy(sc_kni.line_two, "não me mate.");
-            strcpy(sc_kni.line_three, "");
-            strcpy(sc_kni.line_four, "");
-            break;
-    }
-    
-    return;
-}
-*/
 
 void script_draw(SCRIPT sc) {
     script_background(205);

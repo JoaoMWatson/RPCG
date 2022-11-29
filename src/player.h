@@ -80,7 +80,7 @@ void player_update(void)
     if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A]) {
         player.position_x -= PROTAGONIST_SPEED;
         
-        if(!(troca_sprite % 2 )) {
+        if(!(troca_sprite % 2)) {
             troca_sprite = 0;
 
             if(posicao < 3 || posicao >= 5) {

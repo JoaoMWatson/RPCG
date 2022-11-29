@@ -46,21 +46,33 @@ typedef struct ENEMY {
     float x, y;
     int height;
     int width;
-    ALLEGRO_BITMAP *sprite[4];
+    ALLEGRO_BITMAP *sprite[5];
 } ENEMY;
 ENEMY enemy;
 
 
 void init_enemy(void) {
+    enemy.sprite[0] = al_load_bitmap("src/images/mini_knight.png");
+    must_init(true, enemy.sprite[0], "mini knight");
+
+    enemy.sprite[1] = al_load_bitmap("src/images/mini_bishop.png");
+    must_init(true, enemy.sprite[1], "mini bishop");
+
+    enemy.sprite[2] = al_load_bitmap("src/images/mini_tower.png");
+    must_init(true, enemy.sprite[2], "mini tower");
+
+    enemy.sprite[3] = al_load_bitmap("src/images/mini_king.png");
+    must_init(true, enemy.sprite[3], "mini king");
+
+    return;
+}
+
+
+void init_enemy_game(void) {
     enemy.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     enemy.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
     enemy.height = 12;
     enemy.width = 12;
-
-    enemy.sprite[1] = al_load_bitmap("src/images/mini_bishop.png");
-    must_init(true, enemy.sprite[1], "mini bishop");
-    enemy.sprite[2] = al_load_bitmap("src/images/mini_tower.png");
-    enemy.sprite[3] = al_load_bitmap("src/images/mini_king.png");
 
     return;
 }
@@ -97,9 +109,15 @@ void enemy_king_update(int play_x, int play_y) {
 }
 
 
-void enemy_draw(void) {
-    al_draw_filled_rectangle(enemy.x, enemy.y, enemy.x + enemy.height, enemy.y + enemy.width, al_map_rgb(255, 255, 255));
-    al_draw_bitmap(enemy.sprite[1], enemy.x, enemy.y, 0);
+void enemy_draw(int which) {
+    if(which == 4)
+        al_draw_bitmap(enemy.sprite[0], enemy.x, enemy.y, 0);
+    else if(which == 3)
+        al_draw_bitmap(enemy.sprite[1], enemy.x, enemy.y, 0);
+    else if(which == 2)
+        al_draw_bitmap(enemy.sprite[2], enemy.x, enemy.y, 0);
+    else if(which == 1)
+        al_draw_bitmap(enemy.sprite[3], enemy.x, enemy.y, 0);
 
     return;
 }

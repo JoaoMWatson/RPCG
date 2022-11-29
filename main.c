@@ -34,6 +34,18 @@ enum play_what
         END_GAME = 8
     };
 
+
+void end(void) {
+    destroy_structure_all();
+    destroy_player();
+    destroy_npc();
+    destroy_sprites_map();
+    destroy_parallel_game();
+
+    return;
+}
+
+
 void start(int *play) {
     *play = MENU;
 
@@ -41,11 +53,14 @@ void start(int *play) {
     init_sprites_map();
     init_script_file();
     init_player(); 
+    init_enemy();
     init_parallel_bool();
+    init_bool_script();
     init_npc(tile_size);
 
     return;
 }
+
 
 int main()
 {
@@ -72,10 +87,7 @@ int main()
                         break;
 
                     case MAIN_GAME:
-                        if((!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
-                        || (!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
-                        || (!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it)
-                        || (!sc_kni.map_it || sc_bis.map_it || sc_tow.map_it || sc_kin.map_it))
+                        if(!sc_kni.map_it && !sc_bis.map_it && !sc_tow.map_it && !sc_kin.map_it)
                             player_update();       
                         map_update(&player.position_x, &player.position_y);
                         npc_update(player.position_x, player.position_y, &play);
@@ -125,6 +137,7 @@ int main()
 
                     case END_GAME:
                         if(key[ALLEGRO_KEY_L])
+                            end();
                             start(&play);
                         break;                    
                 }
@@ -180,6 +193,7 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     script_draw(sc_kni);
+                    enemy_draw(4);
 
                     display_post_draw(); 
                     break;
@@ -189,7 +203,7 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     parallel_player_draw();
-                    enemy_draw();
+                    enemy_draw(3);
                     shot_draw();
                     time_draw(tic_tac);
 
@@ -201,7 +215,7 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     parallel_player_draw();
-                    enemy_draw();
+                    enemy_draw(2);
                     shot_draw();
                     time_draw(tic_tac);
 
@@ -213,7 +227,7 @@ int main()
                     al_clear_to_color(al_map_rgb(0,0,0));
 
                     parallel_player_draw();
-                    enemy_draw();
+                    enemy_draw(1);
                     shot_draw(); 
                     shot_draw_player();
                     if(tic_tac < 6)
@@ -248,13 +262,7 @@ int main()
         
     }
 
-
-    destroy_structure_all();
-    destroy_player();
-    destroy_npc();
-    destroy_sprites_map();
-    destroy_parallel_game();
-    
+    end();    
     
     return 0;
 }
