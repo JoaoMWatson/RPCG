@@ -136,6 +136,13 @@ int main()
                         break;  
 
                     case END_GAME:
+                        if(parallel_player.king_dead) 
+                            player.pawn = 0;
+                        else 
+                            player.pawn = 1;
+                            
+                        pawn_script(&player.tower);
+
                         if(key[ALLEGRO_KEY_L])
                             end();
                             start(&play);
@@ -258,6 +265,7 @@ int main()
                         good_ending();
                     else
                         bad_ending();
+                    script_draw(sc_paw);
 
                     display_post_draw(); 
                     break; 

@@ -20,8 +20,8 @@ const int count_lines_tower = 44;
 SCRIPT_FILE script_file_king[32];
 const int count_lines_king = 32;
 
-SCRIPT_FILE script_file_pawn[16];
-const int count_lines_pawn = 16;
+SCRIPT_FILE script_file_pawn[8];
+const int count_lines_pawn = 8;
 
 
 FILE* s_file_knight;
@@ -353,6 +353,24 @@ void king_script(int *which, int *play) {
     }
     next(which);
 
+
+    return;
+}
+
+
+void pawn_script(int *which) {
+    switch(*which)
+    {
+        case 0:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_paw.line[i], script_file_pawn[4 * *which + i].speech);
+            break;
+
+        case 1:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_paw.line[i], script_file_pawn[4 * *which + i].speech);
+            break;
+    }
 
     return;
 }

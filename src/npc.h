@@ -172,7 +172,10 @@ void npc_update(int player_x, int player_y, int *play) {
             }
             else if(!parallel_player.king_done && parallel_player.tower_done) { 
                 if(player.king < 8) {
+                    if(player.king < 2)
+                        player.king = 2;
                     sc_kin.map_it = true;
+                    king_script(&player.king, play);
                 } else {
                     sc_kin.map_it = false;
                     init_parallel_player();
