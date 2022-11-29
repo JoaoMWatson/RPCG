@@ -161,16 +161,20 @@ void npc_update(int player_x, int player_y, int *play) {
         } 
         else if(it_kin) {
             if(!parallel_player.king_done && !parallel_player.knight_done) {
-                /* TODO mandar falar com o cavalo */
+                sc_kin.map_it = !sc_kin.map_it;
+                player.king = 0;
+                king_script(&player.king, play);
             }
             else if(!parallel_player.king_done && (!parallel_player.bishop_done || !parallel_player.tower_done)) {
-                /* TODO mandar conhecer outras peças, se enturma vai */
+                sc_kin.map_it = !sc_kin.map_it;
+                player.king = 1;
+                king_script(&player.king, play);
             }
             else if(!parallel_player.king_done && parallel_player.tower_done) { 
-                if(player.king == 0) {
-                    /* TODO blabla mero peão*/
+                if(player.king < 8) {
+                    sc_kin.map_it = true;
                 } else {
-                    /* ????? dialogo e fugir */
+                    sc_kin.map_it = false;
                     init_parallel_player();
                     init_enemy_game();
                     init_shot();

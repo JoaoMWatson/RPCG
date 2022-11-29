@@ -17,8 +17,8 @@ const int count_lines_bishop = 36;
 SCRIPT_FILE script_file_tower[44];
 const int count_lines_tower = 44;
 
-SCRIPT_FILE script_file_king[16];
-const int count_lines_king = 16;
+SCRIPT_FILE script_file_king[32];
+const int count_lines_king = 32;
 
 SCRIPT_FILE script_file_pawn[16];
 const int count_lines_pawn = 16;
@@ -303,6 +303,56 @@ void tower_script(int *which, int *play) {
             break;
     }
     next(which);
+
+    return;
+}
+
+
+void king_script(int *which, int *play) {
+    switch (*which)
+    {
+        case 0:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    
+        case 1:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    
+        case 2:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    
+        case 3:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    
+        case 4:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    
+        case 5:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    
+        case 6:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    
+        case 7:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_kin.line[i], script_file_king[4 * *which + i].speech);
+            break;
+    }
+    next(which);
+
 
     return;
 }

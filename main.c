@@ -187,6 +187,8 @@ int main()
                         script_draw(sc_bis);
                     else if(sc_tow.map_it)
                         script_draw(sc_tow);
+                    else if(sc_kin.map_it)
+                        script_draw(sc_kin);
                     player_draw(parallel_player.tower_done);
                    
                     display_post_draw();

@@ -1,0 +1,40 @@
+0 REI:  O que você está fazendo aqui, não deveria
+1 estar conversando com o Cavalo?
+2 
+3
+
+4 REI:  Saia daqui, peão
+5
+6
+7
+
+8 REI:  HaHaHa, aprendeu alguns movimentos de 
+9 tabuleiro e agora se acha digno de se dirigir
+10 a mim dessa maneira
+11
+
+12 REI:  Conseguiu cruzar pelas outras peças e já 
+13 está achando que vale algo? É bom ter um plano
+14 X, se quiser me enfretar
+15
+
+16 PEÃO:  ...
+17
+18
+19
+
+20 PEÃO:  Eu não fui apenas resiliente, eu fui um 
+21 peão que conseguiu cruzar até aqui. Eu adquiri
+22 os movimentos do bispo e da torre
+23
+
+24 PEÃO:  Agora, estou aqui para tomar sua coroa  
+25
+26
+27
+
+28 REI:  SEU PEÃO DESPREZÍVEL!!!
+29
+30
+31
+
