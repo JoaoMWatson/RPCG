@@ -11,8 +11,8 @@ typedef struct SCRIPT_FILE {
 SCRIPT_FILE script_file_knight[60];
 const int count_lines_knight = 60;
 
-SCRIPT_FILE script_file_bishop[16];
-const int count_lines_bishop = 16;
+SCRIPT_FILE script_file_bishop[36];
+const int count_lines_bishop = 36;
 
 SCRIPT_FILE script_file_tower[16];
 const int count_lines_tower = 16;
@@ -195,10 +195,47 @@ void bishop_script(int *which, int *play) {
     {
         case 0:
             for(int i = 0; i < 4; i++)
-                strcpy(sc_bis.line[i], script_file_knight[4 * *which + i].speech);
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
             break;
 
         case 1:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
+            break;
+
+        case 2:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
+            break;
+
+        case 3:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
+            break;
+
+        case 4:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
+            break;
+
+        case 5:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
+            break;
+
+        case 6:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
+            break;
+
+        case 7:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
+            break;
+
+        case 8:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_bis.line[i], script_file_bishop[4 * *which + i].speech);
             break;
     }
     next(which);

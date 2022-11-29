@@ -17,9 +17,9 @@ typedef struct NPC
 
 const int common_size = 28;
 npc bishop = {17, 4, 26, 47};
-npc king = {39, 3, 24, 32};
+npc king = {41, 4, 24, 32};
 npc knight = {7, 4, 26, 37};
-npc tower = {29, 5, 32, 36};
+npc tower = {27, 4, 32, 36};
 
 
 void init_npc(int size) {
@@ -128,12 +128,18 @@ void npc_update(int player_x, int player_y, int *play) {
 
         if(it_bis) {
             if(!parallel_player.bishop_done && !parallel_player.knight_done) {
-                /* TODO pedir para falar como cavalo */
+                sc_bis.map_it = !sc_bis.map_it;
+                player.bishop = 0;
+                bishop_script(&player.bishop, play);
             } 
             else if(!parallel_player.bishop_done && parallel_player.knight_done) { 
-                if(player.bishop == 0) {
-                    /* TODO Se apresentar */
+                if(player.bishop < 7) {
+                    if(player.bishop == 0)
+                        player.bishop = 1;
+                    sc_bis.map_it = true;
+                    bishop_script(&player.bishop, play);
                 } else {
+                    sc_bis.map_it = false;
                     init_parallel_player();
                     init_enemy_game();
                     init_shot();
@@ -141,10 +147,14 @@ void npc_update(int player_x, int player_y, int *play) {
                 }
             } 
             else if(parallel_player.bishop_done && !parallel_player.tower_done) {
-                /* TODO pedir para falar com a torre */
+                sc_bis.map_it = !sc_bis.map_it;
+                player.bishop = 7;
+                bishop_script(&player.bishop, play);
             } 
             else if(parallel_player.bishop_done && parallel_player.tower_done) {
-                /* TODO pedir para explorar o castelo */
+                sc_bis.map_it = !sc_bis.map_it;
+                player.bishop = 8;
+                bishop_script(&player.bishop, play);
             }
         } 
         else if(it_kin) {
