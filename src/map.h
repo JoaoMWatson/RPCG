@@ -206,14 +206,14 @@ void init_sprites_map(void)
 
 int xOff = 0;
 int yOff = 0;
-const int map_columns = 46;
-const int map_lines = 12;
+const int map_columns = 48;
+const int map_lines = 13;
 int tile_size = 32;
 
 
 FILE* tile_map;  
     
-int map[12][46];
+int map[13][48];
 void init_map(void) { 
     tile_map = fopen("src/tiles/maping.txt", "r");
     if(tile_map == NULL) {

@@ -16,9 +16,9 @@ typedef struct NPC
 }npc;
 
 const int common_size = 28;
-npc bishop = {13, 5, 26, 47};
-npc king = {40, 5, 24, 32};
-npc knight = {5, 4, 26, 37};
+npc bishop = {17, 4, 26, 47};
+npc king = {39, 3, 24, 32};
+npc knight = {7, 4, 26, 37};
 npc tower = {29, 5, 32, 36};
 
 

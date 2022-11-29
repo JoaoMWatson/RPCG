@@ -5,11 +5,11 @@
 void menu_draw(void) {
     time_count();
 
-    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, 50, ALLEGRO_ALIGN_CENTRE, "RPCG");
-    al_draw_text(font, al_map_rgb(215, 215, 215), BUFFER_W/2, 90, ALLEGRO_ALIGN_CENTRE, "Role Playing Chess Game");
+    al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, 10, ALLEGRO_ALIGN_CENTRE, "RPCG");
+    al_draw_text(font, al_map_rgb(215, 215, 215), BUFFER_W/2, 50, ALLEGRO_ALIGN_CENTRE, "Role Playing Chess Game");
     
     if(count_timer > 30) {
-        al_draw_text(font, al_map_rgb(185, 185, 185), BUFFER_W/2, 200, ALLEGRO_ALIGN_CENTRE, "pressione ENTER para começar");
+        al_draw_text(font, al_map_rgb(185, 185, 185), BUFFER_W/2, 160, ALLEGRO_ALIGN_CENTRE, "pressione ENTER para começar");
         if(count_timer > 60)
             restart_time();
     }
