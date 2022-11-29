@@ -9,6 +9,8 @@ void cool_draw_text(char m[], int height) {
         al_draw_text(font, al_map_rgb(185, 185, 185), BUFFER_W/2, height, ALLEGRO_ALIGN_CENTRE, m);
         if(count_timer > 60)
             restart_time();
+            al_play_sample_instance(menu_audio_instance);
+            al_stop_sample_instance(final_boss_game_audio_instance);
     }
 
     return;

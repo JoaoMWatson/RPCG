@@ -94,12 +94,16 @@ int main()
 
                         al_play_sample_instance(main_game_audio_instance);
                         al_stop_sample_instance(mini_game_audio_instance);
+                        al_stop_sample_instance(horse_game_audio_instace);
+                        al_stop_sample_instance(bishop_game_audio_instance);
+                        al_stop_sample_instance(final_boss_game_audio_instance);
+                        al_stop_sample_instance(menu_audio_instance);
                         break;
                     
                     case KNIGHT_GAME:
                         knight_update(&play, &player.knight); 
-                        al_stop_sample_instance(main_game_audio_instance);
-                        al_play_sample_instance(mini_game_audio_instance);             
+                        al_play_sample_instance(horse_game_audio_instace);       
+                        al_stop_sample_instance(main_game_audio_instance);      
                         break;
 
                     case BISHOP_GAME:
@@ -108,7 +112,8 @@ int main()
                         add_shot(3);
                         shot_update(3);
                         bishop_update(&play);  
-                        al_play_sample_instance(mini_game_audio_instance);  
+                        al_play_sample_instance(bishop_game_audio_instance);  
+                        al_stop_sample_instance(main_game_audio_instance);
                         break; 
 
                     case TOWER_GAME:
@@ -118,6 +123,7 @@ int main()
                         shot_update(2);
                         tower_update(&play);  
                         al_play_sample_instance(mini_game_audio_instance);
+                        al_stop_sample_instance(main_game_audio_instance);
                         break;
 
                     case KING_GAME:
@@ -129,7 +135,11 @@ int main()
                         shot_update(1);
                         shot_update_player();
                         king_update(&play);  
-                        al_play_sample_instance(mini_game_audio_instance);
+                        al_play_sample_instance(final_boss_game_audio_instance);
+                        al_stop_sample_instance(mini_game_audio_instance);
+                        al_stop_sample_instance(horse_game_audio_instace);
+                        al_stop_sample_instance(bishop_game_audio_instance);
+                        al_stop_sample_instance(main_game_audio_instance);
                         break;
 
                     case GAME_OVER:

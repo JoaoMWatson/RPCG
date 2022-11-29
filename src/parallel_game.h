@@ -368,6 +368,7 @@ void shot_collision(SHOT *shot, int play_x, int play_y, int x, int y, int width,
     if(col_shot) { 
         shot->used = false;
         parallel_player.lost = true;
+        al_play_sample(damage, 0.3 , 0 , 2.8, ALLEGRO_PLAYMODE_ONCE, NULL);
     }
 
     return;
