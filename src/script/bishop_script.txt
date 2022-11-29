@@ -1,35 +1,50 @@
-0
-1
-2
+0 BISPO:  Mais uma alma perdida por aqui...
+1 Fale com o cavalo, ele é o direcionar 
+2 dentre nós
 3
 
-4
-5
+4 BISPO:  Um novo peão... um mero e rídiculo 
+5 peão...
 6
 7
 
-8
-9
-10
+8 BISPO:  Como parte da consagração preciso ser
+9 misericordioso para com os meus. Então, 
+10 apenas irei me apresentar
 11
 
-12
-13
-14
+12 BISPO:  Paz seja convosco, pequeno peão!
+13 Eu sou o grandioso Bispo, me considere 
+14 uma representação do próprio Deus
 15
 
-16
-17
-18
-19
+16 BISPO:  Minha função na confraria é dominar 
+17 as diagonais. Meu movimento é em X, podendo  
+18 me mover para qualquer casa na minha 
+19 diagonal se não houver nenhum obstáculo
 
-20
-21
-22
-23
+20 BISPO:  Sou conhecido por ser fiel ao lugar 
+21 onde pertenço, se comecei em uma casa 
+22 branca, jamais irei para uma casa preta. 
+23 Como o contrário também é verdadeiro.
 
-24
-25
-26
+24 BISPO:  Agora você terá a honra de ver  
+25 um pouco do meu poder.
+26 Se eu fosse você, correria...
 27
+
+28 BISPO:  Como novo peão, você deveria também
+29 as outras peças
+30
+31
+
+32 BISPO:  Sua habilidade de aprender como a 
+33 confraria funciona é abençoada. Por favor, 
+34 se sinta em seu tabuleiro
+35
+
+36
+37
+38
+39
 
