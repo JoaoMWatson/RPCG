@@ -153,32 +153,12 @@ void player_draw(bool tower_done)
 
 void destroy_player(void) {
     al_destroy_bitmap(player.sprite_player_pawn);
-    al_destroy_bitmap(player.sprite_pawn[0]);
-    al_destroy_bitmap(player.sprite_pawn[1]);
-    al_destroy_bitmap(player.sprite_pawn[2]);
-    al_destroy_bitmap(player.sprite_pawn[3]);
-    al_destroy_bitmap(player.sprite_pawn[4]);
-    al_destroy_bitmap(player.sprite_pawn[5]);
-    al_destroy_bitmap(player.sprite_pawn[6]);
-    al_destroy_bitmap(player.sprite_pawn[7]);
-    al_destroy_bitmap(player.sprite_pawn[8]);
-    al_destroy_bitmap(player.sprite_pawn[9]);
-    al_destroy_bitmap(player.sprite_pawn[10]);
-    al_destroy_bitmap(player.sprite_pawn[11]);
-    
     al_destroy_bitmap(player.sprite_player_queen);
-    al_destroy_bitmap(player.sprite_queen[0]);
-    al_destroy_bitmap(player.sprite_queen[1]);
-    al_destroy_bitmap(player.sprite_queen[2]);
-    al_destroy_bitmap(player.sprite_queen[3]);
-    al_destroy_bitmap(player.sprite_queen[4]);
-    al_destroy_bitmap(player.sprite_queen[5]);
-    al_destroy_bitmap(player.sprite_queen[6]);
-    al_destroy_bitmap(player.sprite_queen[7]);
-    al_destroy_bitmap(player.sprite_queen[8]);
-    al_destroy_bitmap(player.sprite_queen[9]);
-    al_destroy_bitmap(player.sprite_queen[10]);
-    al_destroy_bitmap(player.sprite_queen[11]);
+    
+    for(int i = 0; i < 12; i++) {
+        al_destroy_bitmap(player.sprite_pawn[i]);
+        al_destroy_bitmap(player.sprite_queen[i]);
+    }
 
     return;
 }
