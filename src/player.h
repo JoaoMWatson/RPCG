@@ -35,6 +35,15 @@ ALLEGRO_BITMAP* grab_sprite_player(ALLEGRO_BITMAP *main_sprite, int x, int y, in
 }
 
 
+void each_grab_player(ALLEGRO_BITMAP* main_sprite, ALLEGRO_BITMAP* sprite[], char m[]) {
+    for(int i = 0, x = 0; i < 12, x <= 308; i++, x += 28) {
+        sprite[i] = grab_sprite_player(main_sprite, x, 0, 28, 28, m);
+    }
+
+    return;
+}
+
+
 void init_player(void) {
     player.x = (BUFFER_W / 2) - (PROTAGONIST_W / 2);
     player.y = (BUFFER_H / 2) - (PROTAGONIST_H / 2);
@@ -48,6 +57,7 @@ void init_player(void) {
     player.map = 0;
 
     player.sprite_player_pawn = al_load_bitmap("src/images/pawn.png");
+    /*
     player.sprite_pawn[0] = grab_sprite_player(player.sprite_player_pawn, 0, 0 , 28, 28, "player 00");
     player.sprite_pawn[1] = grab_sprite_player(player.sprite_player_pawn, 28, 0 , 28, 28, "player 01");  
     player.sprite_pawn[2] = grab_sprite_player(player.sprite_player_pawn, 56, 0 , 28, 28, "player 02");
@@ -60,8 +70,11 @@ void init_player(void) {
     player.sprite_pawn[9] = grab_sprite_player(player.sprite_player_pawn, 252, 0 , 28, 28, "player 09");
     player.sprite_pawn[10] = grab_sprite_player(player.sprite_player_pawn, 280, 0 , 28, 28, "player 10");
     player.sprite_pawn[11] = grab_sprite_player(player.sprite_player_pawn, 308, 0 , 28, 28, "player 11");
+    */
+   each_grab_player(player.sprite_player_pawn, player.sprite_pawn, "player pawn");
 
     player.sprite_player_queen = al_load_bitmap("src/images/queen.png");
+    /*
     player.sprite_queen[0] = grab_sprite_player(player.sprite_player_queen, 0, 0 , 28, 28, "player 00");
     player.sprite_queen[1] = grab_sprite_player(player.sprite_player_queen, 28, 0 , 28, 28, "player 01");  
     player.sprite_queen[2] = grab_sprite_player(player.sprite_player_queen, 56, 0 , 28, 28, "player 02");
@@ -74,6 +87,8 @@ void init_player(void) {
     player.sprite_queen[9] = grab_sprite_player(player.sprite_player_queen, 252, 0 , 28, 28, "player 09");
     player.sprite_queen[10] = grab_sprite_player(player.sprite_player_queen, 280, 0 , 28, 28, "player 10");
     player.sprite_queen[11] = grab_sprite_player(player.sprite_player_queen, 308, 0 , 28, 28, "player 11");
+    */
+    each_grab_player(player.sprite_player_queen, player.sprite_queen, "player queen");
 
     return;
 }
