@@ -66,71 +66,41 @@ void init_player(void) {
 }
 
 
+void movement_effect(int min, int max, int p_position) {
+    if(!(troca_sprite % 2)) {
+            troca_sprite = 0;
+
+            if(posicao < min || posicao >= max) {
+                posicao = min;
+            } else if( posicao < max) {
+                posicao++;
+            }
+        }
+        if(p_position - 10  < 0 || p_position + 10 > 0) {
+            al_play_sample_instance(movement_audio_instance);
+        }
+
+    return;
+}
+
+
 void player_update(void)
 {
     if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A]) {
-        player.position_x -= PROTAGONIST_SPEED;
-        
-        if(!(troca_sprite % 2)) {
-            troca_sprite = 0;
-
-            if(posicao < 3 || posicao >= 5) {
-                posicao = 3;
-            } else if( posicao == 3 || posicao == 4) {
-                posicao++;
-            }
-        }
-        if(player.x - 10  < 0 || player.x + 10 > 0) {
-            al_play_sample_instance(movement_audio_instance);
-        }
+        player.position_x -= PROTAGONIST_SPEED;     
+        movement_effect(3, 5, player.x);
     } 
     else if(key[ALLEGRO_KEY_RIGHT] || key[ALLEGRO_KEY_D]) {
         player.position_x += PROTAGONIST_SPEED;
-
-        if(!(troca_sprite % 2)) {
-            troca_sprite = 0;
-
-            if(posicao < 0 || posicao >= 2) {
-                posicao = 0;
-            } else if( posicao == 0 || posicao == 1) {
-                posicao++;
-            }
-        }
-        if(player.x - 10  < 0 || player.x + 10 > 0) {
-            al_play_sample_instance(movement_audio_instance);
-        }
+        movement_effect(0, 2, player.x);
     } 
     else if(key[ALLEGRO_KEY_UP] || key[ALLEGRO_KEY_W]) {
         player.position_y -= PROTAGONIST_SPEED;
-
-        if(!(troca_sprite % 2)){
-            troca_sprite = 0;
-
-            if(posicao < 6 || posicao >= 8) {
-                posicao = 6;
-            } else if( posicao == 6 || posicao == 7) {
-                posicao++;
-            }
-        }
-        if(player.y - 10 < 0 || player.y + 10 > 0) {
-            al_play_sample_instance(movement_audio_instance);
-        } 
+        movement_effect(6, 8, player.y);
     }     
     else if(key[ALLEGRO_KEY_DOWN] || key[ALLEGRO_KEY_S]) {
         player.position_y += PROTAGONIST_SPEED;
-        
-        if(!(troca_sprite % 2)) {
-            troca_sprite = 0;
-
-            if(posicao < 9 || posicao >= 11) {
-                posicao = 9;
-            } else if( posicao == 9 || posicao == 10) {
-                posicao++;
-            }
-        }
-        if(player.y - 10 < 0 || player.y + 10 > 0) {
-            al_play_sample_instance(movement_audio_instance);
-        }  
+        movement_effect(9, 11, player.y);
     }
 
     troca_sprite++;
