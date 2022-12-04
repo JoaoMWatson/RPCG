@@ -317,8 +317,8 @@ void detect_collision(int *player_position_x, int *player_position_y)
             || map[i][j] == TABLE_BOTTOM_RIGHT 
             || map[i][j] == TABLE_TOP_RIGHT
             || map[i][j] == TABLE_TOP 
-            || map[i][j] == TABLE_TOP_LEFT)
-            {
+            || map[i][j] == TABLE_TOP_LEFT
+            || map[i][j] == SEAT) {
                 col = collision(*player_position_x, *player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H);
                 collision_reaction(col, player_position_x, player_position_y, j * tile_size, i * tile_size, tile_size, tile_size, PROTAGONIST_W, PROTAGONIST_H, PROTAGONIST_SPEED);
             } else if(j == knight.position_x && i == knight.position_y) {
@@ -346,6 +346,28 @@ void detect_collision(int *player_position_x, int *player_position_y)
 }
 
 
+void it_table(int min, int max, bool *table) {
+    if(player.map > max && *table)
+        sc_map.map_it = !sc_map.map_it;
+    else
+        sc_map.map_it = true;
+
+    if(player.map < min || player.map > max) {
+        if(*table)
+            player.map = max;
+        else
+            player.map = min;
+    }
+                        
+    *table = true;
+
+    return;
+}
+
+
+bool table_horse = false;
+bool table_bishop = false;
+bool table_tower = false;
 void detect_iteration_map(int *player_position_x, int *player_position_y) {
     bool it;
     tic_tac = time_count();
@@ -362,9 +384,50 @@ void detect_iteration_map(int *player_position_x, int *player_position_y) {
                     map_script(&player.map);
                     restart_time();
                 } 
+            } else if(map[i][j] == BOOK_TOP
+                   || map[i][j] == BOOK_BOTTOM
+                   || map[i][j] == BOOK 
+                   || map[i][j] == ARROW 
+                   || map[i][j] == CUP_WATER
+                   || map[i][j] == CUP_WINE 
+                   || map[i][j] == POISON
+                   || map[i][j] == CROSS
+   
+                   || map[i][j] == BIBLE
+                   || map[i][j] == TABLE_BOTTOM
+                   || map[i][j] == TABLE_BOTTOM_LEFT
+                   || map[i][j] == TABLE_BOTTOM_RIGHT 
+                   || map[i][j] == TABLE_TOP_RIGHT
+                   || map[i][j] == TABLE_TOP 
+                   || map[i][j] == TABLE_TOP_LEFT
+                   || map[i][j] == SEAT) {
+                it = detect_iteration(*player_position_x, *player_position_y, j * 32, i * 32, 32, 32);
+                if(it && key[ALLEGRO_KEY_E] && count_timer > 2) {
+                    if(j < map_columns/4) {
+                        it_table(1, 2, &table_horse);
+                        map_script(&player.map);
+                        restart_time();
+                    } else if(j < 2 * map_columns/4) {
+                        it_table(3, 4, &table_bishop);
+                        map_script(&player.map);
+                        restart_time();
+                    } else if(j < 3 * map_columns/4) {
+                        it_table(5, 6, &table_tower);
+                        map_script(&player.map);
+                        restart_time();
+                    }
+                }
+            } else if(map[i][j] == THRONE) {
+                it = detect_iteration(*player_position_x, *player_position_y, j * 32, i * 32, 32, 32);
+                if(it && key[ALLEGRO_KEY_E] && count_timer > 2) {
+                    sc_map.map_it = !sc_map.map_it;
+                    player.map = 7;
+                    map_script(&player.map);
+                    restart_time();
+                }
             }
         }
-    }
+    }   
 
     return;
 }

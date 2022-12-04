@@ -23,8 +23,8 @@ const int count_lines_king = 32;
 SCRIPT_FILE script_file_pawn[8];
 const int count_lines_pawn = 8;
 
-SCRIPT_FILE script_file_map[4];
-const int count_lines_map = 4;
+SCRIPT_FILE script_file_map[32];
+const int count_lines_map = 32;
 
 FILE* s_file_knight;
 FILE* s_file_bishop;
@@ -389,7 +389,43 @@ void map_script(int *which) {
             for(int i = 0; i < 4; i++)
                 strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
             break;
+
+        case 1:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
+            break;
+
+        case 2:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
+            break;
+
+        case 3:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
+            break;
+
+        case 4:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
+            break;
+
+        case 5:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
+            break;
+
+        case 6:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
+            break;
+
+        case 7:
+            for(int i = 0; i < 4; i++)
+                strcpy(sc_map.line[i], script_file_map[4 * *which + i].speech);
+            break;
     }
+    next(which);
 
     return;
 }
