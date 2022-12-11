@@ -1,16 +1,13 @@
-#ifndef PARALLEL_GAME
-#define PARALLEL_GAME
-#include "map.h"
-#include "screenplay.h"
+#include "../map/map.h"
+#include "../screenplay/screenplay.h"
 
-int count_timer = 0;
-int tic_tac;
 
 void restart_time(void) {
     count_timer = 0;
     
     return;
 }
+
 
 int time_count(void) {
     int timer_counted;
@@ -21,14 +18,13 @@ int time_count(void) {
     return timer_counted;
 }
 
+
 void game_over(bool *lost, int *play) {
     tic_tac = time_count();
 
     if(tic_tac < 2) {
-    al_draw_filled_rectangle(0, BUFFER_H/4, BUFFER_W, BUFFER_H - BUFFER_H/4, al_map_rgba(35, 35, 35, 205));
-
-    al_draw_rectangle(0 + 6, BUFFER_H/4 + 6, BUFFER_W - 6, BUFFER_H - BUFFER_H/4 - 6, al_map_rgba(205, 205, 205, 205), 0);
-    //al_draw_filled_rectangle(0 + 10, BUFFER_H/4 + 10, BUFFER_W - 10, BUFFER_H - BUFFER_H/4 - 10, al_map_rgb(9, 9, 9));
+        al_draw_filled_rectangle(0, BUFFER_H/4, BUFFER_W, BUFFER_H - BUFFER_H/4, al_map_rgba(35, 35, 35, 205));
+        al_draw_rectangle(0 + 6, BUFFER_H/4 + 6, BUFFER_W - 6, BUFFER_H - BUFFER_H/4 - 6, al_map_rgba(205, 205, 205, 205), 0);
     } else {
         lost = false;
         *play = 2;
@@ -36,19 +32,8 @@ void game_over(bool *lost, int *play) {
     al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 - 18, ALLEGRO_ALIGN_CENTRE, "Você não teve");
     al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 + 6, ALLEGRO_ALIGN_CENTRE, "determinação");
 
-    //al_draw_textf(font, al_map_rgb(155, 155, 155), BUFFER_W/2, 400, ALLEGRO_ALIGN_CENTRE, "Hello world!%d - %d", BUFFER_W, BUFFER_H);
-
     return;
 }
-
-
-typedef struct ENEMY {
-    float x, y;
-    int height;
-    int width;
-    ALLEGRO_BITMAP *sprite[5];
-} ENEMY;
-ENEMY enemy;
 
 
 void init_enemy(void) {
@@ -125,26 +110,6 @@ void enemy_draw(int which) {
 }
 
 
-#define PARALLEL_PROTAGONIST_W 14
-#define PARALLEL_PROTAGONIST_H 27
-#define PARALLEL_PROTAGONIST_SPEED 4
-#define PARALLEL_PROTAGONIST_MAX_X (BUFFER_W - PARALLEL_PROTAGONIST_W)
-#define PARALLEL_PROTAGONIST_MAX_Y (BUFFER_H - PARALLEL_PROTAGONIST_H)
-
-typedef struct PARALLEL_PLAYER {
-    int x, y;
-    int width;
-    int height;
-    bool lost;
-    bool bishop_done;
-    bool tower_done;
-    bool knight_done;
-    bool king_done;
-    bool king_dead;
-    ALLEGRO_BITMAP *sprite;
-} PARALLEL_PLAYER;
-PARALLEL_PLAYER parallel_player;
-
 void init_parallel_bool(void) {
     parallel_player.bishop_done = false;
     parallel_player.tower_done = false;
@@ -171,7 +136,6 @@ void init_parallel_player(void) {
 }
 
 
-bool col_enemy;
 void parallel_player_update(void) {
 
     if(key[ALLEGRO_KEY_LEFT] || key[ALLEGRO_KEY_A])
@@ -208,18 +172,6 @@ void parallel_player_draw(void) {
 }
 
 
-typedef struct SHOT {
-    int x, y;
-    int speed;
-    float size;
-    bool used;
-} SHOT;
-
-#define SHOTS_N 98
-SHOT shots[SHOTS_N];
-SHOT shots_player[SHOTS_N];
-
-
 void init_shot(void) {
     for(int i = 0; i < SHOTS_N; i++) {
         shots[i].speed = 1;
@@ -244,7 +196,6 @@ void init_shot_player(void) {
 }
 
 
-int timing = 0;
 void add_shot_tower(void) {
     if(!(timing % 40)) {
         for(int i = 0; i < SHOTS_N - 3; i += 4) {
@@ -362,7 +313,6 @@ void add_shot_player(void) {
 }
 
 
-bool col_shot;
 void shot_collision(SHOT *shot, int play_x, int play_y, int x, int y, int width, int height) {
     col_shot = collision(play_x, play_y, x, y, width, height, PARALLEL_PROTAGONIST_W, PARALLEL_PROTAGONIST_H);
     if(col_shot) { 
@@ -518,7 +468,6 @@ void shot_draw_player(void) {
 }
 
 
-int time_win = 15;
 void time_draw(int time_counting) {
     int show_time = time_win - time_counting;
 
@@ -601,6 +550,3 @@ void destroy_parallel_game(void) {
 
     return;
 }
-
-
-#endif

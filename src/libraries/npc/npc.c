@@ -1,25 +1,6 @@
-#ifndef NPC
-#define NPC
-#include "parallel_game.h"
-#include "screenplay.h"
-
-typedef struct NPC
-{
-    int position_x;
-    int position_y;
-    int width;
-    int height;
-    int position_map_x;
-    int position_map_y;
-
-    ALLEGRO_BITMAP* sprite;
-}npc;
-
-const int common_size = 28;
-npc bishop = {17, 4, 26, 47};
-npc king = {41, 4, 24, 32};
-npc knight = {7, 4, 26, 37};
-npc tower = {27, 3, 52, 72};
+#include "npc.h"
+#include "../parallel_game/parallel_game.h"
+#include "../screenplay/screenplay.h"
 
 
 void init_npc(int size) {
@@ -96,7 +77,6 @@ void tower_iteration(int *play) {
 }
 
 
-int distance = 5;
 bool detect_iteration(int player_x, int player_y, int position_x, int position_y, int width, int height) {
     if(player_y + PROTAGONIST_H + distance >= position_y 
     && player_y - distance <= position_y + height
@@ -108,10 +88,6 @@ bool detect_iteration(int player_x, int player_y, int position_x, int position_y
 }
 
 
-bool it_bis;
-bool it_kin;
-bool it_kni;
-bool it_tow;
 void npc_update(int player_x, int player_y, int *play) {
     tic_tac = time_count();
     it_bis = detect_iteration(player_x, player_y, bishop.position_map_x, bishop.position_map_y, bishop.width, bishop.height);
@@ -250,5 +226,3 @@ void destroy_npc(void) {
     
     return;
 }
-
-#endif

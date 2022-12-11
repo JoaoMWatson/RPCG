@@ -12,13 +12,14 @@
 bool collision(int player_x, int player_y, int x, int y, int width, int height, int play_width, int play_height);
 void collision_reaction(bool collision, int *player_position_x, int *player_position_y, int x, int y, int width, int height, int play_width, int play_height, int speed);
 
-#include "src/structure.h"
-#include "src/player.h"
-#include "src/map.h"
-#include "src/npc.h"
-#include "src/parallel_game.h"
-#include "src/screenplay.h"
-#include "src/stand_screen.h"
+#include "src/libraries/structure/structure.c"
+#include "src/libraries/player/player.c"
+#include "src/libraries/audio/audio.c"
+#include "src/libraries/npc/npc.c"
+#include "src/libraries/map/map.c"
+#include "src/libraries/parallel_game/parallel_game.c"
+#include "src/libraries/screenplay/screenplay.c"
+#include "src/libraries/stand_screen/stand_screen.c"
 
 
 enum play_what

@@ -1,6 +1,6 @@
-#ifndef STAND_SCREEN
-#define STAND_SCREEN
-#include "parallel_game.h"
+#include "stand_screen.h"
+#include "../parallel_game/parallel_game.h"
+
 
 void cool_draw_text(char m[], int height) {
     time_count();
@@ -13,6 +13,7 @@ void cool_draw_text(char m[], int height) {
 
     return;
 }
+
 
 void menu_draw(void) {
     al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, 10, ALLEGRO_ALIGN_CENTRE, "RPCG");
@@ -44,5 +45,3 @@ void info_return(void) {
 
     return;
 }
-
-#endif

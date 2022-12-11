@@ -1,28 +1,4 @@
-#ifndef AUDIO
-#define AUDIO
-
-#include <allegro5/allegro_audio.h>
-#include <allegro5/allegro_acodec.h>
-#include "structure.h"
-
-enum audios {
-    MENU_AUDIO, 
-    MAIN_AUDIO,
-    MINI_GAME_AUDIO,
-    HORSE_AUDIO,
-    BISHOP_AUDIO,
-    KING_AUDIO
-};
-
-ALLEGRO_SAMPLE *damage = NULL;
-
-ALLEGRO_SAMPLE_INSTANCE *menu_audio_instance = NULL;
-ALLEGRO_SAMPLE_INSTANCE *main_game_audio_instance = NULL;
-ALLEGRO_SAMPLE_INSTANCE *mini_game_audio_instance = NULL;
-ALLEGRO_SAMPLE_INSTANCE *movement_audio_instance = NULL;
-ALLEGRO_SAMPLE_INSTANCE *horse_game_audio_instace = NULL;
-ALLEGRO_SAMPLE_INSTANCE *bishop_game_audio_instance = NULL;
-ALLEGRO_SAMPLE_INSTANCE *final_boss_game_audio_instance = NULL;
+#include "audio.h"
 
 
 void start_audio(ALLEGRO_SAMPLE_INSTANCE *game_audio_instance, float time, bool loop) {
@@ -36,70 +12,63 @@ void start_audio(ALLEGRO_SAMPLE_INSTANCE *game_audio_instance, float time, bool 
 }
 
 
-//------MENU AUDIO------//
 void start_menu_audio(void) {
-    menu_audio_instance = al_create_sample_instance(al_load_sample("src/audio/start_menu.ogg"));
+    menu_audio_instance = al_create_sample_instance(al_load_sample("src/audios/start_menu.ogg"));
     start_audio(menu_audio_instance, 0.1, false);
     
     return;
 }
 
-//------DAMAGE AUDIO------//
 
 void damage_audio(void) {
-    damage = al_load_sample("src/audio/damage.ogg");
+    damage = al_load_sample("src/audios/damage.ogg");
 
     return;
 }
 
- //------MOVEMENT AUDIO------//
 
- void movement_audio(void) {
-    movement_audio_instance = al_create_sample_instance(al_load_sample("src/audio/footsteps_7.ogg"));
+void movement_audio(void) {
+    movement_audio_instance = al_create_sample_instance(al_load_sample("src/audios/footsteps_7.ogg"));
     start_audio(movement_audio_instance, 0.1, false);
 
     return;
  }
 
-//------AUDIO MAIN------//
 
 void main_game_audio(void) {
-    main_game_audio_instance = al_create_sample_instance(al_load_sample("src/audio/main_audio.ogg"));
+    main_game_audio_instance = al_create_sample_instance(al_load_sample("src/audios/main_audio.ogg"));
     start_audio(main_game_audio_instance, 0.05, true);
 
     return;
 }
 
-//------AUDIO MINIGAME------//
 
 void minigame_audio(void) {
-    mini_game_audio_instance = al_create_sample_instance(al_load_sample("src/audio/mini_game.ogg"));
+    mini_game_audio_instance = al_create_sample_instance(al_load_sample("src/audios/mini_game.ogg"));
     start_audio(mini_game_audio_instance, 0.05, true);
     
     return;
 }
 
-//------AUDIO MINIGAME HORSE------//
 
 void horse_audio(void) {
-    horse_game_audio_instace = al_create_sample_instance(al_load_sample("src/audio/horse_audio.ogg"));
+    horse_game_audio_instace = al_create_sample_instance(al_load_sample("src/audios/horse_audio.ogg"));
     start_audio(horse_game_audio_instace, 0.05, true);
 
     return;
 }
-//------AUDIO MINIGAME BISHOP------//
+
 
 void bishop_audio(void) {
-    bishop_game_audio_instance  = al_create_sample_instance(al_load_sample("src/audio/bishop_theme.ogg"));
+    bishop_game_audio_instance  = al_create_sample_instance(al_load_sample("src/audios/bishop_theme.ogg"));
     start_audio(bishop_game_audio_instance, 0.05, true);
 
     return;
 }
 
-//------AUDIO MINIGAME KING------//
 
 void king_game_audio(void) {
-    final_boss_game_audio_instance = al_create_sample_instance(al_load_sample("src/audio/final_boss.ogg"));
+    final_boss_game_audio_instance = al_create_sample_instance(al_load_sample("src/audios/final_boss.ogg"));
     start_audio(final_boss_game_audio_instance, 0.05, true);
 
     return;
@@ -158,8 +127,6 @@ void set_audio(int audio) {
 }
 
 
-//------INIT AUDIOS------//
-
 void init_audio(void) {
     al_install_audio();
     al_init_acodec_addon();
@@ -177,7 +144,7 @@ void init_audio(void) {
     return;
 }
 
-//------DESTROY AUDIOS------//
+
 void destroy_audios(void) {
     al_destroy_sample(damage);
 
@@ -191,6 +158,3 @@ void destroy_audios(void) {
 
     return;
 }
-
-
-#endif
