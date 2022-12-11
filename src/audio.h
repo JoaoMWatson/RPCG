@@ -5,6 +5,15 @@
 #include <allegro5/allegro_acodec.h>
 #include "structure.h"
 
+enum audios {
+    MENU_AUDIO, 
+    MAIN_AUDIO,
+    MINI_GAME_AUDIO,
+    HORSE_AUDIO,
+    BISHOP_AUDIO,
+    KING_AUDIO
+};
+
 ALLEGRO_SAMPLE *damage = NULL;
 
 ALLEGRO_SAMPLE_INSTANCE *menu_audio_instance = NULL;
@@ -92,6 +101,58 @@ void bishop_audio(void) {
 void king_game_audio(void) {
     final_boss_game_audio_instance = al_create_sample_instance(al_load_sample("src/audio/final_boss.ogg"));
     start_audio(final_boss_game_audio_instance, 0.05, true);
+
+    return;
+}
+
+
+void set_audio(int audio) {
+    
+
+    switch (audio)
+    {
+        case MENU_AUDIO:
+            al_play_sample_instance(menu_audio_instance);
+            al_stop_sample_instance(main_game_audio_instance);
+            al_stop_sample_instance(mini_game_audio_instance);
+            al_stop_sample_instance(horse_game_audio_instace);
+            al_stop_sample_instance(bishop_game_audio_instance);
+            al_stop_sample_instance(final_boss_game_audio_instance);
+            break;
+
+        case MAIN_AUDIO:
+            al_play_sample_instance(main_game_audio_instance);
+            al_stop_sample_instance(menu_audio_instance);
+            al_stop_sample_instance(mini_game_audio_instance);
+            al_stop_sample_instance(horse_game_audio_instace);
+            al_stop_sample_instance(bishop_game_audio_instance);
+            al_stop_sample_instance(final_boss_game_audio_instance);
+            break;
+
+        case MINI_GAME_AUDIO:
+            al_play_sample_instance(mini_game_audio_instance);
+            al_stop_sample_instance(main_game_audio_instance);
+            break;
+
+        case HORSE_AUDIO:
+            al_play_sample_instance(horse_game_audio_instace);
+            al_stop_sample_instance(main_game_audio_instance);
+            break;
+
+        case BISHOP_AUDIO:
+            al_play_sample_instance(bishop_game_audio_instance);
+            al_stop_sample_instance(main_game_audio_instance);
+            break;
+
+        case KING_AUDIO:
+            al_play_sample_instance(final_boss_game_audio_instance);
+            al_stop_sample_instance(menu_audio_instance);
+            al_stop_sample_instance(main_game_audio_instance);
+            al_stop_sample_instance(mini_game_audio_instance);
+            al_stop_sample_instance(horse_game_audio_instace);
+            al_stop_sample_instance(bishop_game_audio_instance);
+            break;
+    }
 
     return;
 }

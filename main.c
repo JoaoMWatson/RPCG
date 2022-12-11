@@ -82,10 +82,8 @@ int main()
                 switch (play)
                 {
                     case MENU:
-                    al_play_sample_instance(menu_audio_instance);
-                    al_stop_sample_instance(final_boss_game_audio_instance);
                         if(key[ALLEGRO_KEY_ENTER])
-                            play = 2;
+                            play = MAIN_GAME;
                         break;
 
                     case MAIN_GAME:
@@ -93,19 +91,10 @@ int main()
                             player_update();       
                         map_update(&player.position_x, &player.position_y);
                         npc_update(player.position_x, player.position_y, &play);
-
-                        al_play_sample_instance(main_game_audio_instance);
-                        al_stop_sample_instance(mini_game_audio_instance);
-                        al_stop_sample_instance(horse_game_audio_instace);
-                        al_stop_sample_instance(bishop_game_audio_instance);
-                        al_stop_sample_instance(final_boss_game_audio_instance);
-                        al_stop_sample_instance(menu_audio_instance);
                         break;
                     
                     case KNIGHT_GAME:
                         knight_update(&play, &player.knight); 
-                        al_play_sample_instance(horse_game_audio_instace);       
-                        al_stop_sample_instance(main_game_audio_instance);      
                         break;
 
                     case BISHOP_GAME:
@@ -114,8 +103,6 @@ int main()
                         add_shot(3);
                         shot_update(3);
                         bishop_update(&play);  
-                        al_play_sample_instance(bishop_game_audio_instance);  
-                        al_stop_sample_instance(main_game_audio_instance);
                         break; 
 
                     case TOWER_GAME:
@@ -124,8 +111,6 @@ int main()
                         add_shot(2);
                         shot_update(2);
                         tower_update(&play);  
-                        al_play_sample_instance(mini_game_audio_instance);
-                        al_stop_sample_instance(main_game_audio_instance);
                         break;
 
                     case KING_GAME:
@@ -137,11 +122,6 @@ int main()
                         shot_update(1);
                         shot_update_player();
                         king_update(&play);  
-                        al_play_sample_instance(final_boss_game_audio_instance);
-                        al_stop_sample_instance(mini_game_audio_instance);
-                        al_stop_sample_instance(horse_game_audio_instace);
-                        al_stop_sample_instance(bishop_game_audio_instance);
-                        al_stop_sample_instance(main_game_audio_instance);
                         break;
 
                     case GAME_OVER:
@@ -190,6 +170,9 @@ int main()
 
                     menu_draw();
 
+                    // audio
+                    set_audio(MENU_AUDIO);
+
                     display_post_draw();
                     break;
 
@@ -210,6 +193,9 @@ int main()
                     else if(sc_map.map_it )
                         script_draw(sc_map); 
                     player_draw(parallel_player.tower_done);
+
+                    // audio
+                    set_audio(MAIN_AUDIO);
                    
                     display_post_draw();
                     break;
@@ -220,6 +206,9 @@ int main()
 
                     script_draw(sc_kni);
                     enemy_draw(4);
+
+                    // audio
+                    set_audio(HORSE_AUDIO);
 
                     display_post_draw(); 
                     break;
@@ -233,6 +222,9 @@ int main()
                     shot_draw();
                     time_draw(tic_tac);
 
+                    // audio
+                    set_audio(BISHOP_AUDIO);
+
                     display_post_draw(); 
                     break; 
 
@@ -244,6 +236,9 @@ int main()
                     enemy_draw(2);
                     shot_draw();
                     time_draw(tic_tac);
+
+                    // audio
+                    set_audio(MINI_GAME_AUDIO);
 
                     display_post_draw(); 
                     break;
@@ -258,6 +253,9 @@ int main()
                     shot_draw_player();
                     if(tic_tac < 6)
                         time_draw(tic_tac);
+
+                    // audio
+                    set_audio(KING_AUDIO);
 
                     display_post_draw(); 
                     break;   
