@@ -126,12 +126,11 @@ bool init_structure_all(void)
     check = must_init(check, al_init_image_addon(), "image");
     check = must_init(check, al_init_font_addon(), "font addon");
     check = must_init(check, al_init_ttf_addon(), "ttf addon");
-    init_audio();
 
+    init_audio();
     keyboard_init();
 
     // smooth the edges of primitives 
-    
     al_set_new_bitmap_flags(ALLEGRO_MIN_LINEAR | ALLEGRO_MAG_LINEAR);
 
     timer = al_create_timer(1.0 / 30.0);

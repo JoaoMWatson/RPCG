@@ -67,8 +67,8 @@ int main()
     int play;
 
     init_structure_all();
-    start(&play);
     al_set_window_title(display, "[ RPCG ]  Role Playing Chess Game");
+    start(&play);
 
 
     while(PLAYING) 
@@ -82,6 +82,8 @@ int main()
                 switch (play)
                 {
                     case MENU:
+                    al_play_sample_instance(menu_audio_instance);
+                    al_stop_sample_instance(final_boss_game_audio_instance);
                         if(key[ALLEGRO_KEY_ENTER])
                             play = 2;
                         break;
