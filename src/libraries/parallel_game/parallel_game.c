@@ -1,3 +1,4 @@
+#include "parallel_game.h"
 #include "../map/map.h"
 #include "../screenplay/screenplay.h"
 
@@ -494,10 +495,10 @@ void bishop_update(int *play) {
 
     if(tic_tac > time_win) {
        parallel_player.bishop_done = true;
-       *play = 2;
+       *play = MAIN_GAME;
     } else if(parallel_player.lost) {
         restart_time();
-        *play = 7;
+        *play = GAME_OVER;
     }
     
     return;
@@ -509,10 +510,10 @@ void tower_update(int *play) {
 
     if(tic_tac > time_win) {
        parallel_player.tower_done = true;
-       *play = 2;
+       *play = MAIN_GAME;
     } else if(parallel_player.lost) {
         restart_time();
-        *play = 7;
+        *play = GAME_OVER;
     }
     
     return;
@@ -525,7 +526,7 @@ void king_update(int *play) {
     if(parallel_player.king_dead) {
        parallel_player.king_done = true;
        printf("venceu do rei\n");
-       *play = 8;
+       *play = END_GAME;
     } else if(parallel_player.lost
             || (enemy.x < 0 
              || enemy.y < 0
@@ -534,7 +535,7 @@ void king_update(int *play) {
         printf("perdeu pro rei\n");
         parallel_player.king_done = true;
         restart_time();
-        *play = 8;
+        *play = END_GAME;
     }
     
     return;

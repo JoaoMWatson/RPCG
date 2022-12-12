@@ -50,28 +50,28 @@ void npc_draw(int x, int y) {
 
 
 void bishop_iteration(int *play) {
-    *play = 3;
+    *play = BISHOP_GAME;
     printf("bishop\n");
     return;
 }
 
 
 void king_iteration(int *play) {
-    *play = 4;
+    *play = KING_GAME;
     printf("king\n");
     return;
 }
 
 
 void knight_iteration(int *play) {
-    *play = 5;
+    *play = KNIGHT_GAME;
     printf("knight\n");
     return;
 }
 
 
 void tower_iteration(int *play) {
-    *play = 6;
+    *play = TOWER_GAME;
     printf("tower\n");
     return;
 }

@@ -126,7 +126,7 @@ void knight_script(bool *done, int *which, int *play) {
 
         case 12:
             *done = true;
-            *play = 2;
+            *play = MAIN_GAME;
             break;
 
         case 13:
@@ -224,7 +224,7 @@ void tower_script(int *which, int *play) {
 
         case 3:
             for(int i = 0; i < 4; i++)
-                    strcpy(sc_tow.line[i], script_file_tower[4 * *which + i].speech);
+                strcpy(sc_tow.line[i], script_file_tower[4 * *which + i].speech);
             break;
 
         case 4:
