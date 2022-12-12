@@ -36,26 +36,3 @@ Aprenda junto do peão, conceitos básicos de xadrez de maneira mais lúdica que
     ```bash
     ./game
     ```
-
-## :open_file_folder: Organização do projeto
-
-.                                           <br />
-├── ./.gitignore                            <br />
-├── ./README.md                             <br />
-├── ./main.c                                <br />
-└── ./src                                   <br />
-&emsp; &ensp;   ├── ./src/audio             <br />
-&emsp; &ensp;   ├── ./src/fonts             <br />
-&emsp; &ensp;   ├── ./src/images            <br />
-&emsp; &ensp;   ├── ./src/script            <br />
-&emsp; &ensp;   ├── ./src/tiles             <br />
-&emsp; &ensp;   ├── ./src/audio.h           <br />
-&emsp; &ensp;   ├── ./src/map.h             <br />
-&emsp; &ensp;   ├── ./src/npc.h             <br />
-&emsp; &ensp;   ├── ./src/parallel_game.h   <br />
-&emsp; &ensp;   ├── ./src/player.h          <br />
-&emsp; &ensp;   ├── ./src/screenplay.h      <br />
-&emsp; &ensp;   ├── ./src/stand_screen.h    <br />
-&emsp; &ensp;   └── ./src/structure.h       <br />
-
-

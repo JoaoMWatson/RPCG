@@ -28,7 +28,7 @@ void game_over(bool *lost, int *play) {
         al_draw_rectangle(0 + 6, BUFFER_H/4 + 6, BUFFER_W - 6, BUFFER_H - BUFFER_H/4 - 6, al_map_rgba(205, 205, 205, 205), 0);
     } else {
         lost = false;
-        *play = 2;
+        *play = MAIN_GAME;
     }
     al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 - 18, ALLEGRO_ALIGN_CENTRE, "Você não teve");
     al_draw_text(font_title, al_map_rgb(215, 215, 215), BUFFER_W/2, BUFFER_H/2 + 6, ALLEGRO_ALIGN_CENTRE, "determinação");
