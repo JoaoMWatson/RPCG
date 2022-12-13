@@ -18,6 +18,19 @@ typedef struct ENEMY {
 } ENEMY;
 ENEMY enemy;
 
+enum enemy_sprites {
+    KING_SPRITE = 1,
+    TOWER_SPRITE = 2, 
+    BISHOP_SPRITE = 3,
+    KNIGHT_SPRITE = 4
+};
+
+enum enemy_battles {
+    KING_BATTLE = 1,
+    TOWER_BATTLE = 2,
+    BISHOP_BATTLE = 3,
+    KNIGHT_BATTLE = 4
+};
 
 void init_enemy(void);
 

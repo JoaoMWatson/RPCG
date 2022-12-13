@@ -85,26 +85,26 @@ int main(void)
                     case BISHOP_GAME:
                         parallel_player_update();
                         enemy_update(parallel_player.x, parallel_player.y);
-                        add_shot(3);
-                        shot_update(3);
+                        add_shot(BISHOP_BATTLE);
+                        shot_update(BISHOP_BATTLE);
                         bishop_update(&play);  
                         break; 
 
                     case TOWER_GAME:
                         parallel_player_update(); 
                         enemy_update(parallel_player.x, parallel_player.y);
-                        add_shot(2);
-                        shot_update(2);
+                        add_shot(TOWER_BATTLE);
+                        shot_update(TOWER_BATTLE);
                         tower_update(&play);  
                         break;
 
                     case KING_GAME:
                         parallel_player_update();
                         enemy_king_update(parallel_player.x, parallel_player.y);
-                        add_shot(1);
+                        add_shot(KING_BATTLE);
                         if(key[ALLEGRO_KEY_X] && count_timer%2 == 0)
                             add_shot_player();
-                        shot_update(1);
+                        shot_update(KING_BATTLE);
                         shot_update_player();
                         king_update(&play);  
                         break;
@@ -190,7 +190,7 @@ int main(void)
                     al_clear_to_color(al_map_rgb(20,20,20));
 
                     script_draw(sc_kni);
-                    enemy_draw(4);
+                    enemy_draw(KNIGHT_SPRITE);
 
                     // audio
                     set_audio(HORSE_AUDIO);
@@ -203,7 +203,7 @@ int main(void)
                     al_clear_to_color(al_map_rgb(20,20,20));
 
                     parallel_player_draw();
-                    enemy_draw(3);
+                    enemy_draw(BISHOP_SPRITE);
                     shot_draw();
                     time_draw(tic_tac);
 
@@ -218,7 +218,7 @@ int main(void)
                     al_clear_to_color(al_map_rgb(20,20,20));
 
                     parallel_player_draw();
-                    enemy_draw(2);
+                    enemy_draw(TOWER_SPRITE);
                     shot_draw();
                     time_draw(tic_tac);
 
@@ -233,7 +233,7 @@ int main(void)
                     al_clear_to_color(al_map_rgb(20,20,20));
 
                     parallel_player_draw();
-                    enemy_draw(1);
+                    enemy_draw(KING_SPRITE);
                     shot_draw(); 
                     shot_draw_player();
                     if(tic_tac < 6)

@@ -97,13 +97,13 @@ void enemy_king_update(int play_x, int play_y) {
 
 void enemy_draw(int which) {
     //al_draw_filled_rectangle(enemy.x, enemy.y, enemy.x + enemy.height, enemy.y + enemy.width, al_map_rgb(205, 205, 205));
-    if(which == 4)
+    if(which == KNIGHT_SPRITE)
         al_draw_bitmap(enemy.sprite[0], enemy.x - 2, enemy.y, 0);
-    else if(which == 3)
+    else if(which == BISHOP_SPRITE)
         al_draw_bitmap(enemy.sprite[1], enemy.x - 2, enemy.y, 0);
-    else if(which == 2)
+    else if(which == TOWER_SPRITE)
         al_draw_bitmap(enemy.sprite[2], enemy.x - 2, enemy.y, 0);
-    else if(which == 1)
+    else if(which == KING_SPRITE)
         al_draw_bitmap(enemy.sprite[3], enemy.x - 2, enemy.y, 0);
         
 
@@ -257,9 +257,9 @@ void add_shot_bishop(void) {
 
 void add_shot(int each) {
     timing++;
-    if(each == 2 || each == 1 && tic_tac < 5)
+    if(each == TOWER_BATTLE || each == KING_BATTLE && tic_tac < 5)
         add_shot_tower();
-    else if(each == 3)
+    else if(each == BISHOP_BATTLE)
         add_shot_bishop();
 
     return;
@@ -364,12 +364,12 @@ void shot_update_bishop(int i) {
 void shot_update(int each) {
     for(int i = 0; i < SHOTS_N - 3; i += 4) {
         if(shots[i].used || shots[i+1].used || shots[i+2].used || shots[i+3].used) {
-            if(each == 2 || each == 1 && tic_tac < 5)
+            if(each == TOWER_BATTLE || each == KING_BATTLE && tic_tac < 5)
                 shot_update_tower(i);
-            else if(each == 3)
+            else if(each == BISHOP_BATTLE)
                 shot_update_bishop(i);
 
-            if(each != 1) {
+            if(each != KING_BATTLE) {
                 if(shots[i].y > BUFFER_H)
                 shots[i].used = false;
                 else if(shots[i+1].y < 0)
